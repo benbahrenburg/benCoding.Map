@@ -12,10 +12,9 @@ For a list of all the features supported by the Titanium Map module, please refe
 
 <h2>See it in action</h2>
 
-![Screenshot](https://github.com/benbahrenburg/benCoding.Map/blob/master/screenshot.png)
+See a video of the module in action [http://www.youtube.com/embed/1rudu6S9-rc](http://www.youtube.com/embed/1rudu6S9-rc).
 
-See the video on youtube [http://www.youtube.com/embed/1rudu6S9-rc](http://www.youtube.com/embed/1rudu6S9-rc).
-
+![Screenshot](http://farm8.staticflickr.com/7268/7528456398_7395bb0906_o.png)
 
 <h2>Before you start</h2>
 * You need Titanium 1.8.2 or greater.

@@ -12,6 +12,8 @@ For a list of all the features supported by the Titanium Map module, please refe
 
 <h2>See it in action</h2>
 
+<iframe width="420" height="315" src="http://www.youtube.com/embed/1rudu6S9-rc" frameborder="0" allowfullscreen></iframe>
+
 <h2>Before you start</h2>
 * You need Titanium 1.8.2 or greater.
 * This module will only work with iOS 5 or great.  

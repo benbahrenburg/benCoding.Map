@@ -146,7 +146,7 @@
 
 -(void)removeAllPolygons:(id)arg
 {
-	ENSURE_UI_THREAD(removePolygons,arg);    
+	ENSURE_UI_THREAD(removeAllPolygons,arg);    
 
     //Remove overlay from map
     for (id <MKOverlay> overlay in [self map].overlays) {        

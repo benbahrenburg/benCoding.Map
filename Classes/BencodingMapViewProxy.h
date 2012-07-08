@@ -20,6 +20,8 @@
 	int zoomCount; // Number of times to zoom in/out on initial display
     NSMutableArray* polygonsToAdd;
     NSMutableArray* polygonsToRemove;
+    NSMutableArray* circlesToAdd;
+    NSMutableArray* circlesToRemove;    
 }
 
 @property (nonatomic, readonly) NSNumber* longitudeDelta;
@@ -27,9 +29,14 @@
 
 -(TiMapAnnotationProxy*)annotationFromArg:(id)arg;
 
+-(void)removeAllCircles:(id)arg;
+-(void)removeCircle:(id)args;
+-(void)addCircle:(id)args;
+
 -(void)removeAllPolygons:(id)arg;
 -(void)removePolygon:(id)args;
 -(void)addPolygon:(id)args;
+
 -(void)addAnnotation:(id)args;
 -(void)addAnnotations:(id)args;
 -(void)removeAnnotation:(id)args;

@@ -32,6 +32,12 @@
 	RELEASE_TO_NIL(annotationsToRemove);
 	RELEASE_TO_NIL(routesToAdd);
 	RELEASE_TO_NIL(routesToRemove);
+    
+    RELEASE_TO_NIL(polygonsToAdd);
+    RELEASE_TO_NIL(polygonsToRemove);
+    RELEASE_TO_NIL(circlesToAdd);
+    RELEASE_TO_NIL(circlesToRemove);
+    
 	[super _destroy];
 }
 
@@ -89,6 +95,21 @@
     {
         [ourView addPolygon:arg];
     }
+
+    for (id arg in polygonsToRemove)
+    {
+        [ourView removePolygon:arg];
+    }
+    
+    for (id arg in circlesToAdd)
+    {
+        [ourView addCircle:arg];
+    }
+
+    for (id arg in circlesToRemove)
+    {
+        [ourView removeCircle:arg];
+    }
     
 	[ourView selectAnnotation:selectedAnnotation];
 	if (zoomCount > 0) {
@@ -109,6 +130,8 @@
 	RELEASE_TO_NIL(routesToRemove);
 	RELEASE_TO_NIL(polygonsToAdd);
 	RELEASE_TO_NIL(polygonsToRemove);
+    RELEASE_TO_NIL(circlesToAdd);
+    RELEASE_TO_NIL(circlesToRemove);
 	
 	[super viewDidAttach];
 }
@@ -176,6 +199,68 @@
 	}
 }
 
+-(void)removeAllCircles:(id)arg
+{
+	if ([self viewAttached]) {
+        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] removeAllCircles:arg];}, NO);
+	}
+	else 
+	{        
+        RELEASE_TO_NIL(circlesToRemove);
+        RELEASE_TO_NIL(circlesToAdd);
+	}
+}
+-(void)removeCircle:(id)args
+{
+	ENSURE_SINGLE_ARG(args,NSDictionary);
+    
+	if ([self viewAttached]) 
+	{
+        TiThreadPerformOnMainThread(^{
+            [(BencodingMapView*)[self view] removeCircle:args];
+        }, NO);
+	}
+	else 
+	{
+		if (circlesToRemove==nil)
+		{
+			circlesToRemove = [[NSMutableArray alloc] init];
+		}
+		if (circlesToAdd!=nil && [circlesToAdd containsObject:args]) 
+		{
+			[circlesToAdd removeObject:args];
+		}
+		else 
+		{
+			[circlesToRemove addObject:args];
+		}
+	}
+}
+
+-(void)addCircle:(id)args
+{
+	ENSURE_SINGLE_ARG(args,NSDictionary);
+    
+    if ([self viewAttached]) {
+        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] addCircle:args];}, NO);
+	}
+	else 
+	{
+		if (circlesToAdd==nil)
+		{
+			circlesToAdd = [[NSMutableArray alloc] init];
+		}
+		if (circlesToRemove!=nil && [circlesToRemove containsObject:args]) 
+		{
+			[circlesToRemove removeObject:args];
+		}
+		else 
+		{
+			[circlesToAdd addObject:args];
+		}
+	}        
+}
+
 -(void)removeAllPolygons:(id)arg
 {
 	if ([self viewAttached]) {
@@ -213,6 +298,7 @@
 		}
 	}
 }
+
 -(void)addPolygon:(id)args
 {
 	ENSURE_SINGLE_ARG(args,NSDictionary);

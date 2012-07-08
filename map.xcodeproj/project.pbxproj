@@ -32,6 +32,8 @@
 		438D5E8415A7DF3D00800468 /* BencodingMapViewProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D5E8215A7DF3D00800468 /* BencodingMapViewProxy.m */; };
 		438D5E8D15A89BCA00800468 /* ExtPolygon.h in Headers */ = {isa = PBXBuildFile; fileRef = 438D5E8B15A89BCA00800468 /* ExtPolygon.h */; };
 		438D5E8E15A89BCA00800468 /* ExtPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D5E8C15A89BCA00800468 /* ExtPolygon.m */; };
+		438D759A15AA2067003735C3 /* ExtCircle.h in Headers */ = {isa = PBXBuildFile; fileRef = 438D759815AA2067003735C3 /* ExtCircle.h */; };
+		438D759B15AA2067003735C3 /* ExtCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D759915AA2067003735C3 /* ExtCircle.m */; };
 		AA747D9F0F9514B9006C5449 /* BencodingMap_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* BencodingMap_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -58,6 +60,8 @@
 		438D5E8215A7DF3D00800468 /* BencodingMapViewProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BencodingMapViewProxy.m; path = Classes/BencodingMapViewProxy.m; sourceTree = "<group>"; };
 		438D5E8B15A89BCA00800468 /* ExtPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExtPolygon.h; path = Classes/ExtPolygon.h; sourceTree = "<group>"; };
 		438D5E8C15A89BCA00800468 /* ExtPolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExtPolygon.m; path = Classes/ExtPolygon.m; sourceTree = "<group>"; };
+		438D759815AA2067003735C3 /* ExtCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExtCircle.h; path = Classes/ExtCircle.h; sourceTree = "<group>"; };
+		438D759915AA2067003735C3 /* ExtCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExtCircle.m; path = Classes/ExtCircle.m; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* BencodingMap_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BencodingMap_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libBencodingMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBencodingMap.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +119,8 @@
 				438D5E8215A7DF3D00800468 /* BencodingMapViewProxy.m */,
 				438D5E8B15A89BCA00800468 /* ExtPolygon.h */,
 				438D5E8C15A89BCA00800468 /* ExtPolygon.m */,
+				438D759815AA2067003735C3 /* ExtCircle.h */,
+				438D759915AA2067003735C3 /* ExtCircle.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -141,6 +147,7 @@
 				438D5E7E15A7DDB200800468 /* BencodingMapView.h in Headers */,
 				438D5E8315A7DF3D00800468 /* BencodingMapViewProxy.h in Headers */,
 				438D5E8D15A89BCA00800468 /* ExtPolygon.h in Headers */,
+				438D759A15AA2067003735C3 /* ExtCircle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +223,7 @@
 				438D5E7F15A7DDB200800468 /* BencodingMapView.m in Sources */,
 				438D5E8415A7DF3D00800468 /* BencodingMapViewProxy.m in Sources */,
 				438D5E8E15A89BCA00800468 /* ExtPolygon.m in Sources */,
+				438D759B15AA2067003735C3 /* ExtCircle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

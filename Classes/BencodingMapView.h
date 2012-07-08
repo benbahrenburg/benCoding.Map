@@ -14,6 +14,7 @@
 #import <MapKit/MapKit.h>
 #import "TiMapAnnotationProxy.h"
 #import "ExtPolygon.h"
+#import "ExtCircle.h"
 
 @interface BencodingMapView : TiUIView<MKMapViewDelegate> {
 @private
@@ -33,7 +34,8 @@
 	id<MKAnnotation> hitAnnotation;
 	BOOL hitSelect;
 	BOOL manualSelect;
-    NSMutableArray* polygons;
+    NSMutableArray* polygonOverlays;
+    NSMutableArray* circleOverlays;
 }
 
 @property (nonatomic, readonly) CLLocationDegrees longitudeDelta;
@@ -47,9 +49,14 @@
 - (TiMapAnnotationProxy*)proxyForAnnotation:(MKAnnotationView*)pinview;
 
 #pragma mark Public APIs
+-(void)removeAllCircles:(id)arg;
+-(void)removeCircle:(id)args;
+-(void)addCircle:(id)args;
+
 -(void)removeAllPolygons:(id)arg;
 -(void)removePolygon:(id)args;
 -(void)addPolygon:(id)args;
+
 -(void)addAnnotation:(id)args;
 -(void)addAnnotations:(id)args;
 -(void)setAnnotations_:(id)value;

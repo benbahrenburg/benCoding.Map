@@ -12,7 +12,7 @@ For a list of all the features supported by the Titanium Map module, please refe
 
 <h2>See it in action</h2>
 
-See a video of the module in action [http://www.youtube.com/embed/1rudu6S9-rc](http://www.youtube.com/embed/1rudu6S9-rc).
+See a video of the module in action [http://www.youtube.com/watch?v=1rudu6S9-rc](http://www.youtube.com/watch?v=1rudu6S9-rc).
 
 ![Screenshot](http://farm8.staticflickr.com/7268/7528456398_7395bb0906_o.png)
 

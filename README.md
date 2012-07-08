@@ -159,4 +159,3 @@ Please consider following the [@benCoding Twitter](http://www.twitter.com/benCod
 <h3>Blog</h3>
 
 For module updates, Titanium tutorials and more please check out my blog at [benCoding.Com](http://benCoding.com). 
-

@@ -44,18 +44,6 @@ bLoadStates.addEventListener('click', function(){
 	}
 });
 
-function fetchNY(){
-	var iLength = meta.statesPolygons.states.length; //Should be 50 unless something changed...
-	
-	//Now we start looping...until we find NY
-	for (var iLoop=0;iLoop<iLength;iLoop++){
-		if(meta.statesPolygons.states[iLoop].title=='New York'){
-			return meta.statesPolygons.states[iLoop];
-		}
-	}
-};
-
-
 var bAddUK = Ti.UI.createButton({
 	title:'+ UK', style:Ti.UI.iPhone.SystemButtonStyle.BORDERED
 });
@@ -87,7 +75,15 @@ var bAddNY = Ti.UI.createButton({
 });
 
 bAddNY.addEventListener('click',function() {
-	mapView.addPolygon(fetchNY());
+	var iLength = meta.statesPolygons.states.length; //Should be 50 unless something changed...
+	
+	//Now we start looping...until we find NY
+	for (var iLoop=0;iLoop<iLength;iLoop++){
+		if(meta.statesPolygons.states[iLoop].title=='New York'){
+			mapView.addPolygon(meta.statesPolygons.states[iLoop]);
+			break;
+		}
+	}	
 });
 
 var bRemoveNY = Ti.UI.createButton({
@@ -95,7 +91,9 @@ var bRemoveNY = Ti.UI.createButton({
 });
 
 bRemoveNY.addEventListener('click',function() {
-	mapView.removePolygon(fetchNY());
+	//Provide title of the polygon to be deleted
+	var poly = { title:'New York' };	
+	mapView.removePolygon(poly);
 });
 
 // button to zoom-in

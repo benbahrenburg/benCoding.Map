@@ -12,9 +12,16 @@ For a list of all the features supported by the Titanium Map module, please refe
 
 <h2>See it in action</h2>
 
-See a video of the module in action [http://www.youtube.com/embed/1rudu6S9-rc](http://www.youtube.com/embed/1rudu6S9-rc).
+<h4>Polygon Example</h4>
+Video of the module running a Polygon example [http://www.youtube.com/watch?v=1rudu6S9-rc](http://www.youtube.com/watch?v=1rudu6S9-rc).
 
 ![Screenshot](http://farm8.staticflickr.com/7268/7528456398_7395bb0906_o.png)
+
+<h4>Circle Example</h4>
+
+Video of the module running a Circle example [http://www.youtube.com/watch?v=jwnByWz1eJo](http://www.youtube.com/watch?v=jwnByWz1eJo).
+
+![Screenshot](http://farm8.staticflickr.com/7113/7558754232_7091e30030_o.png)
 
 <h2>Before you start</h2>
 * You need Titanium 1.8.2 or greater.
@@ -23,7 +30,7 @@ See a video of the module in action [http://www.youtube.com/embed/1rudu6S9-rc](h
 <h2>Setup</h2>
 
 * Download the latest release from the [dist folder](https://github.com/benbahrenburg/benCoding.Map/tree/master/dist) or you can build it yourself 
-* Install the bencoding.basicGeo module. If you need help here is a "How To" [guide](https://wiki.appcelerator.org/display/guides/Configuring+Apps+to+Use+Modules). 
+* Install the bencoding.map module. If you need help here is a "How To" [guide](https://wiki.appcelerator.org/display/guides/Configuring+Apps+to+Use+Modules). 
 * You can now use the module via the commonJS require method, example shown below.
 
 <pre><code>
@@ -34,7 +41,7 @@ var map = require('bencoding.map');
 
 Now we have the module installed and avoid in our project we can start to use the components, see below for details.
 
-<h2>Using Polygons</h2>
+<h2>Using Polygon Overlays</h2>
 
 <h3>addPolygon</h3>
 
@@ -106,7 +113,7 @@ map.removePolygon(myPolygon);
 
 <h3>removeAllPolygons</h3>
 
-This method removes all Polygons added to the MapView.  Please note this will only remove Polygons, other overlay or annotations must be handled separately. 
+This method removes all Polygons added to the MapView.  Please note this will only remove Polygons, other overlays or annotations must be handled separately. 
 
 Parameters:
 * None
@@ -128,15 +135,83 @@ To create multipart Polygons simply create each Polygon with the same name. This
 
 The United Kingdom sample provided in the example folder demonstrates how to create Polygons in this way.
 
+<h2>Using Circle Overlays</h2>
+
+<h3>addCircle</h3>
+
+This method adds a Circle to the MapView.
+
+Parameters:
+* Title : String - Title of the Circle, also used when removing the Circle.
+* alpha : Float  - The alpha value for the Circle.
+* lineWidth : Float - The width of the Circle outline.
+* strokeColor : Color - The color of the Circle stroke.
+* color : Color - The FillColor of the Circle.
+* latitude : Float - Latitude used in creating the center point of the Circle
+* longitude : Float - Longitude used in creating the center point of the Circle
+* radius : Float -  The radius of the circular area, measured in meters
+
+<b>Sample</b>
+
+<pre><code>
+//Add the core module into your project
+var map = require('bencoding.map');
+//Create a circle 100 meters around Time Square 
+var myCircle = {title:'Time Square',
+                color:'#880000',
+                alpha:0.5,
+                lineWidth:1.2,
+                strokeColor:'#000',
+                latitude:40.75773,
+                longitude:-73.985708,
+                radius:100
+            };
+//Add the circle around Time Square to the MapView
+map.addCircle(myCircle);
+</code></pre>
+
+<h3>removeCircle</h3>
+
+This method removes a specific Circle using the Circle's title property.
+
+Parameters:
+* title : String - The title of the Circle you would like to remove
+
+<b>Sample</b>
+
+<pre><code>
+//Add the core module into your project
+var map = require('bencoding.map');
+//Create an object with the same title as our Time Square Circle
+var myCirlce = {title:'Time Square'};
+//Remove the pass the above object with our title property into the remove method
+//This will remove all circles with the title provided
+map.removeCircle(myCirlce);
+</code></pre>
+
+<h3>removeAllCircles</h3>
+
+This method removes all Circles added to the MapView.  Please note this will only remove Circles, other overlays or annotations must be handled separately. 
+
+Parameters:
+* None
+
+<b>Sample</b>
+
+<pre><code>
+//Add the core module into your project
+var map = require('bencoding.map');
+//Remove all circles added to the MapView
+map.removeAllCircles();
+</code></pre>
+
 <h2>Using the example</h2>
 
-The example app shown in the demonstration video is included in the module's example folder or downloadable [here](https://github.com/benbahrenburg/benCoding.Map/tree/master/example).
+The examples shown in the demonstration videos are included in the module's example folder or downloadable [here](https://github.com/benbahrenburg/benCoding.Map/tree/master/example).
 
 <h2>FAQ</h2>
 
 * Is there an Android version?  - Sorry this is an iOS only module. Check the Appcelerator Marketplace for other options.
-
-* How about Circle overlaps? - Coming soon.
 
 * Can I add a click event to the overlay? - Sorry, this is not supported at this time.
 

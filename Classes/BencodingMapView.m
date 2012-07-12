@@ -203,17 +203,18 @@
 {
 	ENSURE_TYPE(args,NSDictionary);
 	ENSURE_UI_THREAD(addCircle,args);
-        
+    
     //Get the title for the polygon
     NSString *circleTitle = [TiUtils stringValue:@"title" properties:args];
-        
+
+    
     //Create the number of points provided
     CLLocationCoordinate2D  coords = CLLocationCoordinate2DMake(
                                         [TiUtils floatValue:@"latitude" properties:args def:0.0],
                                         [TiUtils floatValue:@"longitude" properties:args def:0.0]
                                     );
        
-    //Get the alpha, if not provided default to 0.9
+    //Get the radius for the circle in meters, if not provided default to 100 meters
     float circleRadius = [TiUtils floatValue:@"radius" properties:args def:100];
     
     //Create our circle 
@@ -230,6 +231,7 @@
     float alpha = [TiUtils floatValue:@"alpha" properties:args def:0.9];
     //Get our lineWidth, if not provoded default to 1.0
     float lineWidth = [TiUtils floatValue:@"lineWidth" properties:args def:1.0];
+    
     //Build our extension object, so we can format on display
     ExtCircle *newCircle = [[[ExtCircle alloc] 
                                initWithParameters:circleColor 
@@ -253,6 +255,7 @@
     
     //Add the newly created circle to our collection
     [circleOverlays addObject:newCircle];
+    
     //Add the circle to the map
     [[self map] addOverlay:circleToAdd];
     

@@ -367,7 +367,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
-				USER_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = "$(TITANIUM_BASE_SDK)/** $(TITANIUM_BASE_SDK2) $(TITANIUM_BASE_SDK3)";
 			};
 			name = Debug;
 		};
@@ -408,7 +408,7 @@
 				PRODUCT_NAME = BencodingMap;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
-				USER_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = "$(TITANIUM_BASE_SDK)/** $(TITANIUM_BASE_SDK2) $(TITANIUM_BASE_SDK3)";
 			};
 			name = Release;
 		};

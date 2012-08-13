@@ -17,9 +17,12 @@
 #import "BencodingMapView.h"
 #import "BencodingMapViewProxy.h"
 
+
 @implementation BencodingMapView
 
 #pragma mark Internal
+
+bool respondsToMKUserTrackingMode = NO;
 
 -(void)dealloc
 {
@@ -79,7 +82,13 @@
         mapName2Line = CFDictionaryCreateMutable(NULL, 10, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
         //Initialize loaded state to YES. This will automatically go to NO if the map needs to download new data
         loaded = YES;
+        respondsToMKUserTrackingMode = [MKMapView instancesRespondToSelector:@selector(setUserTrackingMode:)];
+        if (respondsToMKUserTrackingMode)
+        {
+            map.userTrackingMode = MKUserTrackingModeNone;
+        }
     }
+        
     return map;
 }
 
@@ -589,6 +598,18 @@
 	[[self map] setMapType:[TiUtils intValue:value]];
 }
 
+-(void)setUserTrackingMode_:(id)value
+{
+    if(respondsToMKUserTrackingMode)
+    {
+        ENSURE_SINGLE_ARG(value,NSDictionary);
+        id userTrackingMode = [value objectForKey:@"mode"];
+        id animation = [value objectForKey:@"animated"];
+    
+        [[self map] setUserTrackingMode:[TiUtils intValue:userTrackingMode]  animated:[TiUtils boolValue:animation]];
+    }
+}
+
 -(void)setRegion_:(id)value
 {
 	if (value==nil)
@@ -1050,6 +1071,21 @@
 		TiMapAnnotationProxy * thisProxy = [self proxyForAnnotation:thisView];
 		[thisProxy setPlaced:YES];
 	}
+}
+
+- (void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated
+{
+    if(respondsToMKUserTrackingMode){
+        if ([self.proxy _hasListeners:@"userTrackingMode"])
+        {
+            //mode = [mapView userTrackingMode];
+            NSDictionary * props = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    @"userTrackingMode",@"type",
+                                    [NSNumber numberWithInt:mode],@"mode",
+                                    nil];
+            [self.proxy fireEvent:@"userTrackingMode" withObject:props];
+        }
+    }
 }
 
 #pragma mark Click detection

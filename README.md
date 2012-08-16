@@ -6,7 +6,7 @@ This project is a fork of the iOS Titanium Native Map module.  The goal of this 
 
 <h2>Features</h2>
 
-This module provides Polgyon overlay support in addition to all of the same features contained within the native Titanium Map module.
+This module provides Polgyon overlay support in addition to all of the same features contained within the native Titanium Map module and also UserTracking functionality.
 
 For a list of all the features supported by the Titanium Map module, please reference the documentation [here](http://docs.appcelerator.com/titanium/2.1/index.html#!/api/Titanium.Map.View).
 
@@ -208,6 +208,42 @@ map.removeAllCircles();
 <h2>Using the example</h2>
 
 The examples shown in the demonstration videos are included in the module's example folder or downloadable [here](https://github.com/benbahrenburg/benCoding.Map/tree/master/example).
+
+<h2>User Tracking</h2>
+The User Tracking is the native MKUserTrackingMode implementation made available for Titanium, it will only work with iOS5 or greater.
+
+simply call:
+<pre><code>
+
+var map = Ti.UI.Map.createView({
+   //whatever extra options
+   userTrackingMode:{
+    mode: 2, //you can use 0, 1 or 2
+    animated: true, //or false
+    } 
+});
+
+//or
+map.setUserTrackingMode({
+    mode: 2,
+    animated: true
+})    
+</code></pre>
+
+userTrackingMode options: 
+0 - No tracking at all
+1 - Tracking (follow user's position)
+2 - Tracking with compass heading (follow user's position and map rotation according to compass heading)
+
+I recommend to keep track of the UserTrackingMode since it can change suddenly (e.g. if user drags the map, userTrackingMode will pass to state 0);
+You can keep track with this eventListener:
+
+<pre><code>
+map.addEventListener("userTrackingMode",function(e){
+    var trackingMode = e.mode;
+    //whatever you want to do with the tracking mode
+}
+</code></pre>
 
 <h2>FAQ</h2>
 

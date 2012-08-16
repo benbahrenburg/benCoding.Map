@@ -41,6 +41,7 @@
 @property (nonatomic, readonly) CLLocationDegrees longitudeDelta;
 @property (nonatomic, readonly) CLLocationDegrees latitudeDelta;
 @property (nonatomic, readonly) NSArray *customAnnotations;
+@property (nonatomic) MKUserTrackingMode userTrackingMode;
 
 #pragma mark Private APIs
 -(TiMapAnnotationProxy*)annotationFromArg:(id)arg;
@@ -69,6 +70,7 @@
 -(void)addRoute:(id)args;
 -(void)removeRoute:(id)args;
 -(void)firePinChangeDragState:(MKAnnotationView *) pinview newState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState;
+-(void)setUserTrackingMode_:(id)args;
 
 #pragma mark Framework
 -(void)refreshAnnotation:(TiMapAnnotationProxy*)proxy readd:(BOOL)yn;

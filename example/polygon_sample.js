@@ -21,17 +21,8 @@ bClearMap.addEventListener('click', function(){
 var mapView = map.createView({
 	mapType: Ti.Map.STANDARD_TYPE,
 	animate:true, 
-	userLocation:true,
-	userTrackingMode:{
-		animated: true,
-		mode: 2
-	}
+	userLocation:true
 });
-
-mapView.setUserTrackingMode({
-		animated: true,
-		mode: 2
-	});
 
 //Add to Window
 win.add(mapView);
@@ -135,16 +126,3 @@ var bottomToolbar = Ti.UI.iOS.createToolbar({
 	bottom:0
 });
 win.add(bottomToolbar);
-
-mapView.addEventListener("userTrackingMode", function(e){
-	alert("Mode: " + e.mode);
-});
-
-setTimeout(function() {
-	mapView.setUserTrackingMode({
-		animated: true,
-		mode: 2
-	});
-	alert("timeout");
-}, 5000);
-

@@ -6,7 +6,6 @@
  */
 
 #import "ExtCircle.h"
-
 @implementation ExtCircle
 
 @synthesize Color,Alpha,Title,Circle,lineWidth,strokeColor;
@@ -16,10 +15,10 @@
     
     if ((self = [self init])) {
         self.Color=color;
-        self.Alpha=alpha;
+        self.Alpha=[NSNumber numberWithFloat:alpha];
         self.Title=title;
         self.Circle=circle;
-        self.lineWidth=linewidth;
+        self.lineWidth=[NSNumber numberWithFloat:linewidth];
     }
     
     return self;

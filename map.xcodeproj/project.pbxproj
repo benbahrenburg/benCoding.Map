@@ -6,26 +6,13 @@
 	objectVersion = 45;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		24416B8111C4CA220047AFDD /* Build & Test */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 24416B8A11C4CA520047AFDD /* Build configuration list for PBXAggregateTarget "Build & Test" */;
-			buildPhases = (
-				24416B8011C4CA220047AFDD /* ShellScript */,
-			);
-			dependencies = (
-				24416B8511C4CA280047AFDD /* PBXTargetDependency */,
-			);
-			name = "Build & Test";
-			productName = "Build & test";
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		24DD6CF91134B3F500162E58 /* BencodingMapModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DD6CF71134B3F500162E58 /* BencodingMapModule.h */; };
 		24DD6CFA1134B3F500162E58 /* BencodingMapModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DD6CF81134B3F500162E58 /* BencodingMapModule.m */; };
 		24DE9E1111C5FE74003F90F6 /* BencodingMapModuleAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DE9E0F11C5FE74003F90F6 /* BencodingMapModuleAssets.h */; };
 		24DE9E1211C5FE74003F90F6 /* BencodingMapModuleAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DE9E1011C5FE74003F90F6 /* BencodingMapModuleAssets.m */; };
+		4336003415DFF3F400FF7870 /* KMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4336003215DFF3F400FF7870 /* KMLParser.h */; };
+		4336003515DFF3F400FF7870 /* KMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4336003315DFF3F400FF7870 /* KMLParser.m */; };
 		438D5E7E15A7DDB200800468 /* BencodingMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 438D5E7C15A7DDB200800468 /* BencodingMapView.h */; };
 		438D5E7F15A7DDB200800468 /* BencodingMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D5E7D15A7DDB200800468 /* BencodingMapView.m */; };
 		438D5E8315A7DF3D00800468 /* BencodingMapViewProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 438D5E8115A7DF3D00800468 /* BencodingMapViewProxy.h */; };
@@ -38,22 +25,14 @@
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		24416B8411C4CA280047AFDD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = map;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		24DD6CF71134B3F500162E58 /* BencodingMapModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BencodingMapModule.h; path = Classes/BencodingMapModule.h; sourceTree = "<group>"; };
 		24DD6CF81134B3F500162E58 /* BencodingMapModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BencodingMapModule.m; path = Classes/BencodingMapModule.m; sourceTree = "<group>"; };
 		24DD6D1B1134B66800162E58 /* titanium.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = titanium.xcconfig; sourceTree = "<group>"; };
 		24DE9E0F11C5FE74003F90F6 /* BencodingMapModuleAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BencodingMapModuleAssets.h; path = Classes/BencodingMapModuleAssets.h; sourceTree = "<group>"; };
 		24DE9E1011C5FE74003F90F6 /* BencodingMapModuleAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BencodingMapModuleAssets.m; path = Classes/BencodingMapModuleAssets.m; sourceTree = "<group>"; };
+		4336003215DFF3F400FF7870 /* KMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KMLParser.h; path = Classes/KMLParser.h; sourceTree = "<group>"; };
+		4336003315DFF3F400FF7870 /* KMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KMLParser.m; path = Classes/KMLParser.m; sourceTree = "<group>"; };
 		438D5E7C15A7DDB200800468 /* BencodingMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BencodingMapView.h; path = Classes/BencodingMapView.h; sourceTree = "<group>"; };
 		438D5E7D15A7DDB200800468 /* BencodingMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BencodingMapView.m; path = Classes/BencodingMapView.m; sourceTree = "<group>"; };
 		438D5E8115A7DF3D00800468 /* BencodingMapViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BencodingMapViewProxy.h; path = Classes/BencodingMapViewProxy.h; sourceTree = "<group>"; };
@@ -109,6 +88,8 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				4336003215DFF3F400FF7870 /* KMLParser.h */,
+				4336003315DFF3F400FF7870 /* KMLParser.m */,
 				24DE9E0F11C5FE74003F90F6 /* BencodingMapModuleAssets.h */,
 				24DE9E1011C5FE74003F90F6 /* BencodingMapModuleAssets.m */,
 				24DD6CF71134B3F500162E58 /* BencodingMapModule.h */,
@@ -148,6 +129,7 @@
 				438D5E8315A7DF3D00800468 /* BencodingMapViewProxy.h in Headers */,
 				438D5E8D15A89BCA00800468 /* ExtPolygon.h in Headers */,
 				438D759A15AA2067003735C3 /* ExtCircle.h in Headers */,
+				4336003415DFF3F400FF7870 /* KMLParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,26 +174,9 @@
 			projectRoot = "";
 			targets = (
 				D2AAC07D0554694100DB518D /* map */,
-				24416B8111C4CA220047AFDD /* Build & Test */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		24416B8011C4CA220047AFDD /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# shell script goes here\n\npython \"${TITANIUM_SDK}/titanium.py\" run --dir=\"${PROJECT_DIR}\"\nexit $?\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D2AAC07B0554694100DB518D /* Sources */ = {
@@ -224,24 +189,18 @@
 				438D5E8415A7DF3D00800468 /* BencodingMapViewProxy.m in Sources */,
 				438D5E8E15A89BCA00800468 /* ExtPolygon.m in Sources */,
 				438D759B15AA2067003735C3 /* ExtCircle.m in Sources */,
+				4336003515DFF3F400FF7870 /* KMLParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		24416B8511C4CA280047AFDD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D2AAC07D0554694100DB518D /* map */;
-			targetProxy = 24416B8411C4CA280047AFDD /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1DEB921F08733DC00010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
 					armv6,
 					armv7,
@@ -254,6 +213,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DSTROOT = /tmp/BencodingMap.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -270,6 +233,11 @@
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ShapeFile\"",
+					"\"$(SRCROOT)\"",
+				);
 				OTHER_CFLAGS = (
 					"-DDEBUG",
 					"-DTI_POST_1_2",
@@ -299,6 +267,10 @@
 				);
 				"ARCHS[sdk=iphonesimulator*]" = i386;
 				DSTROOT = /tmp/BencodingMap.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -316,6 +288,11 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ShapeFile\"",
+					"\"$(SRCROOT)\"",
+				);
 				OTHER_CFLAGS = "-DTI_POST_1_2";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = BencodingMap;
@@ -412,29 +389,6 @@
 			};
 			name = Release;
 		};
-		24416B8211C4CA220047AFDD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = "Build & test";
-			};
-			name = Debug;
-		};
-		24416B8311C4CA220047AFDD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				PRODUCT_NAME = "Build & test";
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -452,15 +406,6 @@
 			buildConfigurations = (
 				1DEB922308733DC00010E9CD /* Debug */,
 				1DEB922408733DC00010E9CD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		24416B8A11C4CA520047AFDD /* Build configuration list for PBXAggregateTarget "Build & Test" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				24416B8211C4CA220047AFDD /* Debug */,
-				24416B8311C4CA220047AFDD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -17,10 +17,10 @@
     
     if ((self = [self init])) {
         self.Color=color;
-        self.Alpha=alpha;
+        self.Alpha=[NSNumber numberWithFloat:alpha];
         self.Title=title;
         self.Polygon=polygon;
-        self.lineWidth=linewidth;
+        self.lineWidth=[NSNumber numberWithFloat:linewidth];
     }
     
     return self;

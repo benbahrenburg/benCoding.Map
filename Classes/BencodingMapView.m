@@ -16,7 +16,7 @@
 #import "TiMapImageAnnotationView.h"
 #import "BencodingMapView.h"
 #import "BencodingMapViewProxy.h"
-
+#import <KMLParser.h>
 
 @implementation BencodingMapView
 
@@ -39,6 +39,7 @@ bool respondsToMKUserTrackingMode = NO;
         CFRelease(mapName2Line);
         mapName2Line = nil;
     }
+    
     if(polygonOverlays!=nil)
     {
         RELEASE_TO_NIL(polygonOverlays);
@@ -46,7 +47,7 @@ bool respondsToMKUserTrackingMode = NO;
     if(circleOverlays!=nil)
     {
         RELEASE_TO_NIL(circleOverlays);
-    }    
+    } 
     
 	[super dealloc];
 }
@@ -82,13 +83,7 @@ bool respondsToMKUserTrackingMode = NO;
         mapName2Line = CFDictionaryCreateMutable(NULL, 10, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
         //Initialize loaded state to YES. This will automatically go to NO if the map needs to download new data
         loaded = YES;
-        respondsToMKUserTrackingMode = [MKMapView instancesRespondToSelector:@selector(setUserTrackingMode:)];
-        if (respondsToMKUserTrackingMode)
-        {
-            map.userTrackingMode = MKUserTrackingModeNone;
-        }
     }
-        
     return map;
 }
 
@@ -157,245 +152,8 @@ bool respondsToMKUserTrackingMode = NO;
 }
 
 #pragma mark Public APIs
--(void)removeAllCircles:(id)arg
-{
-	ENSURE_UI_THREAD(removeAllCircles,arg);    
-    
-    //Remove overlay from map
-    for (id <MKOverlay> overlay in [self map].overlays) {        
-        //We only care about polgyons
-        if ([overlay isKindOfClass:[MKCircle class]])
-        {
-            [[self map] removeOverlay:overlay];
-        }        
-    } 
-    //Remove our polygon cache
-    RELEASE_TO_NIL(circleOverlays);
-    
-}
--(void)removeCircle:(id)args
-{
-	ENSURE_TYPE(args,NSDictionary);
-	ENSURE_UI_THREAD(removeCircle,args);
-    //Fetch our name we will be trying to remove
-    NSString *filter = [TiUtils stringValue:@"title" properties:args];
-    
-    //Remove overlay from map
-    for (id <MKOverlay> overlay in [self map].overlays) {        
-        //We only care about polgyons
-        if ([overlay isKindOfClass:[MKCircle class]])
-        {
-            //We match on title, not the best, but the easiest approach
-            if ([overlay.title isEqualToString: filter])
-            {
-                [[self map] removeOverlay:overlay];              
-            }
-        }        
-    }  
-    
-    //Remove polygon from collection
-    if(circleOverlays!=nil)
-    {
-        for (ExtCircle *extCircle in circleOverlays) 
-        {
-            if ([extCircle.Title isEqualToString: filter])
-            {
-                if([circleOverlays containsObject:extCircle])
-                {
-                    [circleOverlays removeObject:extCircle];                 
-                }
-            }
-        }
-    }
-}
--(void)addCircle:(id)args
-{
-	ENSURE_TYPE(args,NSDictionary);
-	ENSURE_UI_THREAD(addCircle,args);
-    
-    //Get the title for the polygon
-    NSString *circleTitle = [TiUtils stringValue:@"title" properties:args];
 
-    
-    //Create the number of points provided
-    CLLocationCoordinate2D  coords = CLLocationCoordinate2DMake(
-                                        [TiUtils floatValue:@"latitude" properties:args def:0.0],
-                                        [TiUtils floatValue:@"longitude" properties:args def:0.0]
-                                    );
-       
-    //Get the radius for the circle in meters, if not provided default to 100 meters
-    float circleRadius = [TiUtils floatValue:@"radius" properties:args def:100];
-    
-    //Create our circle 
-    MKCircle* circleToAdd = [MKCircle circleWithCenterCoordinate:coords radius:circleRadius];
-    circleToAdd.title = circleTitle;
-    
-    UIColor * circleColor = [[TiUtils colorValue:@"color" properties:args] _color];
-    if (circleColor == nil)
-    {
-        circleColor=[UIColor greenColor];
-    }
-    
-    //Get the alpha, if not provided default to 0.9
-    float alpha = [TiUtils floatValue:@"alpha" properties:args def:0.9];
-    //Get our lineWidth, if not provoded default to 1.0
-    float lineWidth = [TiUtils floatValue:@"lineWidth" properties:args def:1.0];
-    
-    //Build our extension object, so we can format on display
-    ExtCircle *newCircle = [[[ExtCircle alloc] 
-                               initWithParameters:circleColor 
-                               alpha:alpha title:circleTitle 
-                               polygon:circleToAdd 
-                               linewidth:lineWidth] autorelease];
-    
-    //Get the optional strokeColor
-    UIColor * strokeColor = [[TiUtils colorValue:@"strokeColor" properties:args] _color];
-    //We only add the strokeColor if it is provided
-    if (strokeColor != nil)
-    {
-        newCircle.strokeColor=strokeColor;
-    }
-    
-    //If our circle collection isn't create, do so
-    if (circleOverlays==nil)
-    {
-        circleOverlays = [[NSMutableArray alloc] init];
-    }
-    
-    //Add the newly created circle to our collection
-    [circleOverlays addObject:newCircle];
-    
-    //Add the circle to the map
-    [[self map] addOverlay:circleToAdd];
-    
-}
 
--(void)removeAllPolygons:(id)arg
-{
-	ENSURE_UI_THREAD(removeAllPolygons,arg);    
-
-    //Remove overlay from map
-    for (id <MKOverlay> overlay in [self map].overlays) {        
-        //We only care about polgyons
-        if ([overlay isKindOfClass:[MKPolygon class]])
-        {
-            [[self map] removeOverlay:overlay];
-        }        
-    } 
-    //Remove our polygon cache
-    RELEASE_TO_NIL(polygonOverlays);
-    
-}
--(void)removePolygon:(id)args
-{
-	ENSURE_TYPE(args,NSDictionary);
-	ENSURE_UI_THREAD(removePolygon,args);
-    //Fetch our name we will be trying to remove
-    NSString *filter = [TiUtils stringValue:@"title" properties:args];
-
-    //Remove overlay from map
-    for (id <MKOverlay> overlay in [self map].overlays) {        
-        //We only care about polgyons
-        if ([overlay isKindOfClass:[MKPolygon class]])
-        {
-            //We match on title, not the best, but the easiest approach
-            if ([overlay.title isEqualToString: filter])
-            {
-                [[self map] removeOverlay:overlay];              
-            }
-        }        
-    }  
-    
-    //Remove polygon from collection
-    if(polygonOverlays!=nil)
-    {
-         for (ExtPolygon *pgc in polygonOverlays) 
-         {
-             if ([pgc.Title isEqualToString: filter])
-             {
-                 if([polygonOverlays containsObject:pgc])
-                 {
-                     [polygonOverlays removeObject:pgc];                 
-                 }
-             }
-         }
-    }
-}
--(void)addPolygon:(id)args
-{
-	ENSURE_TYPE(args,NSDictionary);
-	ENSURE_UI_THREAD(addPolygon,args);
-    
-    id pointsValue = [args objectForKey:@"points"];
-    
-    if(pointsValue==nil)
-    {
-        NSLog(@"points value is missing, cannot add polygon");
-        return;
-    }
-    //Convert the points into something useful
-    NSArray *inputPoints = [NSArray arrayWithArray:pointsValue];    
-    //Get our counter
-    NSUInteger pointsCount = [inputPoints count];
-   
-    //We need at least one point to do anything
-    if(pointsCount==0){
-        return;
-    }
-    
-    //Get the title for the polygon
-    NSString *polyTitle = [TiUtils stringValue:@"title" properties:args];
-    
-    //Create the number of points provided
-    CLLocationCoordinate2D  points[pointsCount];
-    
-    //loop through and add coordinates
-    for (int iLoop = 0; iLoop < pointsCount; iLoop++) {                
-         points[iLoop] = CLLocationCoordinate2DMake(
-                                                    [TiUtils floatValue:@"latitude" properties:[inputPoints objectAtIndex:iLoop] def:0], 
-                                                    [TiUtils floatValue:@"longitude" properties:[inputPoints objectAtIndex:iLoop] def:0]);
-    }    
-    //Create our polgyon 
-    MKPolygon* polygonToAdd = [MKPolygon polygonWithCoordinates:points count:pointsCount];
-    polygonToAdd.title = polyTitle;
-   
-    UIColor * polyColor = [[TiUtils colorValue:@"color" properties:args] _color];
-    if (polyColor == nil)
-    {
-        polyColor=[UIColor greenColor];
-    }
-    
-    //Get the alpha, if not provided default to 0.9
-    float alpha = [TiUtils floatValue:@"alpha" properties:args def:0.9];
-    //Get our lineWidth, if not provoded default to 1.0
-    float lineWidth = [TiUtils floatValue:@"lineWidth" properties:args def:1.0];
-    //Build our extension object, so we can format on display
-    ExtPolygon *newPolygon = [[[ExtPolygon alloc] 
-                              initWithParameters:polyColor 
-                              alpha:alpha title:polyTitle 
-                              polygon:polygonToAdd 
-                              linewidth:lineWidth] autorelease];
-    
-    //Get the optional strokeColor
-    UIColor * strokeColor = [[TiUtils colorValue:@"strokeColor" properties:args] _color];
-    //We only add the strokeColor if it is provided
-    if (strokeColor != nil)
-    {
-        newPolygon.strokeColor=strokeColor;
-    }
-    
-    //If our polygon collection isn't create, do so
-    if (polygonOverlays==nil)
-    {
-        polygonOverlays = [[NSMutableArray alloc] init];
-    }
-    
-    //Add the newly created polgyon to our collection
-    [polygonOverlays addObject:newPolygon];
-    //Add the polgyon to the map
-    [[self map] addOverlay:polygonToAdd];
-    
-}
 -(void)addAnnotation:(id)args
 {
 	ENSURE_SINGLE_ARG(args,NSObject);
@@ -417,7 +175,7 @@ bool respondsToMKUserTrackingMode = NO;
 	ENSURE_UI_THREAD(removeAnnotation,args);
     
 	id<MKAnnotation> doomedAnnotation = nil;
-	
+    
 	if ([args isKindOfClass:[NSString class]])
 	{
 		// for pre 0.9, we supporting removing by passing the annotation title
@@ -435,7 +193,7 @@ bool respondsToMKUserTrackingMode = NO;
 	{
 		doomedAnnotation = args;
 	}
-	
+    
 	[[self map] removeAnnotation:doomedAnnotation];
 }
 
@@ -475,7 +233,7 @@ bool respondsToMKUserTrackingMode = NO;
 {
 	ENSURE_SINGLE_ARG_OR_NIL(args,NSObject);
 	ENSURE_UI_THREAD(selectAnnotation,args);
-	
+    
 	if (args == nil) {
 		for (id<MKAnnotation> annotation in [[self map] selectedAnnotations]) {
 			hitAnnotation = annotation;
@@ -485,7 +243,7 @@ bool respondsToMKUserTrackingMode = NO;
 		}
 		return;
 	}
-	
+    
 	if ([args isKindOfClass:[NSString class]])
 	{
 		// for pre 0.9, we supported selecting by passing the annotation title
@@ -598,18 +356,6 @@ bool respondsToMKUserTrackingMode = NO;
 	[[self map] setMapType:[TiUtils intValue:value]];
 }
 
--(void)setUserTrackingMode_:(id)value
-{
-    if(respondsToMKUserTrackingMode)
-    {
-        ENSURE_SINGLE_ARG(value,NSDictionary);
-        id userTrackingMode = [value objectForKey:@"mode"];
-        id animation = [value objectForKey:@"animated"];
-    
-        [[self map] setUserTrackingMode:[TiUtils intValue:userTrackingMode]  animated:[TiUtils boolValue:animation]];
-    }
-}
-
 -(void)setRegion_:(id)value
 {
 	if (value==nil)
@@ -692,7 +438,7 @@ bool respondsToMKUserTrackingMode = NO;
 {
 	// process args
     ENSURE_DICT(args);
-	
+    
 	NSArray *points = [args objectForKey:@"points"];
 	if (!points) {
 		[self throwException:@"missing required points key" subreason:nil location:CODELOCATION];
@@ -753,68 +499,9 @@ bool respondsToMKUserTrackingMode = NO;
 
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
 {	
-    if ([overlay isKindOfClass:[MKPolygon class]])
-    {
-        BOOL usePolygonDefaults = YES;
-        MKPolygonView *polygonView = [[[MKPolygonView alloc] initWithPolygon:overlay] autorelease]; 
-                
-        for (ExtPolygon *pgc in polygonOverlays) 
-        {    
-            if (pgc.Polygon == overlay)
-            {
-                usePolygonDefaults=NO;
-                polygonView.fillColor=pgc.Color;
-                polygonView.alpha=pgc.Alpha;
-                polygonView.lineWidth=pgc.lineWidth;
-                if(pgc.strokeColor!=nil)
-                {
-                    polygonView.strokeColor=pgc.strokeColor;
-                }
-            }
-        }
-        
-        if(usePolygonDefaults==YES)
-        {
-            polygonView.strokeColor = [UIColor greenColor];
-            polygonView.fillColor = [UIColor greenColor];            
-        }
+    return [self prepareOverlayForPresentation:overlay];
 
-        return polygonView;        
-    }
-    if ([overlay isKindOfClass:[MKCircle class]])
-    {
-        BOOL useCircleDefaults = YES;
-        MKCircleView *cirlceView = [[[MKCircleView alloc] initWithCircle:overlay] autorelease]; 
-        
-        for (ExtCircle *extCircle in circleOverlays) 
-        {    
-            if (extCircle.Circle == overlay)
-            {
-                useCircleDefaults=NO;
-                cirlceView.fillColor=extCircle.Color;
-                cirlceView.alpha=extCircle.Alpha;
-                cirlceView.lineWidth=extCircle.lineWidth;
-                if(extCircle.strokeColor!=nil)
-                {
-                    cirlceView.strokeColor=extCircle.strokeColor;
-                }
-            }
-        }
-        
-        if(useCircleDefaults==YES)
-        {
-            cirlceView.strokeColor = [UIColor greenColor];
-            cirlceView.fillColor = [UIColor greenColor];            
-        }
-        
-        return cirlceView;           
-    }
-    else
-    {
-        return (MKOverlayView *)CFDictionaryGetValue(mapLine2View, overlay);
-    }
 }
-
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
 {
 }
@@ -822,7 +509,7 @@ bool respondsToMKUserTrackingMode = NO;
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
 	if ([self.proxy _hasListeners:@"regionChanged"])
-	{
+	{	//TODO: Deprecate old event
 		region = [mapView region];
 		NSDictionary * props = [NSDictionary dictionaryWithObjectsAndKeys:
 								@"regionChanged",@"type",
@@ -832,14 +519,32 @@ bool respondsToMKUserTrackingMode = NO;
 								[NSNumber numberWithDouble:region.span.longitudeDelta],@"longitudeDelta",nil];
 		[self.proxy fireEvent:@"regionChanged" withObject:props];
 	}
+	if ([self.proxy _hasListeners:@"regionchanged"])
+	{
+		region = [mapView region];
+		NSDictionary * props = [NSDictionary dictionaryWithObjectsAndKeys:
+								@"regionchanged",@"type",
+								[NSNumber numberWithDouble:region.center.latitude],@"latitude",
+								[NSNumber numberWithDouble:region.center.longitude],@"longitude",
+								[NSNumber numberWithDouble:region.span.latitudeDelta],@"latitudeDelta",
+								[NSNumber numberWithDouble:region.span.longitudeDelta],@"longitudeDelta",nil];
+		[self.proxy fireEvent:@"regionchanged" withObject:props];
+	}
+    
+    //TODO:Remove all this code when we drop support for iOS 4.X
+    
     //SELECT ANNOTATION WILL NOT ALWAYS WORK IF THE MAPVIEW IS ANIMATING.
     //THIS FORCES A RESELCTION OF THE ANNOTATIONS WITHOUT SENDING OUT EVENTS
     //SEE TIMOB-8431 (IOS 4.3)
     ignoreClicks = YES;
     NSArray* currentSelectedAnnotations = [[mapView selectedAnnotations] retain];
     for (id annotation in currentSelectedAnnotations) {
-        [mapView deselectAnnotation:annotation animated:NO];
-        [mapView selectAnnotation:annotation animated:NO];
+        //Only Annotations that are hidden at this point should be 
+        //made visible here.
+        if ([mapView viewForAnnotation:annotation].hidden) {
+            [mapView deselectAnnotation:annotation animated:NO];
+            [mapView selectAnnotation:annotation animated:NO];
+        }
     }
     [currentSelectedAnnotations release];
     ignoreClicks = NO;
@@ -895,7 +600,7 @@ bool respondsToMKUserTrackingMode = NO;
 	TiProxy * ourProxy = [self proxy];
 	BOOL parentWants = [ourProxy _hasListeners:@"pinchangedragstate"];
 	BOOL viewWants = [viewProxy _hasListeners:@"pinchangedragstate"];
-	
+    
 	if(!parentWants && !viewWants)
 		return;
     
@@ -990,9 +695,9 @@ bool respondsToMKUserTrackingMode = NO;
         UIImage *image = [TiUtils image:imagePath proxy:ann];
         NSString *identifier = (image!=nil) ? @"timap-image":@"timap-pin";
 		MKAnnotationView *annView = nil;
-		
+        
 		annView = (MKAnnotationView*) [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
-		
+        
         if (annView==nil)
         {
             if ([identifier isEqualToString:@"timap-image"])
@@ -1013,7 +718,7 @@ bool respondsToMKUserTrackingMode = NO;
 			MKPinAnnotationView *pinview = (MKPinAnnotationView*)annView;
 			pinview.pinColor = [ann pinColor];
 			pinview.animatesDrop = [ann animatesDrop] && ![(TiMapAnnotationProxy *)annotation placed];
-			annView.calloutOffset = CGPointMake(-5, 5);
+			annView.calloutOffset = CGPointMake(-8, 0);
 		}
 		annView.canShowCallout = YES;
 		annView.enabled = YES;
@@ -1073,21 +778,6 @@ bool respondsToMKUserTrackingMode = NO;
 	}
 }
 
-- (void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated
-{
-    if(respondsToMKUserTrackingMode){
-        if ([self.proxy _hasListeners:@"userTrackingMode"])
-        {
-            //mode = [mapView userTrackingMode];
-            NSDictionary * props = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    @"userTrackingMode",@"type",
-                                    [NSNumber numberWithInt:mode],@"mode",
-                                    nil];
-            [self.proxy fireEvent:@"userTrackingMode" withObject:props];
-        }
-    }
-}
-
 #pragma mark Click detection
 
 -(id<MKAnnotation>)wasHitOnAnnotation:(CGPoint)point inView:(UIView*)view
@@ -1097,14 +787,14 @@ bool respondsToMKUserTrackingMode = NO;
 		if (![subview pointInside:[self convertPoint:point toView:subview] withEvent:nil]) {
 			continue;
 		}
-		
+        
 		if ([subview isKindOfClass:[MKAnnotationView class]]) {
 			result = [(MKAnnotationView*)subview annotation];
 		}
 		else {
 			result = [self wasHitOnAnnotation:point inView:subview];
 		}
-		
+        
 		if (result != nil) {
 			break;
 		}
@@ -1152,7 +842,7 @@ bool respondsToMKUserTrackingMode = NO;
 	{
 		return;
 	}
-	
+    
 	id title = [viewProxy title];
 	if (title == nil)
 	{
@@ -1161,7 +851,7 @@ bool respondsToMKUserTrackingMode = NO;
     
 	NSNumber * indexNumber = NUMINT([pinview tag]);
 	id clicksource = source ? source : (id)[NSNull null];
-	
+    
 	NSDictionary * event = [NSDictionary dictionaryWithObjectsAndKeys:
                             clicksource,@"clicksource",	viewProxy,@"annotation",	ourProxy,@"map",
                             title,@"title",			indexNumber,@"index",		nil];
@@ -1176,4 +866,715 @@ bool respondsToMKUserTrackingMode = NO;
 	}
 }
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//      Updating the code yourself?  Here are some helpful notes.
+//
+//
+//      You need to alter the below deligates
+//          - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
+//      
+//      You need to alter the below Methods
+//          Add the following lines to the dealloc method
+//          
+//          if(polygonOverlays!=nil)
+//          {
+//              RELEASE_TO_NIL(polygonOverlays);
+//          }
+//          if(circleOverlays!=nil)
+//          {
+//              RELEASE_TO_NIL(circleOverlays);
+//          } 
+//
+//
+//      Don't forget to copy from here to the end, this should be the easy part
+//
+//      After you copy, you will need to run Analyze to pick-up on type conversion issues
+//
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+//http://compileyouidontevenknowyou.blogspot.com/2010/06/random-colors-in-objective-c.html
+- (UIColor *) randomColor 
+{
+    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
+    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
+    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  
+    return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+}
+
+- (MKOverlayView *)prepareOverlayForPresentation:(id <MKOverlay>)overlay
+{	
+    
+    @try {
+        if ([overlay isKindOfClass:[MKPolygon class]])
+        {
+            MKPolygonView *polygonView = [[[MKPolygonView alloc] initWithPolygon:overlay] autorelease]; 
+            if(polygonOverlays!=nil)
+            {
+                for (ExtPolygon *pgc in polygonOverlays) 
+                {    
+                    if (pgc.Polygon == overlay)
+                    {
+                        if(pgc.Color==nil)
+                        {
+                          polygonView.fillColor = [UIColor greenColor];
+                        }
+                        else
+                        {
+                            polygonView.fillColor=pgc.Color;
+                        }
+                        if(pgc.strokeColor!=nil)
+                        {
+                            polygonView.strokeColor=pgc.strokeColor;
+                        }    
+                        polygonView.alpha=[pgc.Alpha floatValue];
+                        polygonView.lineWidth=[pgc.lineWidth floatValue];
+                        break;
+                    }
+                }                
+            }
+            
+            return polygonView;        
+        } 
+        else if ([overlay isKindOfClass:[MKCircle class]])
+        {
+            MKCircleView *cirlceView = [[[MKCircleView alloc] initWithCircle:overlay] autorelease]; 
+            if(circleOverlays!=nil)
+            {
+                for (ExtCircle *extCircle in circleOverlays)
+                {
+                  if (extCircle.Circle == overlay)
+                  {
+                      if(extCircle.Color==nil)
+                      {
+                          cirlceView.fillColor = [UIColor greenColor];
+                      }
+                      else
+                      {
+                          cirlceView.fillColor=extCircle.Color;
+                      }
+                      if(extCircle.strokeColor!=nil)
+                      {
+                          cirlceView.strokeColor=extCircle.strokeColor;
+                      }    
+                      cirlceView.alpha=[extCircle.Alpha floatValue];
+                      cirlceView.lineWidth=[extCircle.lineWidth floatValue];
+                      break;
+                  }
+                }
+            }
+            
+            return cirlceView;           
+        }
+        else if ([overlay isKindOfClass:[MKPolyline class]])
+        {
+            return (MKOverlayView *)CFDictionaryGetValue(mapLine2View, overlay);
+        }
+        else
+        {
+            return nil;
+        }
+    }
+    @catch (id theException) {
+		NSLog(@"%@", theException);
+        return nil;
+	}  
+}
+-(void)removeAllCircles:(id)arg
+{
+	ENSURE_UI_THREAD(removeAllCircles,arg);    
+    
+    //Remove overlay from map
+    for (id <MKOverlay> overlay in [self map].overlays) {        
+        //We only care about polgyons
+        if ([overlay isKindOfClass:[MKCircle class]])
+        {
+            [[self map] removeOverlay:overlay];
+        }        
+    } 
+    //Remove our polygon cache
+    RELEASE_TO_NIL(circleOverlays);
+    
+}
+-(void) cirleQueryToRemove:(NSString*)filter
+{
+    //Remove overlay from map
+    for (id <MKOverlay> overlay in [self map].overlays) {        
+        //We only care about polgyons
+        if ([overlay isKindOfClass:[MKCircle class]])
+        {
+            //We match on title, not the best, but the easiest approach
+            if ([overlay.title isEqualToString: filter])
+            {
+                [[self map] removeOverlay:overlay];              
+            }
+        }        
+    }  
+    
+    //Remove circle from collection
+    if(circleOverlays!=nil)
+    {
+        NSMutableArray *toDelete = [NSMutableArray array];
+        for (ExtCircle *extCircle in circleOverlays) 
+        {
+            if ([extCircle.Title isEqualToString: filter])
+            {
+                if([circleOverlays containsObject:extCircle])
+                {
+                    [toDelete addObject:extCircle];                 
+                }
+            }
+        }
+        
+        if([toDelete count]>0)
+        {
+            [polygonOverlays removeObjectsInArray:toDelete]; 
+        }
+    }  
+}
+-(void)removeCircle:(id)args
+{
+	ENSURE_TYPE(args,NSDictionary);
+	ENSURE_UI_THREAD(removeCircle,args);
+    //Fetch our name we will be trying to remove
+    NSString *filter = [TiUtils stringValue:@"title" properties:args];
+    [self cirleQueryToRemove:filter];
+}
+-(void)addCircle:(id)args
+{
+	ENSURE_TYPE(args,NSDictionary);
+	ENSURE_UI_THREAD(addCircle,args);
+    
+    //Get the title for the polygon
+    NSString *circleTitle = [TiUtils stringValue:@"title" properties:args];
+    
+    
+    //Create the number of points provided
+    CLLocationCoordinate2D  coords = CLLocationCoordinate2DMake(
+                                                                [TiUtils floatValue:@"latitude" properties:args def:0.0],
+                                                                [TiUtils floatValue:@"longitude" properties:args def:0.0]
+                                                                );
+    
+    //Get the radius for the circle in meters, if not provided default to 100 meters
+    float circleRadius = [TiUtils floatValue:@"radius" properties:args def:100];
+    
+    //Create our circle 
+    MKCircle* circleToAdd = [MKCircle circleWithCenterCoordinate:coords radius:circleRadius];
+    circleToAdd.title = circleTitle;
+    // Check if we're using a random color (false by default)
+    BOOL useRandomColor =[TiUtils boolValue:@"useRandomColor" properties:args def:NO];    
+    UIColor * circleColor = [[TiUtils colorValue:@"color" properties:args] _color];
+    if ((circleColor == nil)||(useRandomColor))
+    {
+        circleColor=[self randomColor];
+    }
+    
+    //Get the alpha, if not provided default to 0.9
+    float alpha = [TiUtils floatValue:@"alpha" properties:args def:0.9];
+    //Get our lineWidth, if not provoded default to 1.0
+    float lineWidth = [TiUtils floatValue:@"lineWidth" properties:args def:1.0];
+    
+    //Build our extension object, so we can format on display
+    ExtCircle *newCircle = [[[ExtCircle alloc] 
+                             initWithParameters:circleColor 
+                             alpha:alpha title:circleTitle 
+                             polygon:circleToAdd 
+                             linewidth:lineWidth] autorelease];
+    
+    //Get the optional strokeColor
+    UIColor * strokeColor = [[TiUtils colorValue:@"strokeColor" properties:args] _color];
+    //We only add the strokeColor if it is provided
+    if (strokeColor != nil)
+    {
+        newCircle.strokeColor=strokeColor;
+    }
+    
+    //If our circle collection isn't create, do so
+    if (circleOverlays==nil)
+    {
+        circleOverlays = [[NSMutableArray alloc] init];
+    }
+    
+    //Add the newly created circle to our collection
+    [circleOverlays addObject:newCircle];
+    
+    //Add the circle to the map
+    [[self map] addOverlay:circleToAdd];
+    
+}
+
+-(void)removeAllPolygons:(id)arg
+{
+	ENSURE_UI_THREAD(removeAllPolygons,arg);    
+    
+    //Remove overlay from map
+    for (id <MKOverlay> overlay in [self map].overlays) {        
+        //We only care about polgyons
+        if ([overlay isKindOfClass:[MKPolygon class]])
+        {
+            [[self map] removeOverlay:overlay];
+        }        
+    } 
+    //Remove our polygon cache
+    RELEASE_TO_NIL(polygonOverlays);
+}
+-(void) clear:(id)unused
+{
+    ENSURE_UI_THREAD(clear,unused);
+
+    //Remove all overlays
+    for (id <MKOverlay> overlay in [self map].overlays) {        
+        [[self map] removeOverlay:overlay];  
+    } 
+    
+    //Remove all annotations
+    [self removeAllAnnotations:unused];
+    
+   //Remove our overlay cache
+    RELEASE_TO_NIL(polygonOverlays);
+    RELEASE_TO_NIL(circleOverlays);    
+}
+-(void) polygonQueryToRemove:(NSString*)filter
+{
+    ENSURE_UI_THREAD(polygonQueryToRemove,filter);
+    //Remove overlay from map
+    for (id <MKOverlay> overlay in [self map].overlays) {        
+        //We only care about polgyons
+        if ([overlay isKindOfClass:[MKPolygon class]])
+        {
+            //We match on title, not the best, but the easiest approach
+            if ([overlay.title isEqualToString: filter])
+            {
+                [[self map] removeOverlay:overlay];              
+            }
+        }        
+    }  
+    
+    //Remove polygon from collection
+    if(polygonOverlays!=nil)
+    {
+        NSMutableArray *toDelete = [NSMutableArray array];
+        for (ExtPolygon *pgc in polygonOverlays) 
+        {
+            if ([pgc.Title isEqualToString: filter])
+            {
+                if([polygonOverlays containsObject:pgc])
+                {
+                    [toDelete addObject:pgc];              
+                }
+            }
+        }
+        if([toDelete count]>0)
+        {
+            [polygonOverlays removeObjectsInArray:toDelete]; 
+        }
+    }
+}
+-(void)removePolygon:(id)args
+{
+	ENSURE_TYPE(args,NSDictionary);
+	ENSURE_UI_THREAD(removePolygon,args);
+    //Fetch our name we will be trying to remove
+    NSString *filter = [TiUtils stringValue:@"title" properties:args];
+    [self polygonQueryToRemove:filter];
+}
+-(void)addPolygon:(id)args
+{
+	ENSURE_TYPE(args,NSDictionary);
+	ENSURE_UI_THREAD(addPolygon,args);
+    
+    id pointsValue = [args objectForKey:@"points"];
+    
+    if(pointsValue==nil)
+    {
+        NSLog(@"points value is missing, cannot add polygon");
+        return;
+    }
+    //Convert the points into something useful
+    NSArray *inputPoints = [NSArray arrayWithArray:pointsValue];    
+    //Get our counter
+    NSUInteger pointsCount = [inputPoints count];
+    
+    //We need at least one point to do anything
+    if(pointsCount==0){
+        return;
+    }
+    
+    //Get the title for the polygon
+    NSString *polyTitle = [TiUtils stringValue:@"title" properties:args];
+    
+    //Create the number of points provided
+    CLLocationCoordinate2D  points[pointsCount];
+    
+    //loop through and add coordinates
+    for (int iLoop = 0; iLoop < pointsCount; iLoop++) {                
+        points[iLoop] = CLLocationCoordinate2DMake(
+                                                   [TiUtils floatValue:@"latitude" properties:[inputPoints objectAtIndex:iLoop] def:0], 
+                                                   [TiUtils floatValue:@"longitude" properties:[inputPoints objectAtIndex:iLoop] def:0]);
+    }    
+    //Create our polgyon 
+    MKPolygon* polygonToAdd = [MKPolygon polygonWithCoordinates:points count:pointsCount];
+    polygonToAdd.title = polyTitle;
+    // Check if we're using a random color (false by default)
+    BOOL useRandomColor =[TiUtils boolValue:@"useRandomColor" properties:args def:NO];    
+    UIColor * polyColor = [[TiUtils colorValue:@"color" properties:args] _color];
+    if ((polyColor == nil)||(useRandomColor))
+    {
+        polyColor=[self randomColor];
+    }
+    
+    //Get the alpha, if not provided default to 0.9
+    float alpha = [TiUtils floatValue:@"alpha" properties:args def:0.9];
+    //Get our lineWidth, if not provoded default to 1.0
+    float lineWidth = [TiUtils floatValue:@"lineWidth" properties:args def:1.0];
+    //Build our extension object, so we can format on display
+    ExtPolygon *newPolygon = [[[ExtPolygon alloc] 
+                               initWithParameters:polyColor 
+                               alpha:alpha title:polyTitle 
+                               polygon:polygonToAdd 
+                               linewidth:lineWidth] autorelease];
+    
+    //Get the optional strokeColor
+    UIColor * strokeColor = [[TiUtils colorValue:@"strokeColor" properties:args] _color];
+    //We only add the strokeColor if it is provided
+    if (strokeColor != nil)
+    {
+        newPolygon.strokeColor=strokeColor;
+    }
+    
+    //If our polygon collection isn't create, do so
+    if (polygonOverlays==nil)
+    {
+        polygonOverlays = [[NSMutableArray alloc] init];
+    }
+    
+    //Add the newly created polgyon to our collection
+    [polygonOverlays addObject:newPolygon];
+    //Add the polgyon to the map
+    [[self map] addOverlay:polygonToAdd];
+    
+}
+
+-(void)setUserTrackingMode_:(id)value
+{
+    if(respondsToMKUserTrackingMode)
+    {
+        ENSURE_SINGLE_ARG(value,NSDictionary);
+        id userTrackingMode = [value objectForKey:@"mode"];
+        id animation = [value objectForKey:@"animated"];
+        
+        [[self map] setUserTrackingMode:[TiUtils intValue:userTrackingMode]  animated:[TiUtils boolValue:animation]];
+    }
+}
+
+- (void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated
+{
+    if(respondsToMKUserTrackingMode){
+        if ([self.proxy _hasListeners:@"userTrackingMode"])
+        {
+            //mode = [mapView userTrackingMode];
+            NSDictionary * props = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    @"userTrackingMode",@"type",
+                                    [NSNumber numberWithInt:mode],@"mode",
+                                    nil];
+            [self.proxy fireEvent:@"userTrackingMode" withObject:props];
+        }
+    }
+}
+
+-(void)removeKML:(id)args
+{
+	ENSURE_TYPE(args,NSDictionary);
+	ENSURE_UI_THREAD(removeKML,args);
+
+    Class dictClass = [NSDictionary class];
+    
+    //Obtain the overlay property node
+	NSDictionary * overlayInfo = [args objectForKey:@"overlayInfo"];
+	ENSURE_CLASS_OR_NIL(overlayInfo,dictClass);
+    //Obtain the annotation proerty node
+	NSDictionary * annotationInfo = [args objectForKey:@"annotationInfo"];
+	ENSURE_CLASS_OR_NIL(annotationInfo,dictClass);
+    
+    //If we have any overlay info provided we need to search polygons and circles
+    if(overlayInfo!=nil)
+    {
+        //Fetch our name we will be trying to remove
+        NSString *filter = [TiUtils stringValue:@"title" properties:overlayInfo];        
+        //Remove all polygons
+        [self polygonQueryToRemove:filter];    
+        //Remove all circles
+        [self cirleQueryToRemove:filter];        
+    }
+
+    //If any annotation information is provided, loop through all annotations looking for a matching tag
+    if(annotationInfo!=nil)
+    {
+        int tagId =[TiUtils intValue:@"tagId" properties:annotationInfo def:1];
+        //Loop through and remove any annotations we can find with a matching tagId
+        NSMutableArray *annotations = [NSMutableArray arrayWithArray:self.map.annotations];
+        [annotations removeObject:self.map.userLocation];
+        
+        for(TiMapAnnotationProxy* ann in annotations) {
+            //NSLog(@"ann tag %i", [ann tag]);        
+            if([ann tag]==tagId)
+            {
+                [self removeAnnotation:ann];
+            }
+        }	
+    }
+}
+
+-(void)addKML:(id)args
+{
+	ENSURE_TYPE(args,NSDictionary);
+	ENSURE_UI_THREAD(addKML,args);
+
+    //File path
+    NSString* providedPath =[TiUtils stringValue:@"path" properties:args];
+    //Determine if we should use FlyTo
+    BOOL enableFlyTo =[TiUtils boolValue:@"flyTo" properties:args def:NO];
+    
+    Class dictClass = [NSDictionary class];
+    
+    //Obtain the overlay property node
+	NSDictionary * overlayInfo = [args objectForKey:@"overlayInfo"];
+	ENSURE_CLASS_OR_NIL(overlayInfo,dictClass);
+    //Obtain the annotation proerty node
+	NSDictionary * annotationInfo = [args objectForKey:@"annotationInfo"];
+	ENSURE_CLASS_OR_NIL(annotationInfo,dictClass);
+     
+    //Figure out our file path
+    NSURL* filePath = [TiUtils toURL:providedPath proxy:self.proxy];
+    
+    //Format our path so we can send it to the parser
+    NSURL* kmlPath = [NSURL fileURLWithPath:[filePath path]];
+    
+    //Tell the parser where the file is we want actioned
+    KMLParser *kmlParser = [[[KMLParser alloc] initWithURL:kmlPath] autorelease];
+    
+    //Parse the KML
+    [kmlParser parseKML];
+
+    // Walk the list of overlays and annotations and create a MKMapRect that
+    // bounds all of them and store it into flyTo.
+    MKMapRect flyTo = MKMapRectNull;
+    
+    //Check if we should include overlays
+    if(overlayInfo!=nil)
+    {
+        //Get the title for the polygon
+         NSString *overlayTitle = [TiUtils stringValue:@"title" properties:overlayInfo];        
+        
+        //Overlay color
+        UIColor *overlayColor = [[TiUtils colorValue:@"color" properties:overlayInfo] _color];
+        if (overlayColor == nil)
+        {
+            overlayColor=[self randomColor];
+        }    
+        
+        //Get the alpha, if not provided default to 0.9
+        float alpha = [TiUtils floatValue:@"alpha" properties:overlayInfo def:0.9];
+        //Get our lineWidth, if not provoded default to 1.0
+        float lineWidth = [TiUtils floatValue:@"lineWidth" properties:overlayInfo def:1.0];
+        
+        //Get the optional strokeColor
+        UIColor *strokeColor = [[TiUtils colorValue:@"strokeColor" properties:overlayInfo] _color];        
+        
+        // Check if we're using a random color (false by default)
+        BOOL useRandomColor =[TiUtils boolValue:@"useRandomColor" properties:overlayInfo def:NO]; 
+        
+        NSArray *overlays = [kmlParser overlays];
+        
+        for (id <MKOverlay> overlay in overlays) {
+            
+            if(enableFlyTo)
+            {
+                if (MKMapRectIsNull(flyTo)) {
+                    flyTo = [overlay boundingMapRect];
+                } else {
+                    flyTo = MKMapRectUnion(flyTo, [overlay boundingMapRect]);
+                }                        
+            }
+            
+            if ([overlay isKindOfClass:[MKPolygon class]])
+            {
+                overlay.title=overlayTitle;
+                if(useRandomColor)
+                {
+                    overlayColor=[self randomColor];
+                }
+                //Build our extension object, so we can format on display
+                ExtPolygon *newPolygon = [[[ExtPolygon alloc] 
+                                           initWithParameters:overlayColor 
+                                           alpha:alpha title:overlayTitle 
+                                           polygon:(MKPolygon*)overlay 
+                                           linewidth:lineWidth]autorelease];
+                
+                
+                //We only add the strokeColor if it is provided
+                if (strokeColor != nil)
+                {
+                    newPolygon.strokeColor=strokeColor;
+                }
+                
+                //If our polygon collection isn't create, do so
+                if (polygonOverlays==nil)
+                {
+                    polygonOverlays = [[NSMutableArray alloc] init];
+                }
+                
+                //Add the newly created polgyon to our collection
+                [polygonOverlays addObject:newPolygon];
+                //Add the polgyon to the map
+                [[self map] addOverlay:overlay];
+            }
+            
+            if ([overlay isKindOfClass:[MKCircle class]])
+            {
+                overlay.title=overlayTitle;            
+                //Build our extension object, so we can format on display
+                ExtCircle *newCircle = [[[ExtCircle alloc] 
+                                         initWithParameters:overlayColor 
+                                         alpha:alpha title:overlayTitle 
+                                         polygon:(MKCircle*)overlay 
+                                         linewidth:lineWidth] autorelease];
+                
+                //We only add the strokeColor if it is provided
+                if (strokeColor != nil)
+                {
+                    newCircle.strokeColor=strokeColor;
+                }
+                
+                //If our circle collection isn't create, do so
+                if (circleOverlays==nil)
+                {
+                    circleOverlays = [[NSMutableArray alloc] init];
+                }
+                
+                //Add the newly created circle to our collection
+                [circleOverlays addObject:newCircle];
+                
+                //Add the cirlce to the map
+                [[self map] addOverlay:overlay];
+            }
+        }
+    }
+    
+    //Check if we should include annotations
+    if(annotationInfo!=nil)
+    {
+        //Get the tagId that will be used for all annotations
+        int tagId =[TiUtils intValue:@"tagId" properties:annotationInfo def:1];
+        
+        //Find pin color for our annotations
+        int pincolor = [TiUtils intValue:@"pincolor" properties:annotationInfo def:MKPinAnnotationColorRed]; 
+        
+        NSArray *annotations = [kmlParser points];
+        
+        for (id <MKAnnotation> annotation in annotations) {
+            if(enableFlyTo)
+            {
+                MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+                MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0, 0);
+                if (MKMapRectIsNull(flyTo)) {
+                    flyTo = pointRect;
+                } else {
+                    flyTo = MKMapRectUnion(flyTo, pointRect);
+                }
+            }
+            
+            NSMutableDictionary *details = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                            [NSNumber numberWithDouble:annotation.coordinate.latitude],@"latitude",	
+                                            [NSNumber numberWithDouble:annotation.coordinate.longitude],@"longitude",
+                                            [NSNumber numberWithInt:tagId],@"tag",
+                                            [NSNumber numberWithInt:pincolor],@"pincolor",
+                                            nil];
+            //Add in the other attributes one at a time to avoid nil issues
+            if([annotation title]!=nil)
+            {
+                [details setObject:[annotation title] forKey:@"title"];
+            }
+            if([annotation subtitle]!=nil)
+            {
+                [details setObject:[annotation subtitle] forKey:@"subtitle"];
+            }        
+          
+            [self addAnnotation:details];
+        }        
+    }
+
+    if(enableFlyTo)
+    {
+        // Position the map so that all overlays and annotations are visible on screen.
+        map.visibleMapRect = flyTo;        
+    }
+
+    //Fire event to tell everyone we're finished
+	if ([self.proxy _hasListeners:@"kmlCompleted"])
+	{
+		[self.proxy fireEvent:@"kmlCompleted" withObject:nil];
+	}
+    
+}
+
+-(void)ZoomOutFull:(id)unused
+{
+    @try {
+        ENSURE_UI_THREAD(ZoomToWorld,unused);
+        MKMapRect fullRect = MKMapRectMake(map.bounds.origin.x, map.bounds.origin.y, 
+                                            map.bounds.size.width, map.bounds.size.height);
+        map.visibleMapRect = fullRect; 
+        region = MKCoordinateRegionForMapRect(MKMapRectWorld);
+        [map setRegion:region animated:animate];
+    }
+    @catch (id theException) {
+		NSLog(@"ZoomToWorld %@", theException);
+        
+	}     
+}
+
+-(void)ZoomToFit:(id)unused
+{
+    ENSURE_UI_THREAD(ZoomToFit,unused);
+    if([map.annotations count] == 0)
+        return;
+
+    MKMapRect fullRect = MKMapRectMake(map.bounds.origin.x, map.bounds.origin.y, 
+                                       map.bounds.size.width, map.bounds.size.height);
+    map.visibleMapRect = fullRect; 
+    
+    CLLocationCoordinate2D topLeftCoord;
+    topLeftCoord.latitude = -90;
+    topLeftCoord.longitude = 180;
+    
+    CLLocationCoordinate2D bottomRightCoord;
+    bottomRightCoord.latitude = 90;
+    bottomRightCoord.longitude = -180;
+
+    for (id <MKOverlay> overlay in [self map].overlays) {
+        topLeftCoord.longitude = fmin(topLeftCoord.longitude, overlay.coordinate.longitude);
+        topLeftCoord.latitude = fmax(topLeftCoord.latitude, overlay.coordinate.latitude);
+        
+        bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, overlay.coordinate.longitude);
+        bottomRightCoord.latitude = fmin(bottomRightCoord.latitude, overlay.coordinate.latitude);
+    }
+    
+    for (id <MKAnnotation> annotation in [self map].annotations) {
+        topLeftCoord.longitude = fmin(topLeftCoord.longitude, annotation.coordinate.longitude);
+        topLeftCoord.latitude = fmax(topLeftCoord.latitude, annotation.coordinate.latitude);
+        
+        bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, annotation.coordinate.longitude);
+        bottomRightCoord.latitude = fmin(bottomRightCoord.latitude, annotation.coordinate.latitude);
+    }
+    
+    region.center.latitude = topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5;
+    region.center.longitude = topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5;
+    region.span.latitudeDelta = fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 1.1; // Add a little extra space on the sides
+    region.span.longitudeDelta = fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 1.1; // Add a little extra space on the sides
+    
+    region = [map regionThatFits:region];
+    [map setRegion:region animated:YES];
+}
 @end

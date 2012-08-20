@@ -15,10 +15,10 @@
 
 - (id)initWithParameters:(UIColor*)color alpha:(float)alpha title:(NSString*)title polygon:(MKCircle*) circle linewidth:(float)linewidth;
 
-@property (nonatomic, readwrite, assign) UIColor* Color;
-@property (nonatomic, readwrite, assign) float Alpha;
-@property (nonatomic, readwrite, assign) NSString* Title;
-@property (nonatomic, readwrite, assign) MKCircle* Circle;
-@property (nonatomic, readwrite, assign) float lineWidth;
-@property (nonatomic, readwrite, assign) UIColor* strokeColor;
+@property (strong, nonatomic) UIColor* Color;
+@property (strong, nonatomic) NSNumber* Alpha;
+@property (strong, nonatomic) NSString* Title;
+@property (strong, nonatomic) MKCircle* Circle;
+@property (strong, nonatomic) NSNumber* lineWidth;
+@property (strong, nonatomic) UIColor* strokeColor;
 @end

@@ -4,7 +4,7 @@ var tabGroup = Ti.UI.createTabGroup();
 var tab1 = Titanium.UI.createTab({ window:win });
 
 var introLabel = Ti.UI.createLabel({
-	text:'Welcome to the benCoding.Map module. The below demonstrate on how to use Polygons and Circles in your MapView projects.',
+	text:'Welcome to the benCoding.Map module. The below demonstrate on how to use Polygons, Circles, and KML Files in your MapView projects.',
 	top:20,height:100,left:10,right:10
 });
 win.add(introLabel);
@@ -41,6 +41,22 @@ bCircleSample.addEventListener('click',function() {
 	tab1.open(win,{animated:true});
 });
 
+
+var bKMLSample = Ti.UI.createButton({
+	title:'KML File Sample', top: 290, left:30, right:30, height:42
+});
+win.add(bKMLSample);
+
+bKMLSample.addEventListener('click',function() {
+	var win = Ti.UI.createWindow({
+					url:'kml_sample.js',
+					backgroundColor:'#fff',
+					title:'KML Sample', 
+					tabBarHidden:true
+			});
+					
+	tab1.open(win,{animated:true});
+});
 
 // create tab group
 

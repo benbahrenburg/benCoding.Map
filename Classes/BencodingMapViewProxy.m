@@ -199,131 +199,6 @@
 	}
 }
 
--(void)removeAllCircles:(id)arg
-{
-	if ([self viewAttached]) {
-        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] removeAllCircles:arg];}, NO);
-	}
-	else 
-	{        
-        RELEASE_TO_NIL(circlesToRemove);
-        RELEASE_TO_NIL(circlesToAdd);
-	}
-}
--(void)removeCircle:(id)args
-{
-	ENSURE_SINGLE_ARG(args,NSDictionary);
-    
-	if ([self viewAttached]) 
-	{
-        TiThreadPerformOnMainThread(^{
-            [(BencodingMapView*)[self view] removeCircle:args];
-        }, NO);
-	}
-	else 
-	{
-		if (circlesToRemove==nil)
-		{
-			circlesToRemove = [[NSMutableArray alloc] init];
-		}
-		if (circlesToAdd!=nil && [circlesToAdd containsObject:args]) 
-		{
-			[circlesToAdd removeObject:args];
-		}
-		else 
-		{
-			[circlesToRemove addObject:args];
-		}
-	}
-}
-
--(void)addCircle:(id)args
-{
-	ENSURE_SINGLE_ARG(args,NSDictionary);
-    
-    if ([self viewAttached]) {
-        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] addCircle:args];}, NO);
-	}
-	else 
-	{
-		if (circlesToAdd==nil)
-		{
-			circlesToAdd = [[NSMutableArray alloc] init];
-		}
-		if (circlesToRemove!=nil && [circlesToRemove containsObject:args]) 
-		{
-			[circlesToRemove removeObject:args];
-		}
-		else 
-		{
-			[circlesToAdd addObject:args];
-		}
-	}        
-}
-
--(void)removeAllPolygons:(id)arg
-{
-	if ([self viewAttached]) {
-        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] removeAllPolygons:arg];}, NO);
-	}
-	else 
-	{        
-        RELEASE_TO_NIL(polygonsToRemove);
-        RELEASE_TO_NIL(polygonsToAdd);
-	}
-}
--(void)removePolygon:(id)args
-{
-	ENSURE_SINGLE_ARG(args,NSDictionary);
-    
-	if ([self viewAttached]) 
-	{
-        TiThreadPerformOnMainThread(^{
-            [(BencodingMapView*)[self view] removePolygon:args];
-        }, NO);
-	}
-	else 
-	{
-		if (polygonsToRemove==nil)
-		{
-			polygonsToRemove = [[NSMutableArray alloc] init];
-		}
-		if (polygonsToAdd!=nil && [polygonsToAdd containsObject:args]) 
-		{
-			[polygonsToAdd removeObject:args];
-		}
-		else 
-		{
-			[polygonsToRemove addObject:args];
-		}
-	}
-}
-
--(void)addPolygon:(id)args
-{
-	ENSURE_SINGLE_ARG(args,NSDictionary);
-    
-    if ([self viewAttached]) {
-        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] addPolygon:args];}, NO);
-	}
-	else 
-	{
-		if (polygonsToAdd==nil)
-		{
-			polygonsToAdd = [[NSMutableArray alloc] init];
-		}
-		if (polygonsToRemove!=nil && [polygonsToRemove containsObject:args]) 
-		{
-			[polygonsToRemove removeObject:args];
-		}
-		else 
-		{
-			[polygonsToAdd addObject:args];
-		}
-	}    
-    
-}
-
 -(void)addAnnotation:(id)arg
 {
 	ENSURE_SINGLE_ARG(arg,NSObject)
@@ -561,6 +436,168 @@
 	}
 }
 
+-(void)removeAllCircles:(id)arg
+{
+	if ([self viewAttached]) {
+        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] removeAllCircles:arg];}, NO);
+	}
+	else 
+	{        
+        RELEASE_TO_NIL(circlesToRemove);
+        RELEASE_TO_NIL(circlesToAdd);
+	}
+}
+-(void)removeCircle:(id)args
+{
+	ENSURE_SINGLE_ARG(args,NSDictionary);
+    
+	if ([self viewAttached]) 
+	{
+        TiThreadPerformOnMainThread(^{
+            [(BencodingMapView*)[self view] removeCircle:args];
+        }, NO);
+	}
+	else 
+	{
+		if (circlesToRemove==nil)
+		{
+			circlesToRemove = [[NSMutableArray alloc] init];
+		}
+		if (circlesToAdd!=nil && [circlesToAdd containsObject:args]) 
+		{
+			[circlesToAdd removeObject:args];
+		}
+		else 
+		{
+			[circlesToRemove addObject:args];
+		}
+	}
+}
 
+-(void)addCircle:(id)args
+{
+	ENSURE_SINGLE_ARG(args,NSDictionary);
+    
+    if ([self viewAttached]) {
+        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] addCircle:args];}, NO);
+	}
+	else 
+	{
+		if (circlesToAdd==nil)
+		{
+			circlesToAdd = [[NSMutableArray alloc] init];
+		}
+		if (circlesToRemove!=nil && [circlesToRemove containsObject:args]) 
+		{
+			[circlesToRemove removeObject:args];
+		}
+		else 
+		{
+			[circlesToAdd addObject:args];
+		}
+	}        
+}
 
+-(void)removeAllPolygons:(id)arg
+{
+	if ([self viewAttached]) {
+        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] removeAllPolygons:arg];}, NO);
+	}
+	else 
+	{        
+        RELEASE_TO_NIL(polygonsToRemove);
+        RELEASE_TO_NIL(polygonsToAdd);
+	}
+}
+-(void)removePolygon:(id)args
+{
+	ENSURE_SINGLE_ARG(args,NSDictionary);
+    
+	if ([self viewAttached]) 
+	{
+        TiThreadPerformOnMainThread(^{
+            [(BencodingMapView*)[self view] removePolygon:args];
+        }, NO);
+	}
+	else 
+	{
+		if (polygonsToRemove==nil)
+		{
+			polygonsToRemove = [[NSMutableArray alloc] init];
+		}
+		if (polygonsToAdd!=nil && [polygonsToAdd containsObject:args]) 
+		{
+			[polygonsToAdd removeObject:args];
+		}
+		else 
+		{
+			[polygonsToRemove addObject:args];
+		}
+	}
+}
+
+-(void)addPolygon:(id)args
+{
+	ENSURE_SINGLE_ARG(args,NSDictionary);
+    
+    if ([self viewAttached]) {
+        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] addPolygon:args];}, NO);
+	}
+	else 
+	{
+		if (polygonsToAdd==nil)
+		{
+			polygonsToAdd = [[NSMutableArray alloc] init];
+		}
+		if (polygonsToRemove!=nil && [polygonsToRemove containsObject:args]) 
+		{
+			[polygonsToRemove removeObject:args];
+		}
+		else 
+		{
+			[polygonsToAdd addObject:args];
+		}
+	}    
+    
+}
+
+-(void)addKML:(id)args
+{
+	ENSURE_SINGLE_ARG(args,NSDictionary)
+	if ([self viewAttached]) 
+	{
+		TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] addKML:args];}, NO);
+	}
+}
+
+-(void)removeKML:(id)args
+{
+	ENSURE_SINGLE_ARG(args,NSDictionary)
+	if ([self viewAttached]) 
+	{
+		TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] removeKML:args];}, NO);
+	}
+}
+
+-(void)clear:(id)unused
+{
+	if ([self viewAttached]) 
+	{
+		TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] clear:unused];}, NO);
+	}
+}
+-(void)ZoomOutFull:(id)unused
+{
+    if ([self viewAttached]) 
+	{
+		TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] ZoomOutFull:unused];}, NO);
+	}
+}
+-(void)ZoomToFit:(id)unused
+{
+  	if ([self viewAttached]) 
+	{
+		TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] ZoomToFit:unused];}, NO);
+	}  
+}
 @end

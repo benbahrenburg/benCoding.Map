@@ -41,7 +41,6 @@
 @property (nonatomic, readonly) CLLocationDegrees longitudeDelta;
 @property (nonatomic, readonly) CLLocationDegrees latitudeDelta;
 @property (nonatomic, readonly) NSArray *customAnnotations;
-@property (nonatomic) MKUserTrackingMode userTrackingMode;
 
 #pragma mark Private APIs
 -(TiMapAnnotationProxy*)annotationFromArg:(id)arg;
@@ -50,9 +49,15 @@
 - (TiMapAnnotationProxy*)proxyForAnnotation:(MKAnnotationView*)pinview;
 
 #pragma mark Public APIs
+- (MKOverlayView *)prepareOverlayForPresentation:(id <MKOverlay>)overlay;
+-(void) clear:(id)unused;
 -(void)removeAllCircles:(id)arg;
 -(void)removeCircle:(id)args;
 -(void)addCircle:(id)args;
+-(void)addKML:(id)args;
+-(void)removeKML:(id)args;
+-(void)ZoomOutFull:(id)unused;
+-(void)ZoomToFit:(id)unused;
 
 -(void)removeAllPolygons:(id)arg;
 -(void)removePolygon:(id)args;

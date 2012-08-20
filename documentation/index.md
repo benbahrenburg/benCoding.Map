@@ -278,7 +278,7 @@ Parameters:
 //Add the core module into your project
 var map = require('bencoding.map');
 map.addKML({
-    path:"MID_SIZED_SAMPLE.kml", //Path to your KML file
+    path:'MID_SIZED_SAMPLE.kml', //Path to your KML file
     flyTo:false, //Will set your zoom to show all of your points added (false by default)        
     //Contains all of the details used to process overlays from your KML file
     overlayInfo:{
@@ -415,7 +415,7 @@ The KML functions contains modified code provided by Apple in their KML Viewer s
 
 The benCoding.Map is a open source project.  Please help us by contributing to documentation, reporting bugs, forking the code to add features or make bug fixes or promoting on twitter, etc.
 
-<h2>Contributors</h2>
+<h2>Other Contributors</h2>
 
 User Tracking was added by Jose Carlos Andreu [@Joscandreu](https://twitter.com/Joscandreu)
 

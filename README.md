@@ -25,9 +25,9 @@ Video of the module running a Circle example [http://www.youtube.com/watch?v=jwn
 
 <h4>KML File Example</h4>
 
-Video of the module running a KML example [http://www.youtube.com/watch?v=CIOVyQL9Oiw](http://www.youtube.com/watch?v=CIOVyQL9Oiw).
+Video of the module running a KML example [http://www.youtube.com/watch?v=vjD8UkCGVHk](http://www.youtube.com/watch?v=vjD8UkCGVHk).
 
-![Screenshot](http://farm8.staticflickr.com/7116/7818117804_7fa021bdc2_o.jpg)
+![Screenshot](http://farm8.staticflickr.com/7259/7824132160_24a9f9975c.jpg)
 
 <h2>Before you start</h2>
 * You need Titanium 1.8.2 or greater.

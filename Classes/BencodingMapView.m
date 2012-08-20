@@ -1472,6 +1472,7 @@ bool respondsToMKUserTrackingMode = NO;
         int pincolor = [TiUtils intValue:@"pincolor" properties:annotationInfo def:MKPinAnnotationColorRed]; 
         
         NSArray *annotations = [kmlParser points];
+        //NSLog(@"annotations count %i",[annotations count]);
         
         for (id <MKAnnotation> annotation in annotations) {
             if(enableFlyTo)
@@ -1522,7 +1523,7 @@ bool respondsToMKUserTrackingMode = NO;
 -(void)ZoomOutFull:(id)unused
 {
     @try {
-        ENSURE_UI_THREAD(ZoomToWorld,unused);
+        ENSURE_UI_THREAD(ZoomOutFull,unused);
         MKMapRect fullRect = MKMapRectMake(map.bounds.origin.x, map.bounds.origin.y, 
                                             map.bounds.size.width, map.bounds.size.height);
         map.visibleMapRect = fullRect; 

@@ -256,9 +256,8 @@ You can now use kml files to create your polygons and annotations.
 
 The addKML method allows you to provide a path to a KML file and a few options on how to handle the parsing.  The Map Module will then parse the KML file and create annotations and polygons using the details provided.
 
-PLEASE NOTE : You can easily add more polygons then the mapView can handle, using this method. You will want to test your different KML files to make sure they are sized correctly.
-
-iOS Simulator Issue: There is a simulator issue that can cause a crash if you have to many polygons. This is related to the double click to zoom nature of the simulator and will not impact the device.
+Usage Details:
+The addKML method is only available to add KML file objects after the mapView has been rendered to the window.
 
 Parameters:
 * path : String -
@@ -296,6 +295,10 @@ map.addKML({
     }     
 }); 
 </code></pre>
+
+PLEASE NOTE : You can easily add more polygons then the mapView can handle, using this method. You will want to test your different KML files to make sure they are sized correctly.
+
+iOS Simulator Issue: There is a simulator issue that can cause a crash if you have to many polygons. This is related to the double click to zoom nature of the simulator and will not impact the device.
 
 <h3>KML Loaded Listener</h3>
 
@@ -370,12 +373,15 @@ Parameters:
 //Add the core module into your project
 var map = require('bencoding.map');
 //Zoom all of the way out to show full world
-map.ZoomToWorld();
+map.ZoomOutFull();
 </code></pre>
 
 <h3>ZoomToFit</h3>
 
 This method zooms the mapview in to focus on a region containing your annotations, polgyons, and other objects.
+
+Usage Details:
+The ZoomToFit method is only available to add KML file objects after the mapView has been rendered to the window.
 
 Parameters:
 * None

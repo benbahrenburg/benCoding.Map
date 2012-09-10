@@ -15,6 +15,7 @@
 #import "TiMapAnnotationProxy.h"
 #import "ExtPolygon.h"
 #import "ExtCircle.h"
+#import "WildcardGestureRecognizer.h"
 
 @interface BencodingMapView : TiUIView<MKMapViewDelegate> {
 @private
@@ -36,6 +37,7 @@
 	BOOL manualSelect;
     NSMutableArray* polygonOverlays;
     NSMutableArray* circleOverlays;
+    WildcardGestureRecognizer * tapInterceptor;
 }
 
 @property (nonatomic, readonly) CLLocationDegrees longitudeDelta;
@@ -56,7 +58,6 @@
 -(void)addCircle:(id)args;
 -(void)addKML:(id)args;
 -(void)removeKML:(id)args;
--(void)ZoomOutFull:(id)unused;
 -(void)ZoomToFit:(id)unused;
 
 -(void)removeAllPolygons:(id)arg;

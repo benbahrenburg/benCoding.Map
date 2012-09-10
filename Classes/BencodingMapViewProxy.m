@@ -586,13 +586,7 @@
 		TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] clear:unused];}, NO);
 	}
 }
--(void)ZoomOutFull:(id)unused
-{
-    if ([self viewAttached]) 
-	{
-		TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] ZoomOutFull:unused];}, NO);
-	}
-}
+
 -(void)ZoomToFit:(id)unused
 {
   	if ([self viewAttached]) 

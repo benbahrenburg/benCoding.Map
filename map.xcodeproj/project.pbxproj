@@ -13,6 +13,8 @@
 		24DE9E1211C5FE74003F90F6 /* BencodingMapModuleAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DE9E1011C5FE74003F90F6 /* BencodingMapModuleAssets.m */; };
 		4336003415DFF3F400FF7870 /* KMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4336003215DFF3F400FF7870 /* KMLParser.h */; };
 		4336003515DFF3F400FF7870 /* KMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4336003315DFF3F400FF7870 /* KMLParser.m */; };
+		4363253415E2F56C005D155A /* WildcardGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4363253215E2F56C005D155A /* WildcardGestureRecognizer.h */; };
+		4363253515E2F56C005D155A /* WildcardGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4363253315E2F56C005D155A /* WildcardGestureRecognizer.m */; };
 		438D5E7E15A7DDB200800468 /* BencodingMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 438D5E7C15A7DDB200800468 /* BencodingMapView.h */; };
 		438D5E7F15A7DDB200800468 /* BencodingMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D5E7D15A7DDB200800468 /* BencodingMapView.m */; };
 		438D5E8315A7DF3D00800468 /* BencodingMapViewProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 438D5E8115A7DF3D00800468 /* BencodingMapViewProxy.h */; };
@@ -33,6 +35,8 @@
 		24DE9E1011C5FE74003F90F6 /* BencodingMapModuleAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BencodingMapModuleAssets.m; path = Classes/BencodingMapModuleAssets.m; sourceTree = "<group>"; };
 		4336003215DFF3F400FF7870 /* KMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KMLParser.h; path = Classes/KMLParser.h; sourceTree = "<group>"; };
 		4336003315DFF3F400FF7870 /* KMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KMLParser.m; path = Classes/KMLParser.m; sourceTree = "<group>"; };
+		4363253215E2F56C005D155A /* WildcardGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WildcardGestureRecognizer.h; path = Classes/WildcardGestureRecognizer.h; sourceTree = "<group>"; };
+		4363253315E2F56C005D155A /* WildcardGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WildcardGestureRecognizer.m; path = Classes/WildcardGestureRecognizer.m; sourceTree = "<group>"; };
 		438D5E7C15A7DDB200800468 /* BencodingMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BencodingMapView.h; path = Classes/BencodingMapView.h; sourceTree = "<group>"; };
 		438D5E7D15A7DDB200800468 /* BencodingMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BencodingMapView.m; path = Classes/BencodingMapView.m; sourceTree = "<group>"; };
 		438D5E8115A7DF3D00800468 /* BencodingMapViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BencodingMapViewProxy.h; path = Classes/BencodingMapViewProxy.h; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 				438D5E8C15A89BCA00800468 /* ExtPolygon.m */,
 				438D759815AA2067003735C3 /* ExtCircle.h */,
 				438D759915AA2067003735C3 /* ExtCircle.m */,
+				4363253215E2F56C005D155A /* WildcardGestureRecognizer.h */,
+				4363253315E2F56C005D155A /* WildcardGestureRecognizer.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -130,6 +136,7 @@
 				438D5E8D15A89BCA00800468 /* ExtPolygon.h in Headers */,
 				438D759A15AA2067003735C3 /* ExtCircle.h in Headers */,
 				4336003415DFF3F400FF7870 /* KMLParser.h in Headers */,
+				4363253415E2F56C005D155A /* WildcardGestureRecognizer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +200,7 @@
 				438D5E8E15A89BCA00800468 /* ExtPolygon.m in Sources */,
 				438D759B15AA2067003735C3 /* ExtCircle.m in Sources */,
 				4336003515DFF3F400FF7870 /* KMLParser.m in Sources */,
+				4363253515E2F56C005D155A /* WildcardGestureRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

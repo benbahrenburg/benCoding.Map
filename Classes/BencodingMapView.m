@@ -23,6 +23,7 @@
 #pragma mark Internal
 
 bool respondsToMKUserTrackingMode = NO;
+bool polygonClickListenerAdded = NO;
 
 -(void)dealloc
 {
@@ -48,7 +49,10 @@ bool respondsToMKUserTrackingMode = NO;
     {
         RELEASE_TO_NIL(circleOverlays);
     } 
-    
+    if(tapInterceptor!=nil)
+    {
+        RELEASE_TO_NIL(tapInterceptor);
+    }
 	[super dealloc];
 }
 
@@ -83,6 +87,14 @@ bool respondsToMKUserTrackingMode = NO;
         mapName2Line = CFDictionaryCreateMutable(NULL, 10, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
         //Initialize loaded state to YES. This will automatically go to NO if the map needs to download new data
         loaded = YES;
+        
+        //Add in User Tracking
+        respondsToMKUserTrackingMode = [MKMapView instancesRespondToSelector:@selector(setUserTrackingMode:)];
+    
+        if (respondsToMKUserTrackingMode)
+        {
+             map.userTrackingMode = MKUserTrackingModeNone;
+        }
     }
     return map;
 }
@@ -903,6 +915,61 @@ bool respondsToMKUserTrackingMode = NO;
     return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
 }
 
+//-(void) addPolygonTouch
+//{
+//    tapInterceptor = [[WildcardGestureRecognizer alloc] init];
+//    tapInterceptor.touchesBeganCallback = ^(NSSet * touches, UIEvent * event) {
+//        UITouch *touch = [touches anyObject];
+//        CGPoint point = [touch locationInView:self.map];
+//        
+//        CLLocationCoordinate2D coord = [self.map convertPoint:point toCoordinateFromView:self.map];
+//        MKMapPoint mapPoint = MKMapPointForCoordinate(coord);
+//        for (id overlay in self.map.overlays) 
+//        {
+//            if ([overlay isKindOfClass:[MKPolygon class]])
+//            {
+//                MKPolygon *poly = (MKPolygon*) overlay;
+//                id view = [self.map viewForOverlay:poly];
+//                if ([view isKindOfClass:[MKPolygonView class]])
+//                {
+//                    MKPolygonView *polyView = (MKPolygonView*) view;
+//                    CGPoint polygonViewPoint = [polyView pointForMapPoint:mapPoint];
+//                    BOOL mapCoordinateIsInPolygon = CGPathContainsPoint(polyView.path, NULL, polygonViewPoint, NO);   
+//                    if (mapCoordinateIsInPolygon) {
+//                        if (([self.proxy _hasListeners:@"polygonClick"]) && (poly.title!=nil))
+//                        {
+//                            NSDictionary * event = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                                    @"polygon",@"clicksource",
+//                                                    poly.title,@"title", nil];                                     
+//                            [self.proxy fireEvent:@"polygonClick" withObject:event];
+//                            
+//                        }
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//        
+//    };
+//    [self.map addGestureRecognizer:tapInterceptor]; 
+//    polygonClickListenerAdded=YES;
+//}
+//
+//-(void)setPolygonTouchTracking_:(id)value
+//{
+//    BOOL touchCommand = [TiUtils boolValue:value];
+//    
+//    if((polygonClickListenerAdded==NO)&&(touchCommand))
+//    {
+//        [self addPolygonTouch];
+//    }
+//    if((polygonClickListenerAdded)&&(touchCommand==NO))
+//    {
+//       [self.map removeGestureRecognizer:tapInterceptor]; 
+//        polygonClickListenerAdded=NO;
+//    }
+//}
+
 - (MKOverlayView *)prepareOverlayForPresentation:(id <MKOverlay>)overlay
 {	
     
@@ -1400,7 +1467,6 @@ bool respondsToMKUserTrackingMode = NO;
             
             if ([overlay isKindOfClass:[MKPolygon class]])
             {
-                overlay.title=overlayTitle;
                 if(useRandomColor)
                 {
                     overlayColor=[self randomColor];
@@ -1408,7 +1474,8 @@ bool respondsToMKUserTrackingMode = NO;
                 //Build our extension object, so we can format on display
                 ExtPolygon *newPolygon = [[[ExtPolygon alloc] 
                                            initWithParameters:overlayColor 
-                                           alpha:alpha title:overlayTitle 
+                                           alpha:alpha
+                                           title:overlayTitle
                                            polygon:(MKPolygon*)overlay 
                                            linewidth:lineWidth]autorelease];
                 
@@ -1432,12 +1499,12 @@ bool respondsToMKUserTrackingMode = NO;
             }
             
             if ([overlay isKindOfClass:[MKCircle class]])
-            {
-                overlay.title=overlayTitle;            
+            {           
                 //Build our extension object, so we can format on display
                 ExtCircle *newCircle = [[[ExtCircle alloc] 
                                          initWithParameters:overlayColor 
-                                         alpha:alpha title:overlayTitle 
+                                         alpha:alpha
+                                         title:overlayTitle
                                          polygon:(MKCircle*)overlay 
                                          linewidth:lineWidth] autorelease];
                 
@@ -1520,10 +1587,9 @@ bool respondsToMKUserTrackingMode = NO;
     
 }
 
--(void)ZoomOutFull:(id)unused
+-(void)setZoomOutFull_:(id)unused
 {
     @try {
-        ENSURE_UI_THREAD(ZoomOutFull,unused);
         MKMapRect fullRect = MKMapRectMake(map.bounds.origin.x, map.bounds.origin.y, 
                                             map.bounds.size.width, map.bounds.size.height);
         map.visibleMapRect = fullRect; 

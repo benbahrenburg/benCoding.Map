@@ -589,9 +589,17 @@
 
 -(void)ZoomToFit:(id)unused
 {
-  	if ([self viewAttached]) 
+  	if ([self viewAttached])
 	{
 		TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] ZoomToFit:unused];}, NO);
+	}
+}
+
+-(void)ZoomOutFull:(id)unused
+{
+  	if ([self viewAttached]) 
+	{
+		TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] ZoomOutFull:unused];}, NO);
 	}  
 }
 @end

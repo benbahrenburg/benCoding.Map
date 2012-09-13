@@ -1587,7 +1587,7 @@ bool polygonClickListenerAdded = NO;
     
 }
 
--(void)setZoomOutFull_:(id)unused
+-(void)ZoomOutFull:(id)unused
 {
     @try {
         MKMapRect fullRect = MKMapRectMake(map.bounds.origin.x, map.bounds.origin.y, 

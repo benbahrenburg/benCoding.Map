@@ -24,6 +24,10 @@
 
 bool respondsToMKUserTrackingMode = NO;
 bool polygonClickListenerAdded = NO;
+NSString const* kOverlayIsTypePolygon = @"Polygon";
+NSString const* kOverlayIsTypeCircle = @"Circle";
+NSString const* kOverlayIsTypeSquare = @"Square";
+NSString const* kOverlayIsTypeImage = @"SquareImage";
 
 -(void)dealloc
 {
@@ -41,14 +45,11 @@ bool polygonClickListenerAdded = NO;
         mapName2Line = nil;
     }
     
-    if(polygonOverlays!=nil)
+    if(metaForOverlays!=nil)
     {
-        RELEASE_TO_NIL(polygonOverlays);
+        RELEASE_TO_NIL(metaForOverlays);
     }
-    if(circleOverlays!=nil)
-    {
-        RELEASE_TO_NIL(circleOverlays);
-    } 
+
     if(tapInterceptor!=nil)
     {
         RELEASE_TO_NIL(tapInterceptor);
@@ -970,73 +971,107 @@ bool polygonClickListenerAdded = NO;
 //    }
 //}
 
+-(BBOverlay*) findExtraOverlayProperties2:(id <MKOverlay>)overlay
+{
+    return nil;
+}
+
+-(BBOverlay*) findExtraOverlayProperties:(id <MKOverlay>)overlay overlayType:(const NSString *) overlayType
+{
+    BBOverlay* properties = nil;
+    BOOL found = NO;
+    if(metaForOverlays!=nil)
+    {
+        for (BBOverlay *lay in metaForOverlays)
+        {
+            if (lay.OverlayType == kOverlayIsTypePolygon)
+            {
+                if (lay.Overlay == overlay)
+                {
+                    properties=lay;
+                    found=YES;
+                    break;
+                }
+            }
+        }
+    }
+    if(found)
+    {
+        return properties;
+    }
+    else
+    {
+        return nil;
+    }
+}
 - (MKOverlayView *)prepareOverlayForPresentation:(id <MKOverlay>)overlay
-{	
+{
     
     @try {
         if ([overlay isKindOfClass:[MKPolygon class]])
         {
-            MKPolygonView *polygonView = [[[MKPolygonView alloc] initWithPolygon:overlay] autorelease]; 
-            if(polygonOverlays!=nil)
+            MKPolygonView *polygonView = [[[MKPolygonView alloc] initWithPolygon:overlay] autorelease];
+            BBOverlay* extraProperties = [self findExtraOverlayProperties:overlay overlayType:kOverlayIsTypePolygon];
+            if(extraProperties!=nil)
             {
-                for (ExtPolygon *pgc in polygonOverlays) 
-                {    
-                    if (pgc.Polygon == overlay)
-                    {
-                        if(pgc.Color==nil)
-                        {
-                          polygonView.fillColor = [UIColor greenColor];
-                        }
-                        else
-                        {
-                            polygonView.fillColor=pgc.Color;
-                        }
-                        if(pgc.strokeColor!=nil)
-                        {
-                            polygonView.strokeColor=pgc.strokeColor;
-                        }    
-                        polygonView.alpha=[pgc.Alpha floatValue];
-                        polygonView.lineWidth=[pgc.lineWidth floatValue];
-                        break;
-                    }
-                }                
+                if(extraProperties.Color==nil)
+                {
+                    polygonView.fillColor = [UIColor greenColor];
+                }
+                else
+                {
+                    polygonView.fillColor=extraProperties.Color;
+                }
+                if(extraProperties.strokeColor!=nil)
+                {
+                    polygonView.strokeColor=extraProperties.strokeColor;
+                }
+                polygonView.alpha=[extraProperties.Alpha floatValue];
+                polygonView.lineWidth=[extraProperties.lineWidth floatValue];
             }
             
-            return polygonView;        
-        } 
+            return polygonView;
+        }
         else if ([overlay isKindOfClass:[MKCircle class]])
         {
-            MKCircleView *cirlceView = [[[MKCircleView alloc] initWithCircle:overlay] autorelease]; 
-            if(circleOverlays!=nil)
-            {
-                for (ExtCircle *extCircle in circleOverlays)
-                {
-                  if (extCircle.Circle == overlay)
-                  {
-                      if(extCircle.Color==nil)
-                      {
-                          cirlceView.fillColor = [UIColor greenColor];
-                      }
-                      else
-                      {
-                          cirlceView.fillColor=extCircle.Color;
-                      }
-                      if(extCircle.strokeColor!=nil)
-                      {
-                          cirlceView.strokeColor=extCircle.strokeColor;
-                      }    
-                      cirlceView.alpha=[extCircle.Alpha floatValue];
-                      cirlceView.lineWidth=[extCircle.lineWidth floatValue];
-                      break;
-                  }
-                }
-            }
+            MKCircleView *cirlceView = [[[MKCircleView alloc] initWithCircle:overlay] autorelease];
+            BBOverlay* extraProperties = [self findExtraOverlayProperties:overlay overlayType:kOverlayIsTypeCircle];
             
-            return cirlceView;           
+            if(extraProperties.Color==nil)
+            {
+                cirlceView.fillColor = [UIColor greenColor];
+            }
+            else
+            {
+                cirlceView.fillColor=extraProperties.Color;
+            }
+            if(extraProperties.strokeColor!=nil)
+            {
+                cirlceView.strokeColor=extraProperties.strokeColor;
+            }
+            cirlceView.alpha=[extraProperties.Alpha floatValue];
+            cirlceView.lineWidth=[extraProperties.lineWidth floatValue];
+            
+            return cirlceView;
         }
         else if ([overlay isKindOfClass:[MKPolyline class]])
         {
             return (MKOverlayView *)CFDictionaryGetValue(mapLine2View, overlay);
+        }
+        else if ([overlay isKindOfClass:[BBSquareOverlay class]])
+        {
+            BBOverlay* extraProperties = [self findExtraOverlayProperties:overlay overlayType:kOverlayIsTypeImage];
+            if(extraProperties==nil)
+            {
+                return nil;
+            }
+            else
+            {
+                BBSquareOverlay *mapOverlay = (BBSquareOverlay *)overlay;
+                BBMapOverlayView *mapOverlayView = [[[BBMapOverlayView alloc] initWithOverlay:mapOverlay] autorelease];
+                mapOverlayView.ImagePath=extraProperties.ImagePath;
+                return mapOverlayView;
+            }
         }
         else
         {
@@ -1050,18 +1085,32 @@ bool polygonClickListenerAdded = NO;
 }
 -(void)removeAllCircles:(id)arg
 {
-	ENSURE_UI_THREAD(removeAllCircles,arg);    
+	ENSURE_UI_THREAD(removeAllCircles,arg);
+    NSMutableArray *toDelete = [NSMutableArray array];
     
     //Remove overlay from map
-    for (id <MKOverlay> overlay in [self map].overlays) {        
+    for (id <MKOverlay> overlay in [self map].overlays) {
         //We only care about polgyons
         if ([overlay isKindOfClass:[MKCircle class]])
         {
             [[self map] removeOverlay:overlay];
-        }        
-    } 
-    //Remove our polygon cache
-    RELEASE_TO_NIL(circleOverlays);
+        }
+    }
+    if(metaForOverlays!=nil)
+    {
+        for (BBOverlay *lay in metaForOverlays)
+        {
+            if(lay.OverlayType==kOverlayIsTypeCircle)
+            {
+                [toDelete addObject:lay];
+            }
+        }
+        //Remove our polygon cache
+        if([toDelete count]>0)
+        {
+            [metaForOverlays removeObjectsInArray:toDelete];
+        }
+    }
     
 }
 -(void) cirleQueryToRemove:(NSString*)filter
@@ -1080,23 +1129,26 @@ bool polygonClickListenerAdded = NO;
     }  
     
     //Remove circle from collection
-    if(circleOverlays!=nil)
+    if(metaForOverlays!=nil)
     {
         NSMutableArray *toDelete = [NSMutableArray array];
-        for (ExtCircle *extCircle in circleOverlays) 
+        for (BBOverlay *lay in metaForOverlays)
         {
-            if ([extCircle.Title isEqualToString: filter])
+            if(lay.OverlayType==kOverlayIsTypeCircle)
             {
-                if([circleOverlays containsObject:extCircle])
+                if ([lay.Title isEqualToString: filter])
                 {
-                    [toDelete addObject:extCircle];                 
+                    if([metaForOverlays containsObject:lay])
+                    {
+                        [toDelete addObject:lay];
+                    }
                 }
             }
         }
         
         if([toDelete count]>0)
         {
-            [polygonOverlays removeObjectsInArray:toDelete]; 
+            [metaForOverlays removeObjectsInArray:toDelete];
         }
     }  
 }
@@ -1143,10 +1195,13 @@ bool polygonClickListenerAdded = NO;
     float lineWidth = [TiUtils floatValue:@"lineWidth" properties:args def:1.0];
     
     //Build our extension object, so we can format on display
-    ExtCircle *newCircle = [[[ExtCircle alloc] 
-                             initWithParameters:circleColor 
-                             alpha:alpha title:circleTitle 
-                             polygon:circleToAdd 
+    
+    BBOverlay *newCircle = [[[BBOverlay alloc]
+                             initWithParameters:kOverlayIsTypeCircle
+                             color:circleColor
+                             alpha:alpha
+                             title:circleTitle
+                             overlay:circleToAdd
                              linewidth:lineWidth] autorelease];
     
     //Get the optional strokeColor
@@ -1158,13 +1213,13 @@ bool polygonClickListenerAdded = NO;
     }
     
     //If our circle collection isn't create, do so
-    if (circleOverlays==nil)
+    if (metaForOverlays==nil)
     {
-        circleOverlays = [[NSMutableArray alloc] init];
+        metaForOverlays = [[NSMutableArray alloc] init];
     }
     
     //Add the newly created circle to our collection
-    [circleOverlays addObject:newCircle];
+    [metaForOverlays addObject:newCircle];
     
     //Add the circle to the map
     [[self map] addOverlay:circleToAdd];
@@ -1184,7 +1239,22 @@ bool polygonClickListenerAdded = NO;
         }        
     } 
     //Remove our polygon cache
-    RELEASE_TO_NIL(polygonOverlays);
+    if(metaForOverlays!=nil)
+    {
+        NSMutableArray *toDelete = [NSMutableArray array];
+        for (BBOverlay *lay in metaForOverlays)
+        {
+            if(lay.OverlayType==kOverlayIsTypePolygon)
+            {
+                [toDelete addObject:lay];
+            }
+        }
+        
+        if([toDelete count]>0)
+        {
+            [metaForOverlays removeObjectsInArray:toDelete];
+        }
+    }
 }
 -(void) clear:(id)unused
 {
@@ -1199,8 +1269,8 @@ bool polygonClickListenerAdded = NO;
     [self removeAllAnnotations:unused];
     
    //Remove our overlay cache
-    RELEASE_TO_NIL(polygonOverlays);
-    RELEASE_TO_NIL(circleOverlays);    
+    RELEASE_TO_NIL(metaForOverlays);
+  
 }
 -(void) polygonQueryToRemove:(NSString*)filter
 {
@@ -1217,26 +1287,31 @@ bool polygonClickListenerAdded = NO;
             }
         }        
     }  
-    
+
     //Remove polygon from collection
-    if(polygonOverlays!=nil)
+    if(metaForOverlays!=nil)
     {
         NSMutableArray *toDelete = [NSMutableArray array];
-        for (ExtPolygon *pgc in polygonOverlays) 
+        for (BBOverlay *lay in metaForOverlays)
         {
-            if ([pgc.Title isEqualToString: filter])
+            if(lay.OverlayType==kOverlayIsTypePolygon)
             {
-                if([polygonOverlays containsObject:pgc])
+                if ([lay.Title isEqualToString: filter])
                 {
-                    [toDelete addObject:pgc];              
+                    if([metaForOverlays containsObject:lay])
+                    {
+                        [toDelete addObject:lay];
+                    }
                 }
             }
         }
+        
         if([toDelete count]>0)
         {
-            [polygonOverlays removeObjectsInArray:toDelete]; 
+            [metaForOverlays removeObjectsInArray:toDelete];
         }
     }
+
 }
 -(void)removePolygon:(id)args
 {
@@ -1296,10 +1371,12 @@ bool polygonClickListenerAdded = NO;
     //Get our lineWidth, if not provoded default to 1.0
     float lineWidth = [TiUtils floatValue:@"lineWidth" properties:args def:1.0];
     //Build our extension object, so we can format on display
-    ExtPolygon *newPolygon = [[[ExtPolygon alloc] 
-                               initWithParameters:polyColor 
-                               alpha:alpha title:polyTitle 
-                               polygon:polygonToAdd 
+    BBOverlay *newPolygon = [[[BBOverlay alloc]
+                               initWithParameters:kOverlayIsTypePolygon
+                               color:polyColor
+                               alpha:alpha
+                               title:polyTitle
+                               overlay:polygonToAdd
                                linewidth:lineWidth] autorelease];
     
     //Get the optional strokeColor
@@ -1311,13 +1388,13 @@ bool polygonClickListenerAdded = NO;
     }
     
     //If our polygon collection isn't create, do so
-    if (polygonOverlays==nil)
+    if (metaForOverlays==nil)
     {
-        polygonOverlays = [[NSMutableArray alloc] init];
+        metaForOverlays = [[NSMutableArray alloc] init];
     }
     
     //Add the newly created polgyon to our collection
-    [polygonOverlays addObject:newPolygon];
+    [metaForOverlays addObject:newPolygon];
     //Add the polgyon to the map
     [[self map] addOverlay:polygonToAdd];
     
@@ -1472,14 +1549,14 @@ bool polygonClickListenerAdded = NO;
                     overlayColor=[self randomColor];
                 }
                 //Build our extension object, so we can format on display
-                ExtPolygon *newPolygon = [[[ExtPolygon alloc] 
-                                           initWithParameters:overlayColor 
-                                           alpha:alpha
-                                           title:overlayTitle
-                                           polygon:(MKPolygon*)overlay 
-                                           linewidth:lineWidth]autorelease];
-                
-                
+                BBOverlay *newPolygon = [[[BBOverlay alloc]
+                                          initWithParameters:kOverlayIsTypePolygon
+                                          color:overlayColor
+                                          alpha:alpha
+                                          title:overlayTitle
+                                          overlay:(MKPolygon*)overlay 
+                                          linewidth:lineWidth] autorelease];
+                                
                 //We only add the strokeColor if it is provided
                 if (strokeColor != nil)
                 {
@@ -1487,13 +1564,13 @@ bool polygonClickListenerAdded = NO;
                 }
                 
                 //If our polygon collection isn't create, do so
-                if (polygonOverlays==nil)
+                if (metaForOverlays==nil)
                 {
-                    polygonOverlays = [[NSMutableArray alloc] init];
+                    metaForOverlays = [[NSMutableArray alloc] init];
                 }
                 
                 //Add the newly created polgyon to our collection
-                [polygonOverlays addObject:newPolygon];
+                [metaForOverlays addObject:newPolygon];
                 //Add the polgyon to the map
                 [[self map] addOverlay:overlay];
             }
@@ -1501,11 +1578,12 @@ bool polygonClickListenerAdded = NO;
             if ([overlay isKindOfClass:[MKCircle class]])
             {           
                 //Build our extension object, so we can format on display
-                ExtCircle *newCircle = [[[ExtCircle alloc] 
-                                         initWithParameters:overlayColor 
+                BBOverlay *newCircle = [[[BBOverlay alloc]
+                                         initWithParameters:kOverlayIsTypeCircle
+                                         color:overlayColor
                                          alpha:alpha
                                          title:overlayTitle
-                                         polygon:(MKCircle*)overlay 
+                                         overlay:(MKCircle*)overlay 
                                          linewidth:lineWidth] autorelease];
                 
                 //We only add the strokeColor if it is provided
@@ -1515,13 +1593,13 @@ bool polygonClickListenerAdded = NO;
                 }
                 
                 //If our circle collection isn't create, do so
-                if (circleOverlays==nil)
+                if (metaForOverlays==nil)
                 {
-                    circleOverlays = [[NSMutableArray alloc] init];
+                    metaForOverlays = [[NSMutableArray alloc] init];
                 }
                 
                 //Add the newly created circle to our collection
-                [circleOverlays addObject:newCircle];
+                [metaForOverlays addObject:newCircle];
                 
                 //Add the cirlce to the map
                 [[self map] addOverlay:overlay];

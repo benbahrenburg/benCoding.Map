@@ -62,7 +62,13 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
     if (![NSThread isMainThread]) {
         TiThreadPerformOnMainThread(^{[self render];}, NO);
         return;
-    }  	  
+    }
+    //TIMOB-10892 if any of below conditions is true , regionthatfits returns invalid.
+    if (map == nil || map.bounds.size.width == 0 || map.bounds.size.height == 0)
+    {
+        return;
+    }
+    
     if (region.center.latitude!=0 && region.center.longitude!=0)
     {
         if (regionFits) {

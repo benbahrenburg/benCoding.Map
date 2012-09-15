@@ -1281,6 +1281,8 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
 -(void) polygonQueryToRemove:(NSString*)filter
 {
     ENSURE_UI_THREAD(polygonQueryToRemove,filter);
+    //NSLog(@"polygonQueryToRemove Filter: %@", filter);
+    
     //Remove overlay from map
     for (id <MKOverlay> overlay in [self map].overlays) {        
         //We only care about polgyons
@@ -1451,11 +1453,11 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
     if(overlayInfo!=nil)
     {
         //Fetch our name we will be trying to remove
-        NSString *filter = [TiUtils stringValue:@"title" properties:overlayInfo];        
+        NSString *filter = [TiUtils stringValue:@"title" properties:overlayInfo];
         //Remove all polygons
-        [self polygonQueryToRemove:filter];    
+        [self polygonQueryToRemove:filter];
         //Remove all circles
-        [self cirleQueryToRemove:filter];        
+        [self cirleQueryToRemove:filter];
     }
 
     //If any annotation information is provided, loop through all annotations looking for a matching tag
@@ -1535,9 +1537,9 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
         // Check if we're using a random color (false by default)
         BOOL useRandomColor =[TiUtils boolValue:@"useRandomColor" properties:overlayInfo def:NO]; 
         
-        NSArray *overlays = [kmlParser overlays];
+        NSArray *kmlOverlays = [kmlParser overlays];
         
-        for (id <MKOverlay> overlay in overlays) {
+        for (id <MKOverlay> overlay in kmlOverlays) {
             
             if(enableFlyTo)
             {
@@ -1554,15 +1556,18 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
                 {
                     overlayColor=[self randomColor];
                 }
+                
+                ((MKPolygon*)overlay).title=overlayTitle;
+                
                 //Build our extension object, so we can format on display
                 BBOverlay *newPolygon = [[[BBOverlay alloc]
                                           initWithParameters:kOverlayIsTypePolygon
                                           color:overlayColor
                                           alpha:alpha
                                           title:overlayTitle
-                                          overlay:(MKPolygon*)overlay 
+                                          overlay:overlay 
                                           linewidth:lineWidth] autorelease];
-                                
+                
                 //We only add the strokeColor if it is provided
                 if (strokeColor != nil)
                 {

@@ -17,7 +17,8 @@
 #import "BencodingMapView.h"
 #import "BencodingMapViewProxy.h"
 #import <KMLParser.h>
-
+#import "MKPolygon+ViewOptions.h"
+#import "MKCircle+ViewOptions.h"
 @implementation BencodingMapView
 
 #pragma mark Internal
@@ -43,11 +44,6 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
     if (mapName2Line) {
         CFRelease(mapName2Line);
         mapName2Line = nil;
-    }
-    
-    if(metaForOverlays!=nil)
-    {
-        RELEASE_TO_NIL(metaForOverlays);
     }
 
     if(tapInterceptor!=nil)
@@ -977,63 +973,29 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
 //    }
 //}
 
--(BBOverlay*) findExtraOverlayProperties2:(id <MKOverlay>)overlay
-{
-    return nil;
-}
-
--(BBOverlay*) findExtraOverlayProperties:(id <MKOverlay>)overlay overlayType:(const NSString *) overlayType
-{
-    BBOverlay* properties = nil;
-    BOOL found = NO;
-    if(metaForOverlays!=nil)
-    {
-        for (BBOverlay *lay in metaForOverlays)
-        {
-            if (lay.OverlayType == kOverlayIsTypePolygon)
-            {
-                if (lay.Overlay == overlay)
-                {
-                    properties=lay;
-                    found=YES;
-                    break;
-                }
-            }
-        }
-    }
-    if(found)
-    {
-        return properties;
-    }
-    else
-    {
-        return nil;
-    }
-}
 - (MKOverlayView *)prepareOverlayForPresentation:(id <MKOverlay>)overlay
 {
-    
     @try {
         if ([overlay isKindOfClass:[MKPolygon class]])
         {
             MKPolygonView *polygonView = [[[MKPolygonView alloc] initWithPolygon:overlay] autorelease];
-            BBOverlay* extraProperties = [self findExtraOverlayProperties:overlay overlayType:kOverlayIsTypePolygon];
-            if(extraProperties!=nil)
+            if ([overlay respondsToSelector:@selector(color)])
             {
-                if(extraProperties.Color==nil)
+                MKPolygon* temp =(MKPolygon*)overlay;
+                if(temp.color==nil)
                 {
                     polygonView.fillColor = [UIColor greenColor];
                 }
                 else
                 {
-                    polygonView.fillColor=extraProperties.Color;
+                    polygonView.fillColor=temp.color;
                 }
-                if(extraProperties.strokeColor!=nil)
+                if(temp.strokeColor!=nil)
                 {
-                    polygonView.strokeColor=extraProperties.strokeColor;
+                    polygonView.strokeColor=temp.strokeColor;
                 }
-                polygonView.alpha=[extraProperties.Alpha floatValue];
-                polygonView.lineWidth=[extraProperties.lineWidth floatValue];
+                polygonView.alpha=[temp.alpha floatValue];
+                polygonView.lineWidth=[temp.lineWidth floatValue];
             }
             
             return polygonView;
@@ -1041,22 +1003,21 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
         else if ([overlay isKindOfClass:[MKCircle class]])
         {
             MKCircleView *cirlceView = [[[MKCircleView alloc] initWithCircle:overlay] autorelease];
-            BBOverlay* extraProperties = [self findExtraOverlayProperties:overlay overlayType:kOverlayIsTypeCircle];
-            
-            if(extraProperties.Color==nil)
+            MKCircle* temp =(MKCircle*)overlay;
+            if(temp.color==nil)
             {
                 cirlceView.fillColor = [UIColor greenColor];
             }
             else
             {
-                cirlceView.fillColor=extraProperties.Color;
+                cirlceView.fillColor=temp.color;
             }
-            if(extraProperties.strokeColor!=nil)
+            if(temp.strokeColor!=nil)
             {
-                cirlceView.strokeColor=extraProperties.strokeColor;
+                cirlceView.strokeColor=temp.strokeColor;
             }
-            cirlceView.alpha=[extraProperties.Alpha floatValue];
-            cirlceView.lineWidth=[extraProperties.lineWidth floatValue];
+            cirlceView.alpha=[temp.alpha floatValue];
+            cirlceView.lineWidth=[temp.lineWidth floatValue];
             
             return cirlceView;
         }
@@ -1066,18 +1027,28 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
         }
         else if ([overlay isKindOfClass:[BBSquareOverlay class]])
         {
-            BBOverlay* extraProperties = [self findExtraOverlayProperties:overlay overlayType:kOverlayIsTypeImage];
-            if(extraProperties==nil)
+            BBSquareOverlay *mapOverlay = (BBSquareOverlay *)overlay;
+            BBSquareOverlayView *mapOverlayView =
+            [[[BBSquareOverlayView alloc] initWithOverlay:mapOverlay] autorelease];
+            
+            if(mapOverlay.imagePath!=nil)
             {
-                return nil;
+                mapOverlayView.ImagePath=mapOverlay.imagePath;
             }
             else
             {
-                BBSquareOverlay *mapOverlay = (BBSquareOverlay *)overlay;
-                BBMapOverlayView *mapOverlayView = [[[BBMapOverlayView alloc] initWithOverlay:mapOverlay] autorelease];
-                mapOverlayView.ImagePath=extraProperties.ImagePath;
-                return mapOverlayView;
+                if(mapOverlay.color==nil)
+                {
+                    mapOverlayView.backgroundColor = [UIColor greenColor];
+                }
+                else
+                {
+                    mapOverlayView.backgroundColor=mapOverlay.color;
+                }
             }
+
+            mapOverlayView.alpha=[mapOverlay.alpha floatValue];
+            return mapOverlayView;
         }
         else
         {
@@ -1087,12 +1058,12 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
     @catch (id theException) {
 		NSLog(@"%@", theException);
         return nil;
-	}  
+	}
 }
+
 -(void)removeAllCircles:(id)arg
 {
 	ENSURE_UI_THREAD(removeAllCircles,arg);
-    NSMutableArray *toDelete = [NSMutableArray array];
     
     //Remove overlay from map
     for (id <MKOverlay> overlay in [self map].overlays) {
@@ -1100,21 +1071,6 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
         if ([overlay isKindOfClass:[MKCircle class]])
         {
             [[self map] removeOverlay:overlay];
-        }
-    }
-    if(metaForOverlays!=nil)
-    {
-        for (BBOverlay *lay in metaForOverlays)
-        {
-            if(lay.OverlayType==kOverlayIsTypeCircle)
-            {
-                [toDelete addObject:lay];
-            }
-        }
-        //Remove our polygon cache
-        if([toDelete count]>0)
-        {
-            [metaForOverlays removeObjectsInArray:toDelete];
         }
     }
     
@@ -1132,31 +1088,7 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
                 [[self map] removeOverlay:overlay];              
             }
         }        
-    }  
-    
-    //Remove circle from collection
-    if(metaForOverlays!=nil)
-    {
-        NSMutableArray *toDelete = [NSMutableArray array];
-        for (BBOverlay *lay in metaForOverlays)
-        {
-            if(lay.OverlayType==kOverlayIsTypeCircle)
-            {
-                if ([lay.Title isEqualToString: filter])
-                {
-                    if([metaForOverlays containsObject:lay])
-                    {
-                        [toDelete addObject:lay];
-                    }
-                }
-            }
-        }
-        
-        if([toDelete count]>0)
-        {
-            [metaForOverlays removeObjectsInArray:toDelete];
-        }
-    }  
+    }
 }
 -(void)removeCircle:(id)args
 {
@@ -1194,38 +1126,22 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
     {
         circleColor=[self randomColor];
     }
+    circleToAdd.color=circleColor;
     
     //Get the alpha, if not provided default to 0.9
     float alpha = [TiUtils floatValue:@"alpha" properties:args def:0.9];
+    circleToAdd.alpha=[NSNumber numberWithFloat:alpha];
     //Get our lineWidth, if not provoded default to 1.0
     float lineWidth = [TiUtils floatValue:@"lineWidth" properties:args def:1.0];
-    
-    //Build our extension object, so we can format on display
-    
-    BBOverlay *newCircle = [[[BBOverlay alloc]
-                             initWithParameters:kOverlayIsTypeCircle
-                             color:circleColor
-                             alpha:alpha
-                             title:circleTitle
-                             overlay:circleToAdd
-                             linewidth:lineWidth] autorelease];
-    
+    circleToAdd.lineWidth=[NSNumber numberWithFloat:lineWidth];
+
     //Get the optional strokeColor
     UIColor * strokeColor = [[TiUtils colorValue:@"strokeColor" properties:args] _color];
     //We only add the strokeColor if it is provided
     if (strokeColor != nil)
     {
-        newCircle.strokeColor=strokeColor;
+        circleToAdd.strokeColor=strokeColor;
     }
-    
-    //If our circle collection isn't create, do so
-    if (metaForOverlays==nil)
-    {
-        metaForOverlays = [[NSMutableArray alloc] init];
-    }
-    
-    //Add the newly created circle to our collection
-    [metaForOverlays addObject:newCircle];
     
     //Add the circle to the map
     [[self map] addOverlay:circleToAdd];
@@ -1243,23 +1159,6 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
         {
             [[self map] removeOverlay:overlay];
         }        
-    } 
-    //Remove our polygon cache
-    if(metaForOverlays!=nil)
-    {
-        NSMutableArray *toDelete = [NSMutableArray array];
-        for (BBOverlay *lay in metaForOverlays)
-        {
-            if(lay.OverlayType==kOverlayIsTypePolygon)
-            {
-                [toDelete addObject:lay];
-            }
-        }
-        
-        if([toDelete count]>0)
-        {
-            [metaForOverlays removeObjectsInArray:toDelete];
-        }
     }
 }
 -(void) clear:(id)unused
@@ -1273,9 +1172,6 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
     
     //Remove all annotations
     [self removeAllAnnotations:unused];
-    
-   //Remove our overlay cache
-    RELEASE_TO_NIL(metaForOverlays);
   
 }
 -(void) polygonQueryToRemove:(NSString*)filter
@@ -1294,32 +1190,7 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
                 [[self map] removeOverlay:overlay];              
             }
         }        
-    }  
-
-    //Remove polygon from collection
-    if(metaForOverlays!=nil)
-    {
-        NSMutableArray *toDelete = [NSMutableArray array];
-        for (BBOverlay *lay in metaForOverlays)
-        {
-            if(lay.OverlayType==kOverlayIsTypePolygon)
-            {
-                if ([lay.Title isEqualToString: filter])
-                {
-                    if([metaForOverlays containsObject:lay])
-                    {
-                        [toDelete addObject:lay];
-                    }
-                }
-            }
-        }
-        
-        if([toDelete count]>0)
-        {
-            [metaForOverlays removeObjectsInArray:toDelete];
-        }
     }
-
 }
 -(void)removePolygon:(id)args
 {
@@ -1366,6 +1237,8 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
     //Create our polgyon 
     MKPolygon* polygonToAdd = [MKPolygon polygonWithCoordinates:points count:pointsCount];
     polygonToAdd.title = polyTitle;
+
+    
     // Check if we're using a random color (false by default)
     BOOL useRandomColor =[TiUtils boolValue:@"useRandomColor" properties:args def:NO];    
     UIColor * polyColor = [[TiUtils colorValue:@"color" properties:args] _color];
@@ -1373,36 +1246,25 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
     {
         polyColor=[self randomColor];
     }
+    polygonToAdd.color=polyColor;
     
     //Get the alpha, if not provided default to 0.9
     float alpha = [TiUtils floatValue:@"alpha" properties:args def:0.9];
+    polygonToAdd.alpha=[NSNumber numberWithFloat:alpha];
+    
     //Get our lineWidth, if not provoded default to 1.0
     float lineWidth = [TiUtils floatValue:@"lineWidth" properties:args def:1.0];
-    //Build our extension object, so we can format on display
-    BBOverlay *newPolygon = [[[BBOverlay alloc]
-                               initWithParameters:kOverlayIsTypePolygon
-                               color:polyColor
-                               alpha:alpha
-                               title:polyTitle
-                               overlay:polygonToAdd
-                               linewidth:lineWidth] autorelease];
+    polygonToAdd.lineWidth=[NSNumber numberWithFloat:lineWidth];
+    
     
     //Get the optional strokeColor
     UIColor * strokeColor = [[TiUtils colorValue:@"strokeColor" properties:args] _color];
     //We only add the strokeColor if it is provided
     if (strokeColor != nil)
     {
-        newPolygon.strokeColor=strokeColor;
+        polygonToAdd.strokeColor=strokeColor;
     }
-    
-    //If our polygon collection isn't create, do so
-    if (metaForOverlays==nil)
-    {
-        metaForOverlays = [[NSMutableArray alloc] init];
-    }
-    
-    //Add the newly created polgyon to our collection
-    [metaForOverlays addObject:newPolygon];
+
     //Add the polgyon to the map
     [[self map] addOverlay:polygonToAdd];
     
@@ -1557,63 +1419,38 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
                     overlayColor=[self randomColor];
                 }
                 
-                ((MKPolygon*)overlay).title=overlayTitle;
-                
-                //Build our extension object, so we can format on display
-                BBOverlay *newPolygon = [[[BBOverlay alloc]
-                                          initWithParameters:kOverlayIsTypePolygon
-                                          color:overlayColor
-                                          alpha:alpha
-                                          title:overlayTitle
-                                          overlay:overlay 
-                                          linewidth:lineWidth] autorelease];
+                MKPolygon* temp =(MKPolygon*)overlay;
+                temp.title = overlayTitle; //Set the title
+                temp.color = overlayColor; //Assign Color
+                temp.alpha = [NSNumber numberWithFloat:alpha];
+                temp.lineWidth = [NSNumber numberWithFloat:lineWidth];
                 
                 //We only add the strokeColor if it is provided
                 if (strokeColor != nil)
                 {
-                    newPolygon.strokeColor=strokeColor;
+                    temp.strokeColor=strokeColor;
                 }
                 
-                //If our polygon collection isn't create, do so
-                if (metaForOverlays==nil)
-                {
-                    metaForOverlays = [[NSMutableArray alloc] init];
-                }
-                
-                //Add the newly created polgyon to our collection
-                [metaForOverlays addObject:newPolygon];
                 //Add the polgyon to the map
-                [[self map] addOverlay:overlay];
+                [[self map] addOverlay:temp];
             }
             
             if ([overlay isKindOfClass:[MKCircle class]])
-            {           
-                //Build our extension object, so we can format on display
-                BBOverlay *newCircle = [[[BBOverlay alloc]
-                                         initWithParameters:kOverlayIsTypeCircle
-                                         color:overlayColor
-                                         alpha:alpha
-                                         title:overlayTitle
-                                         overlay:(MKCircle*)overlay 
-                                         linewidth:lineWidth] autorelease];
+            {
+                MKCircle* temp =(MKCircle*)overlay;
+                temp.title = overlayTitle; //Set the title
+                temp.color = overlayColor; //Assign Color
+                temp.alpha = [NSNumber numberWithFloat:alpha];
+                temp.lineWidth = [NSNumber numberWithFloat:lineWidth];
                 
                 //We only add the strokeColor if it is provided
                 if (strokeColor != nil)
                 {
-                    newCircle.strokeColor=strokeColor;
+                    temp.strokeColor=strokeColor;
                 }
-                
-                //If our circle collection isn't create, do so
-                if (metaForOverlays==nil)
-                {
-                    metaForOverlays = [[NSMutableArray alloc] init];
-                }
-                
-                //Add the newly created circle to our collection
-                [metaForOverlays addObject:newCircle];
                 
                 //Add the cirlce to the map
-                [[self map] addOverlay:overlay];
+                [[self map] addOverlay:temp];
             }
         }
     }

@@ -22,4 +22,11 @@
 @property (readwrite, nonatomic) MKMapPoint BottomLeft;
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 
+@property (strong, nonatomic) NSString* imagePath;
+@property (strong, nonatomic) UIColor* color;
+@property (strong, nonatomic) NSNumber* alpha;
+@property (strong, nonatomic) NSString* title;
+@property (strong, nonatomic) NSNumber* lineWidth;
+@property (strong, nonatomic) UIColor* strokeColor;
+
 @end

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface BBMapOverlayView : MKOverlayView {
+@interface BBSquareOverlayView : MKOverlayView {
     
 }
 @property (strong, nonatomic) NSString* ImagePath;

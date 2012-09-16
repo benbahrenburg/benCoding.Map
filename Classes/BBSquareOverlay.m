@@ -10,8 +10,7 @@
 #import <MapKit/MapKit.h>
 
 @implementation BBSquareOverlay
-@synthesize UpperLeft,UpperRight,BottomLeft;
-
+@synthesize UpperLeft,UpperRight,BottomLeft, imagePath, color,alpha,title,lineWidth,strokeColor;
 - (MKMapRect) mapRectForCoordinateRegion:(MKCoordinateRegion)coordinateRegion
 {
     CLLocationCoordinate2D topLeftCoordinate = CLLocationCoordinate2DMake(coordinateRegion.center.latitude + (coordinateRegion.span.latitudeDelta / 2.0), coordinateRegion.center.longitude - (coordinateRegion.span.longitudeDelta / 2.0));

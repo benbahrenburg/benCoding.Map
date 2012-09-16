@@ -13,18 +13,22 @@
 		24DE9E1211C5FE74003F90F6 /* BencodingMapModuleAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DE9E1011C5FE74003F90F6 /* BencodingMapModuleAssets.m */; };
 		4336003415DFF3F400FF7870 /* KMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4336003215DFF3F400FF7870 /* KMLParser.h */; };
 		4336003515DFF3F400FF7870 /* KMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4336003315DFF3F400FF7870 /* KMLParser.m */; };
+		43493B2716053C620054729B /* MKPolygon+Tag.h in Headers */ = {isa = PBXBuildFile; fileRef = 43493B2516053C620054729B /* MKPolygon+Tag.h */; };
+		43493B2816053C620054729B /* MKPolygon+Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 43493B2616053C620054729B /* MKPolygon+Tag.m */; };
+		43493B3016054B3A0054729B /* MKPolygon+ViewOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 43493B2E16054B3A0054729B /* MKPolygon+ViewOptions.h */; };
+		43493B3116054B3A0054729B /* MKPolygon+ViewOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43493B2F16054B3A0054729B /* MKPolygon+ViewOptions.m */; };
+		43493B3416055C260054729B /* MKCircle+ViewOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 43493B3216055C260054729B /* MKCircle+ViewOptions.h */; };
+		43493B3516055C260054729B /* MKCircle+ViewOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43493B3316055C260054729B /* MKCircle+ViewOptions.m */; };
 		4363253415E2F56C005D155A /* WildcardGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4363253215E2F56C005D155A /* WildcardGestureRecognizer.h */; };
 		4363253515E2F56C005D155A /* WildcardGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4363253315E2F56C005D155A /* WildcardGestureRecognizer.m */; };
 		438D5E7E15A7DDB200800468 /* BencodingMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 438D5E7C15A7DDB200800468 /* BencodingMapView.h */; };
 		438D5E7F15A7DDB200800468 /* BencodingMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D5E7D15A7DDB200800468 /* BencodingMapView.m */; };
 		438D5E8315A7DF3D00800468 /* BencodingMapViewProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 438D5E8115A7DF3D00800468 /* BencodingMapViewProxy.h */; };
 		438D5E8415A7DF3D00800468 /* BencodingMapViewProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D5E8215A7DF3D00800468 /* BencodingMapViewProxy.m */; };
-		43CA9661160394F300B3CDD6 /* BBMapOverlayView.h in Headers */ = {isa = PBXBuildFile; fileRef = 43CA965F160394F300B3CDD6 /* BBMapOverlayView.h */; };
-		43CA9662160394F300B3CDD6 /* BBMapOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CA9660160394F300B3CDD6 /* BBMapOverlayView.m */; };
+		43CA9661160394F300B3CDD6 /* BBSquareOverlayView.h in Headers */ = {isa = PBXBuildFile; fileRef = 43CA965F160394F300B3CDD6 /* BBSquareOverlayView.h */; };
+		43CA9662160394F300B3CDD6 /* BBSquareOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CA9660160394F300B3CDD6 /* BBSquareOverlayView.m */; };
 		43CA966A1603B6CD00B3CDD6 /* BBSquareOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 43CA96681603B6CD00B3CDD6 /* BBSquareOverlay.h */; };
 		43CA966B1603B6CD00B3CDD6 /* BBSquareOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CA96691603B6CD00B3CDD6 /* BBSquareOverlay.m */; };
-		43D671DD1604F7F400BB3750 /* BBOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D671DB1604F7F400BB3750 /* BBOverlay.h */; };
-		43D671DE1604F7F400BB3750 /* BBOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D671DC1604F7F400BB3750 /* BBOverlay.m */; };
 		AA747D9F0F9514B9006C5449 /* BencodingMap_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* BencodingMap_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -37,18 +41,22 @@
 		24DE9E1011C5FE74003F90F6 /* BencodingMapModuleAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BencodingMapModuleAssets.m; path = Classes/BencodingMapModuleAssets.m; sourceTree = "<group>"; };
 		4336003215DFF3F400FF7870 /* KMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KMLParser.h; path = Classes/KMLParser.h; sourceTree = "<group>"; };
 		4336003315DFF3F400FF7870 /* KMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KMLParser.m; path = Classes/KMLParser.m; sourceTree = "<group>"; };
+		43493B2516053C620054729B /* MKPolygon+Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MKPolygon+Tag.h"; path = "Classes/MKPolygon+Tag.h"; sourceTree = "<group>"; };
+		43493B2616053C620054729B /* MKPolygon+Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MKPolygon+Tag.m"; path = "Classes/MKPolygon+Tag.m"; sourceTree = "<group>"; };
+		43493B2E16054B3A0054729B /* MKPolygon+ViewOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MKPolygon+ViewOptions.h"; path = "Classes/MKPolygon+ViewOptions.h"; sourceTree = "<group>"; };
+		43493B2F16054B3A0054729B /* MKPolygon+ViewOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MKPolygon+ViewOptions.m"; path = "Classes/MKPolygon+ViewOptions.m"; sourceTree = "<group>"; };
+		43493B3216055C260054729B /* MKCircle+ViewOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MKCircle+ViewOptions.h"; path = "Classes/MKCircle+ViewOptions.h"; sourceTree = "<group>"; };
+		43493B3316055C260054729B /* MKCircle+ViewOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MKCircle+ViewOptions.m"; path = "Classes/MKCircle+ViewOptions.m"; sourceTree = "<group>"; };
 		4363253215E2F56C005D155A /* WildcardGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WildcardGestureRecognizer.h; path = Classes/WildcardGestureRecognizer.h; sourceTree = "<group>"; };
 		4363253315E2F56C005D155A /* WildcardGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WildcardGestureRecognizer.m; path = Classes/WildcardGestureRecognizer.m; sourceTree = "<group>"; };
 		438D5E7C15A7DDB200800468 /* BencodingMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BencodingMapView.h; path = Classes/BencodingMapView.h; sourceTree = "<group>"; };
 		438D5E7D15A7DDB200800468 /* BencodingMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BencodingMapView.m; path = Classes/BencodingMapView.m; sourceTree = "<group>"; };
 		438D5E8115A7DF3D00800468 /* BencodingMapViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BencodingMapViewProxy.h; path = Classes/BencodingMapViewProxy.h; sourceTree = "<group>"; };
 		438D5E8215A7DF3D00800468 /* BencodingMapViewProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BencodingMapViewProxy.m; path = Classes/BencodingMapViewProxy.m; sourceTree = "<group>"; };
-		43CA965F160394F300B3CDD6 /* BBMapOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBMapOverlayView.h; path = Classes/BBMapOverlayView.h; sourceTree = "<group>"; };
-		43CA9660160394F300B3CDD6 /* BBMapOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBMapOverlayView.m; path = Classes/BBMapOverlayView.m; sourceTree = "<group>"; };
+		43CA965F160394F300B3CDD6 /* BBSquareOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBSquareOverlayView.h; path = Classes/BBSquareOverlayView.h; sourceTree = "<group>"; };
+		43CA9660160394F300B3CDD6 /* BBSquareOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBSquareOverlayView.m; path = Classes/BBSquareOverlayView.m; sourceTree = "<group>"; };
 		43CA96681603B6CD00B3CDD6 /* BBSquareOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBSquareOverlay.h; path = Classes/BBSquareOverlay.h; sourceTree = "<group>"; };
 		43CA96691603B6CD00B3CDD6 /* BBSquareOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBSquareOverlay.m; path = Classes/BBSquareOverlay.m; sourceTree = "<group>"; };
-		43D671DB1604F7F400BB3750 /* BBOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBOverlay.h; path = Classes/BBOverlay.h; sourceTree = "<group>"; };
-		43D671DC1604F7F400BB3750 /* BBOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBOverlay.m; path = Classes/BBOverlay.m; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* BencodingMap_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BencodingMap_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libBencodingMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBencodingMap.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,12 +116,16 @@
 				438D5E8215A7DF3D00800468 /* BencodingMapViewProxy.m */,
 				4363253215E2F56C005D155A /* WildcardGestureRecognizer.h */,
 				4363253315E2F56C005D155A /* WildcardGestureRecognizer.m */,
-				43CA965F160394F300B3CDD6 /* BBMapOverlayView.h */,
-				43CA9660160394F300B3CDD6 /* BBMapOverlayView.m */,
+				43CA965F160394F300B3CDD6 /* BBSquareOverlayView.h */,
+				43CA9660160394F300B3CDD6 /* BBSquareOverlayView.m */,
 				43CA96681603B6CD00B3CDD6 /* BBSquareOverlay.h */,
 				43CA96691603B6CD00B3CDD6 /* BBSquareOverlay.m */,
-				43D671DB1604F7F400BB3750 /* BBOverlay.h */,
-				43D671DC1604F7F400BB3750 /* BBOverlay.m */,
+				43493B2516053C620054729B /* MKPolygon+Tag.h */,
+				43493B2616053C620054729B /* MKPolygon+Tag.m */,
+				43493B2E16054B3A0054729B /* MKPolygon+ViewOptions.h */,
+				43493B2F16054B3A0054729B /* MKPolygon+ViewOptions.m */,
+				43493B3216055C260054729B /* MKCircle+ViewOptions.h */,
+				43493B3316055C260054729B /* MKCircle+ViewOptions.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -141,9 +153,11 @@
 				438D5E8315A7DF3D00800468 /* BencodingMapViewProxy.h in Headers */,
 				4336003415DFF3F400FF7870 /* KMLParser.h in Headers */,
 				4363253415E2F56C005D155A /* WildcardGestureRecognizer.h in Headers */,
-				43CA9661160394F300B3CDD6 /* BBMapOverlayView.h in Headers */,
+				43CA9661160394F300B3CDD6 /* BBSquareOverlayView.h in Headers */,
 				43CA966A1603B6CD00B3CDD6 /* BBSquareOverlay.h in Headers */,
-				43D671DD1604F7F400BB3750 /* BBOverlay.h in Headers */,
+				43493B2716053C620054729B /* MKPolygon+Tag.h in Headers */,
+				43493B3016054B3A0054729B /* MKPolygon+ViewOptions.h in Headers */,
+				43493B3416055C260054729B /* MKCircle+ViewOptions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,9 +220,11 @@
 				438D5E8415A7DF3D00800468 /* BencodingMapViewProxy.m in Sources */,
 				4336003515DFF3F400FF7870 /* KMLParser.m in Sources */,
 				4363253515E2F56C005D155A /* WildcardGestureRecognizer.m in Sources */,
-				43CA9662160394F300B3CDD6 /* BBMapOverlayView.m in Sources */,
+				43CA9662160394F300B3CDD6 /* BBSquareOverlayView.m in Sources */,
 				43CA966B1603B6CD00B3CDD6 /* BBSquareOverlay.m in Sources */,
-				43D671DE1604F7F400BB3750 /* BBOverlay.m in Sources */,
+				43493B2816053C620054729B /* MKPolygon+Tag.m in Sources */,
+				43493B3116054B3A0054729B /* MKPolygon+ViewOptions.m in Sources */,
+				43493B3516055C260054729B /* MKCircle+ViewOptions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

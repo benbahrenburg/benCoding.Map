@@ -1,10 +1,9 @@
-//
-//  BBSquareOverlay.m
-//  map
-//
-//  Created by Ben on 9/14/12.
-//
-//
+/**
+ * benCoding.Map
+ * Copyright (c) 2009-2012 by Ben Bahrenburg. All Rights Reserved.
+ * Licensed under the terms of the Apache Public License
+ * Please see the LICENSE included with this distribution for details.
+ */
 
 #import "BBSquareImageOverlay.h"
 #import <MapKit/MapKit.h>

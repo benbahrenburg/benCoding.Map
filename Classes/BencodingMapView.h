@@ -14,8 +14,10 @@
 #import <MapKit/MapKit.h>
 #import "TiMapAnnotationProxy.h"
 #import "WildcardGestureRecognizer.h"
-#import "BBSquareOverlayView.h"
-#import "BBSquareOverlay.h"
+#import "BBSquareImageOverlayView.h"
+#import "BBSquareImageOverlay.h"
+
+
 @interface BencodingMapView : TiUIView<MKMapViewDelegate> {
 @private
 	MKMapView *map;

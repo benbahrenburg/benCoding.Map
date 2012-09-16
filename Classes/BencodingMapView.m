@@ -25,10 +25,7 @@
 
 bool respondsToMKUserTrackingMode = NO;
 bool polygonClickListenerAdded = NO;
-NSString const* kOverlayIsTypePolygon = @"Polygon";
-NSString const* kOverlayIsTypeCircle = @"Circle";
-NSString const* kOverlayIsTypeSquare = @"Square";
-NSString const* kOverlayIsTypeImage = @"SquareImage";
+int const kTagIdValue = -111111;
 
 -(void)dealloc
 {
@@ -1025,11 +1022,11 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
         {
             return (MKOverlayView *)CFDictionaryGetValue(mapLine2View, overlay);
         }
-        else if ([overlay isKindOfClass:[BBSquareOverlay class]])
+        else if ([overlay isKindOfClass:[BBSquareImageOverlay class]])
         {
-            BBSquareOverlay *mapOverlay = (BBSquareOverlay *)overlay;
-            BBSquareOverlayView *mapOverlayView =
-            [[[BBSquareOverlayView alloc] initWithOverlay:mapOverlay] autorelease];
+            BBSquareImageOverlay *mapOverlay = (BBSquareImageOverlay *)overlay;
+            BBSquareImageOverlayView *mapOverlayView =
+            [[[BBSquareImageOverlayView alloc] initWithOverlay:mapOverlay] autorelease];
             
             if(mapOverlay.imagePath!=nil)
             {
@@ -1060,6 +1057,160 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
         return nil;
 	}
 }
+-(void) ImageOverlayQueryToRemoveByTitle:(NSString*)filter
+{
+    ENSURE_UI_THREAD(ImageOverlayQueryToRemoveByTitle,filter);
+    //Remove overlay from map
+    for (id <MKOverlay> overlay in [self map].overlays) {
+        //We only care about polgyons
+        if ([overlay isKindOfClass:[BBSquareImageOverlay class]])
+        {
+            //We match on title, not the best, but the easiest approach
+            if ([overlay.title isEqualToString: filter])
+            {
+                [[self map] removeOverlay:overlay];
+            }
+        }
+    }
+}
+-(void) ImageOverlayQueryToRemoveByTag:(int)filter
+{
+    ENSURE_UI_THREAD(ImageOverlayQueryToRemoveByTag,filter);
+    //Remove overlay from map
+    for (id <MKOverlay> overlay in [self map].overlays) {
+        //We only care about polgyons
+        if ([overlay isKindOfClass:[BBSquareImageOverlay class]])
+        {
+            //We match on title, not the best, but the easiest approach
+            if (((BBSquareImageOverlay*)overlay).tag == filter)
+            {
+                [[self map] removeOverlay:overlay];
+            }
+        }
+    }
+}
+-(void)removeImageOverlay:(id)args
+{
+	ENSURE_TYPE(args,NSDictionary);
+	ENSURE_UI_THREAD(removeImageOverlay,args);
+    //Fetch our name we will be trying to remove
+    if([args objectForKey:@"tag"]==[NSNull null])
+    {
+        NSString *filter = [TiUtils stringValue:@"title" properties:args];
+        [self ImageOverlayQueryToRemoveByTitle:filter];
+    }
+    else
+    {
+        int tagId =[TiUtils intValue:@"tag" properties:args def:-222222];
+        [self ImageOverlayQueryToRemoveByTag:tagId];
+    }
+}
+-(void)removeImageOverlays:(id)arg
+{
+	ENSURE_UI_THREAD(removeImageOverlays,arg);
+    
+    //Remove overlay from map
+    for (id <MKOverlay> overlay in [self map].overlays) {
+        //We only care about polgyons
+        if ([overlay isKindOfClass:[BBSquareImageOverlay class]])
+        {
+            [[self map] removeOverlay:overlay];
+        }
+    }
+    
+}
+
+-(BBSquareImageOverlay*) BuildImageOverlayFromCoordinates:(NSDictionary*)args
+{
+    if([args objectForKey:@"coordBox"]!=[NSNull null])
+    {
+        //Convert the points into something useful
+        NSDictionary *boxInfo = [args objectForKey:@"coordBox"];
+        NSDictionary *coords = [boxInfo objectForKey:@"coords"];
+        NSDictionary *upperRight = [coords objectForKey:@"upperRight"];
+        NSDictionary *bottomLeft = [coords objectForKey:@"bottomLeft"];
+        
+        CLLocationCoordinate2D  upperRightCoords = CLLocationCoordinate2DMake(
+                                                                              [TiUtils floatValue:@"latitude" properties:upperRight def:0.0],
+                                                                              [TiUtils floatValue:@"longitude" properties:upperRight def:0.0]
+                                                                              );
+        CLLocationCoordinate2D  bottomLeftCoords = CLLocationCoordinate2DMake(
+                                                                              [TiUtils floatValue:@"latitude" properties:bottomLeft def:0.0],
+                                                                              [TiUtils floatValue:@"longitude" properties:bottomLeft def:0.0]
+                                                                              );
+        BBSquareImageOverlay* imgOverlay =[[[BBSquareImageOverlay alloc] initWithCoordinates:upperRightCoords
+                                                                    withLowerLeftCoordinate:bottomLeftCoords] autorelease];
+        return imgOverlay;
+    }
+    
+    if([args objectForKey:@"sizedBox"]!=[NSNull null])
+    {
+        //Convert the points into something useful
+        NSDictionary *sizedBox = [args objectForKey:@"sizedBox"];
+        NSDictionary *coords = [sizedBox objectForKey:@"coords"];
+        NSDictionary *upperRight = [coords objectForKey:@"upperRight"];
+        
+        //Create the number of points provided
+        CLLocationCoordinate2D  upperRightCoords = CLLocationCoordinate2DMake(
+                                                                              [TiUtils floatValue:@"latitude" properties:upperRight def:0.0],
+                                                                              [TiUtils floatValue:@"longitude" properties:upperRight def:0.0]
+                                                                              );
+        
+        
+        float cellSizeLatitude = [TiUtils floatValue:@"cellSizeLat" properties:sizedBox def:0.001];
+        float cellSizeLongitude = [TiUtils floatValue:@"cellSizeLng" properties:sizedBox def:0.001];
+        
+        CLLocationCoordinate2D bottomLeftCoords = CLLocationCoordinate2DMake((upperRightCoords.latitude - cellSizeLatitude),
+                                                                             (upperRightCoords.longitude - cellSizeLongitude));
+        
+        
+        BBSquareImageOverlay* imgOverlay =[[[BBSquareImageOverlay alloc] initWithCoordinates:upperRightCoords
+                                                                    withLowerLeftCoordinate:bottomLeftCoords] autorelease];
+        return imgOverlay;
+    }
+}
+
+-(void)addImageOverlay:(id)args
+{
+	ENSURE_TYPE(args,NSDictionary);
+	ENSURE_UI_THREAD(addImageOverlay,args);
+    
+    id boxValues = [args objectForKey:@"coordBox"];
+    id centerValues = [args objectForKey:@"center"];
+    NSString *imgPath = [TiUtils stringValue:@"image" properties:args];
+
+    if(imgPath==nil)
+    {
+        NSLog(@"No image provided unable to continue adding overlay");
+        return;
+    }
+     
+    NSURL* filePath = [TiUtils toURL:imgPath proxy:self.proxy];
+    NSString* pathToAdd = [filePath path];
+    NSLog(@"adding path %@", pathToAdd);
+    
+    if((boxValues==nil)&&(centerValues==nil))
+    {
+        NSLog(@"not values provided for coordBox or center. One of these properties need to be set to continue");
+        return;
+    }
+    
+    //Build Overlay
+    BBSquareImageOverlay* imgOverlay = [self BuildImageOverlayFromCoordinates:args];
+    
+    //Add image path
+    imgOverlay.imagePath=imgPath;
+    
+    //Get the title for the overlay
+    NSString *overlayTitle = [TiUtils stringValue:@"title" properties:args];
+    imgOverlay.title=overlayTitle;
+    
+    //Get tagId for overlay
+    int tagId = [TiUtils intValue:@"tag" properties:args def:kTagIdValue];
+    imgOverlay.tag=tagId;
+    
+    [[self map] addOverlay:imgOverlay];
+}
 
 -(void)removeAllCircles:(id)arg
 {
@@ -1075,8 +1226,9 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
     }
     
 }
--(void) cirleQueryToRemove:(NSString*)filter
+-(void) cirleQueryToRemoveByTitle:(NSString*)filter
 {
+     ENSURE_UI_THREAD(cirleQueryToRemoveByTitle,filter);
     //Remove overlay from map
     for (id <MKOverlay> overlay in [self map].overlays) {        
         //We only care about polgyons
@@ -1090,13 +1242,37 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
         }        
     }
 }
+-(void) cirleQueryToRemoveByTag:(int)filter
+{
+    ENSURE_UI_THREAD(cirleQueryToRemoveByTag,filter);
+    //Remove overlay from map
+    for (id <MKOverlay> overlay in [self map].overlays) {
+        //We only care about polgyons
+        if ([overlay isKindOfClass:[MKCircle class]])
+        {
+            //We match on title, not the best, but the easiest approach
+            if (((MKCircle*)overlay).tag == filter)
+            {
+                [[self map] removeOverlay:overlay];
+            }
+        }
+    }
+}
 -(void)removeCircle:(id)args
 {
 	ENSURE_TYPE(args,NSDictionary);
 	ENSURE_UI_THREAD(removeCircle,args);
     //Fetch our name we will be trying to remove
-    NSString *filter = [TiUtils stringValue:@"title" properties:args];
-    [self cirleQueryToRemove:filter];
+    if([args objectForKey:@"tag"]==[NSNull null])
+    {
+        NSString *filter = [TiUtils stringValue:@"title" properties:args];
+        [self cirleQueryToRemoveByTitle:filter];
+    }
+    else
+    {
+        int tagId =[TiUtils intValue:@"tag" properties:args def:-222222];
+        [self cirleQueryToRemoveByTag:tagId];
+    }
 }
 -(void)addCircle:(id)args
 {
@@ -1134,7 +1310,6 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
     //Get our lineWidth, if not provoded default to 1.0
     float lineWidth = [TiUtils floatValue:@"lineWidth" properties:args def:1.0];
     circleToAdd.lineWidth=[NSNumber numberWithFloat:lineWidth];
-
     //Get the optional strokeColor
     UIColor * strokeColor = [[TiUtils colorValue:@"strokeColor" properties:args] _color];
     //We only add the strokeColor if it is provided
@@ -1142,6 +1317,9 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
     {
         circleToAdd.strokeColor=strokeColor;
     }
+    //Get tagId for overlay
+    int tagId = [TiUtils intValue:@"tag" properties:args def:kTagIdValue];
+    circleToAdd.tag=tagId;
     
     //Add the circle to the map
     [[self map] addOverlay:circleToAdd];
@@ -1174,9 +1352,9 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
     [self removeAllAnnotations:unused];
   
 }
--(void) polygonQueryToRemove:(NSString*)filter
+-(void) polygonQueryToRemoveByTitle:(NSString*)filter
 {
-    ENSURE_UI_THREAD(polygonQueryToRemove,filter);
+    ENSURE_UI_THREAD(polygonQueryToRemoveByTitle,filter);
     //NSLog(@"polygonQueryToRemove Filter: %@", filter);
     
     //Remove overlay from map
@@ -1192,14 +1370,40 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
         }        
     }
 }
+-(void) polygonQueryToRemoveByTag:(int)filter
+{
+    ENSURE_UI_THREAD(polygonQueryToRemoveByTag,filter);
+    //NSLog(@"polygonQueryToRemove Filter: %@", filter);
+    
+    //Remove overlay from map
+    for (id <MKOverlay> overlay in [self map].overlays) {
+        //We only care about polgyons
+        if ([overlay isKindOfClass:[MKPolygon class]])
+        {
+            //We match on title, not the best, but the easiest approach
+            if (((MKPolygon*)overlay).tag==filter)
+            {
+                [[self map] removeOverlay:overlay];
+            }
+        }
+    }
+}
 -(void)removePolygon:(id)args
 {
 	ENSURE_TYPE(args,NSDictionary);
 	ENSURE_UI_THREAD(removePolygon,args);
-    //Fetch our name we will be trying to remove
-    NSString *filter = [TiUtils stringValue:@"title" properties:args];
-    [self polygonQueryToRemove:filter];
+    if([args objectForKey:@"tag"]==[NSNull null])
+    {
+        //Fetch our name we will be trying to remove
+        NSString *filter = [TiUtils stringValue:@"title" properties:args];
+        [self polygonQueryToRemoveByTitle:filter];
+    }else
+    {
+        int tagId =[TiUtils intValue:@"tag" properties:args def:-222222];
+        [self polygonQueryToRemoveByTag:tagId];
+    }
 }
+
 -(void)addPolygon:(id)args
 {
 	ENSURE_TYPE(args,NSDictionary);
@@ -1264,7 +1468,10 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
     {
         polygonToAdd.strokeColor=strokeColor;
     }
-
+    //Get tagId for overlay
+    int tagId = [TiUtils intValue:@"tag" properties:args def:kTagIdValue];
+    polygonToAdd.tag=tagId;
+    
     //Add the polgyon to the map
     [[self map] addOverlay:polygonToAdd];
     
@@ -1302,41 +1509,28 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
 	ENSURE_TYPE(args,NSDictionary);
 	ENSURE_UI_THREAD(removeKML,args);
 
-    Class dictClass = [NSDictionary class];
-    
-    //Obtain the overlay property node
-	NSDictionary * overlayInfo = [args objectForKey:@"overlayInfo"];
-	ENSURE_CLASS_OR_NIL(overlayInfo,dictClass);
-    //Obtain the annotation proerty node
-	NSDictionary * annotationInfo = [args objectForKey:@"annotationInfo"];
-	ENSURE_CLASS_OR_NIL(annotationInfo,dictClass);
-    
-    //If we have any overlay info provided we need to search polygons and circles
-    if(overlayInfo!=nil)
+    if([args objectForKey:@"tag"]==[NSNull null])
     {
-        //Fetch our name we will be trying to remove
-        NSString *filter = [TiUtils stringValue:@"title" properties:overlayInfo];
-        //Remove all polygons
-        [self polygonQueryToRemove:filter];
-        //Remove all circles
-        [self cirleQueryToRemove:filter];
+        NSLog(@"tag is required to remove KML upload");
     }
+    
+    int tagId =[TiUtils intValue:@"tag" properties:args def:-222222];
 
-    //If any annotation information is provided, loop through all annotations looking for a matching tag
-    if(annotationInfo!=nil)
-    {
-        int tagId =[TiUtils intValue:@"tagId" properties:annotationInfo def:1];
-        //Loop through and remove any annotations we can find with a matching tagId
-        NSMutableArray *annotations = [NSMutableArray arrayWithArray:self.map.annotations];
-        [annotations removeObject:self.map.userLocation];
-        
-        for(TiMapAnnotationProxy* ann in annotations) {
-            //NSLog(@"ann tag %i", [ann tag]);        
-            if([ann tag]==tagId)
-            {
-                [self removeAnnotation:ann];
-            }
-        }	
+    //Remove all polygons
+    [self polygonQueryToRemoveByTag:tagId];
+    //Remove all circles
+    [self cirleQueryToRemoveByTag:tagId];
+
+    //Loop through and remove any annotations we can find with a matching tagId
+    NSMutableArray *annotations = [NSMutableArray arrayWithArray:self.map.annotations];
+    [annotations removeObject:self.map.userLocation];
+    
+    for(TiMapAnnotationProxy* ann in annotations) {
+        //NSLog(@"ann tag %i", [ann tag]);
+        if([ann tag]==tagId)
+        {
+            [self removeAnnotation:ann];
+        }
     }
 }
 
@@ -1374,6 +1568,9 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
     // Walk the list of overlays and annotations and create a MKMapRect that
     // bounds all of them and store it into flyTo.
     MKMapRect flyTo = MKMapRectNull;
+ 
+    //Get tagId for overlay
+    int tagId = [TiUtils intValue:@"tag" properties:args def:kTagIdValue];
     
     //Check if we should include overlays
     if(overlayInfo!=nil)
@@ -1424,6 +1621,7 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
                 temp.color = overlayColor; //Assign Color
                 temp.alpha = [NSNumber numberWithFloat:alpha];
                 temp.lineWidth = [NSNumber numberWithFloat:lineWidth];
+                temp.tag = tagId;
                 
                 //We only add the strokeColor if it is provided
                 if (strokeColor != nil)
@@ -1442,6 +1640,7 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
                 temp.color = overlayColor; //Assign Color
                 temp.alpha = [NSNumber numberWithFloat:alpha];
                 temp.lineWidth = [NSNumber numberWithFloat:lineWidth];
+                temp.tag = tagId;
                 
                 //We only add the strokeColor if it is provided
                 if (strokeColor != nil)
@@ -1457,10 +1656,7 @@ NSString const* kOverlayIsTypeImage = @"SquareImage";
     
     //Check if we should include annotations
     if(annotationInfo!=nil)
-    {
-        //Get the tagId that will be used for all annotations
-        int tagId =[TiUtils intValue:@"tagId" properties:annotationInfo def:1];
-        
+    {        
         //Find pin color for our annotations
         int pincolor = [TiUtils intValue:@"pincolor" properties:annotationInfo def:MKPinAnnotationColorRed]; 
         

@@ -6,9 +6,9 @@
 //
 //
 
-#import "BBSquareOverlayView.h"
+#import "BBSquareImageOverlayView.h"
 
-@implementation BBSquareOverlayView
+@implementation BBSquareImageOverlayView
 @synthesize ImagePath;
 
 - (void)drawMapRect:(MKMapRect)mapRect zoomScale:(MKZoomScale)zoomScale inContext:(CGContextRef)ctx

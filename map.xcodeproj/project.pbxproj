@@ -29,6 +29,8 @@
 		43CA9662160394F300B3CDD6 /* BBSquareImageOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CA9660160394F300B3CDD6 /* BBSquareImageOverlayView.m */; };
 		43CA966A1603B6CD00B3CDD6 /* BBSquareImageOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 43CA96681603B6CD00B3CDD6 /* BBSquareImageOverlay.h */; };
 		43CA966B1603B6CD00B3CDD6 /* BBSquareImageOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CA96691603B6CD00B3CDD6 /* BBSquareImageOverlay.m */; };
+		43FF8B10160695E50066CBCB /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 43FF8B0E160695E50066CBCB /* JSONKit.h */; };
+		43FF8B11160695E50066CBCB /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 43FF8B0F160695E50066CBCB /* JSONKit.m */; };
 		AA747D9F0F9514B9006C5449 /* BencodingMap_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* BencodingMap_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -57,6 +59,8 @@
 		43CA9660160394F300B3CDD6 /* BBSquareImageOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBSquareImageOverlayView.m; path = Classes/BBSquareImageOverlayView.m; sourceTree = "<group>"; };
 		43CA96681603B6CD00B3CDD6 /* BBSquareImageOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBSquareImageOverlay.h; path = Classes/BBSquareImageOverlay.h; sourceTree = "<group>"; };
 		43CA96691603B6CD00B3CDD6 /* BBSquareImageOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBSquareImageOverlay.m; path = Classes/BBSquareImageOverlay.m; sourceTree = "<group>"; };
+		43FF8B0E160695E50066CBCB /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = Classes/JSONKit.h; sourceTree = "<group>"; };
+		43FF8B0F160695E50066CBCB /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = Classes/JSONKit.m; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* BencodingMap_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BencodingMap_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libBencodingMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBencodingMap.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +108,8 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				43FF8B0E160695E50066CBCB /* JSONKit.h */,
+				43FF8B0F160695E50066CBCB /* JSONKit.m */,
 				4336003215DFF3F400FF7870 /* KMLParser.h */,
 				4336003315DFF3F400FF7870 /* KMLParser.m */,
 				24DE9E0F11C5FE74003F90F6 /* BencodingMapModuleAssets.h */,
@@ -158,6 +164,7 @@
 				43493B2716053C620054729B /* MKPolygon+Tag.h in Headers */,
 				43493B3016054B3A0054729B /* MKPolygon+ViewOptions.h in Headers */,
 				43493B3416055C260054729B /* MKCircle+ViewOptions.h in Headers */,
+				43FF8B10160695E50066CBCB /* JSONKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +232,7 @@
 				43493B2816053C620054729B /* MKPolygon+Tag.m in Sources */,
 				43493B3116054B3A0054729B /* MKPolygon+ViewOptions.m in Sources */,
 				43493B3516055C260054729B /* MKCircle+ViewOptions.m in Sources */,
+				43FF8B11160695E50066CBCB /* JSONKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,6 +2,7 @@ exports.powerPlantsList =
 [
    {
       "name":"Almaraz Nuclear Power Plant",
+      "tag": 100,
       "capacity":"2017",
       "country":"Spain",
       "latitude":"39.80806",
@@ -9,6 +10,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Angra Nuclear Power Plant",
+      "tag": 101,
       "capacity":"1889",
       "country":"Brazil",
       "latitude":"-23.00833",
@@ -16,6 +18,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Arkansas Nuclear One",
+      "tag": 102,
       "capacity":"1839",
       "country":"United States",
       "latitude":"35.31028",
@@ -23,6 +26,7 @@ exports.powerPlantsList =
    },
    {
       "name":"AscÛ Nuclear Power Plant",
+      "tag": 103,
       "capacity":"1992",
       "country":"Spain",
       "latitude":"41.2",
@@ -30,6 +34,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Balakovo Nuclear Power Plant",
+      "tag": 104,
       "capacity":"3800",
       "country":"Russia",
       "latitude":"52.09111",
@@ -37,6 +42,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Beaver Valley Nuclear Generating Station",
+      "tag": 105,
       "capacity":"1738",
       "country":"United States",
       "latitude":"40.62333",
@@ -44,6 +50,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Belleville Nuclear Power Plant",
+      "tag": 106,
       "capacity":"2620",
       "country":"France",
       "latitude":"47.50972",
@@ -51,6 +58,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Blayais Nuclear Power Plant",
+      "tag": 107,
       "capacity":"3640",
       "country":"France",
       "latitude":"45.25583",
@@ -58,6 +66,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Braidwood Nuclear Generating Station",
+      "tag": 108,
       "capacity":"2330",
       "country":"United States",
       "latitude":"41.24361",
@@ -65,6 +74,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Brokdorf Nuclear Power Plant",
+      "tag": 109,
       "capacity":"1410",
       "country":"Germany",
       "latitude":"53.85083",
@@ -72,6 +82,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Browns Ferry Nuclear Power Plant",
+      "tag": 110,
       "capacity":"3300",
       "country":"United States",
       "latitude":"34.70389",
@@ -79,6 +90,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Bruce Nuclear Generating Station",
+      "tag": 111,
       "capacity":"6232",
       "country":"Canada",
       "latitude":"44.70389",
@@ -86,6 +98,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Brunswick Nuclear Generating Station",
+      "tag": 112,
       "capacity":"1858",
       "country":"United States",
       "latitude":"33.95833",
@@ -93,6 +106,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Bugey Nuclear Power Plant",
+      "tag": 113,
       "capacity":"3580",
       "country":"France",
       "latitude":"45.32528",
@@ -100,6 +114,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Bushehr Nuclear Power Plant",
+      "tag": 114,
       "capacity":"1000",
       "country":"Iran",
       "latitude":"28.82972",
@@ -107,6 +122,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Byron Nuclear Generating Station",
+      "tag": 115,
       "capacity":"2300",
       "country":"United States",
       "latitude":"42.07417",
@@ -114,6 +130,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Callaway Plant",
+      "tag": 116,
       "capacity":"1190",
       "country":"United States",
       "latitude":"38.76167",
@@ -121,6 +138,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Calvert Cliffs Nuclear Power Plant",
+      "tag": 117,
       "capacity":"1735",
       "country":"United States",
       "latitude":"38.43194",
@@ -128,6 +146,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Catawba Nuclear Station",
+      "tag": 118,
       "capacity":"2258",
       "country":"United States",
       "latitude":"35.05167",
@@ -135,6 +154,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Cattenom Nuclear Power Plant",
+      "tag": 119,
       "capacity":"5200",
       "country":"France",
       "latitude":"49.41583",
@@ -142,6 +162,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Cernavod? Nuclear Power Plant",
+      "tag": 120,
       "capacity":"1300",
       "country":"Romania",
       "latitude":"44.32222",
@@ -149,6 +170,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Chinon Nuclear Power Plant",
+      "tag": 121,
       "capacity":"3620",
       "country":"France",
       "latitude":"47.23056",
@@ -156,6 +178,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Chin Shan Nuclear Power Plant",
+      "tag": 122,
       "capacity":"1208",
       "country":"Taiwan",
       "latitude":"25.29139",
@@ -163,6 +186,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Chooz Nuclear Power Plant",
+      "tag": 123,
       "capacity":"3000",
       "country":"France",
       "latitude":"50.09",
@@ -170,6 +194,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Civaux Nuclear Power Plant",
+      "tag": 124,
       "capacity":"2990",
       "country":"France",
       "latitude":"46.45667",
@@ -177,6 +202,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Clinton Nuclear Generating Station",
+      "tag": 125,
       "capacity":"1043",
       "country":"United States",
       "latitude":"40.17222",
@@ -184,6 +210,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Cofrentes Nuclear Power Plant",
+      "tag": 126,
       "capacity":"1064",
       "country":"Spain",
       "latitude":"39.2166667",
@@ -191,6 +218,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Columbia Generating Station",
+      "tag": 127,
       "capacity":"1131",
       "country":"United States",
       "latitude":"46.47111",
@@ -198,6 +226,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Comanche Peak Nuclear Generating Station",
+      "tag": 128,
       "capacity":"2367",
       "country":"United States",
       "latitude":"32.29833",
@@ -205,6 +234,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Cruas Nuclear Power Plant",
+      "tag": 129,
       "capacity":"3660",
       "country":"France",
       "latitude":"44.63306",
@@ -212,6 +242,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Dampierre Nuclear Power Plant",
+      "tag": 130,
       "capacity":"3560",
       "country":"France",
       "latitude":"47.73306",
@@ -219,6 +250,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Darlington Nuclear Generating Station",
+      "tag": 131,
       "capacity":"3512",
       "country":"Canada",
       "latitude":"43.87278",
@@ -226,6 +258,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Daya Bay Nuclear Power Plant",
+      "tag": 132,
       "capacity":"1888",
       "country":"China",
       "latitude":"22.59778",
@@ -233,6 +266,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Diablo Canyon Power Plant",
+      "tag": 133,
       "capacity":"2240",
       "country":"United States",
       "latitude":"35.21083",
@@ -240,6 +274,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Doel Nuclear Power Station",
+      "tag": 134,
       "capacity":"2911",
       "country":"Belgium",
       "latitude":"51.32472",
@@ -247,6 +282,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Donald C. Cook Nuclear Generating Station",
+      "tag": 135,
       "capacity":"2069",
       "country":"United States",
       "latitude":"41.97528",
@@ -254,6 +290,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Dresden Nuclear Power Plant",
+      "tag": 136,
       "capacity":"1734",
       "country":"United States",
       "latitude":"41.38972",
@@ -261,6 +298,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Dukovany Nuclear Power Station",
+      "tag": 137,
       "capacity":"1752",
       "country":"Czech Republic",
       "latitude":"49.085",
@@ -268,6 +306,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Dungeness Nuclear Power Station",
+      "tag": 138,
       "capacity":"1040",
       "country":"United Kingdom",
       "latitude":"50.91389",
@@ -275,6 +314,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Edwin Hatch Nuclear Power Station",
+      "tag": 139,
       "capacity":"1759",
       "country":"United States",
       "latitude":"31.93417",
@@ -282,6 +322,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Enrico Fermi Nuclear Generating Station",
+      "tag": 140,
       "capacity":"1122",
       "country":"United States",
       "latitude":"41.96278",
@@ -289,6 +330,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Emsland Nuclear Power Plant",
+      "tag": 141,
       "capacity":"1329",
       "country":"Germany",
       "latitude":"52.47417",
@@ -296,6 +338,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Fessenheim Nuclear Power Plant",
+      "tag": 142,
       "capacity":"1760",
       "country":" France",
       "latitude":"47.90306",
@@ -303,6 +346,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Flamanville Nuclear Power Plant",
+      "tag": 143,
       "capacity":"2660",
       "country":"France",
       "latitude":"49.53639",
@@ -310,6 +354,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Forsmark Nuclear Power Plant",
+      "tag": 144,
       "capacity":"3138",
       "country":" Sweden",
       "latitude":"60.40333",
@@ -317,6 +362,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Fukushima I Nuclear Power Plant",
+      "tag": 145,
       "capacity":"1827",
       "country":"Japan",
       "latitude":"37.42139",
@@ -324,6 +370,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Fukushima II Nuclear Power Plant",
+      "tag": 146,
       "capacity":"4268",
       "country":"Japan",
       "latitude":"37.31944",
@@ -331,6 +378,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Genkai Nuclear Power Plant",
+      "tag": 147,
       "capacity":"3312",
       "country":"Japan",
       "latitude":"33.51556",
@@ -338,6 +386,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Golfech Nuclear Power Plant",
+      "tag": 148,
       "capacity":"2620",
       "country":"France",
       "latitude":"44.10667",
@@ -345,6 +394,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Grafenrheinfeld Nuclear Power Plant",
+      "tag": 149,
       "capacity":"1275",
       "country":"Germany",
       "latitude":"49.98389",
@@ -352,6 +402,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Grand Gulf Nuclear Generating Station",
+      "tag": 150,
       "capacity":"1251",
       "country":"United States",
       "latitude":"32.00667",
@@ -359,6 +410,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Gravelines Nuclear Power Plant",
+      "tag": 151,
       "capacity":"5460",
       "country":"France",
       "latitude":"51.01528",
@@ -366,6 +418,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Grohnde Nuclear Power Plant",
+      "tag": 152,
       "capacity":"1360",
       "country":" Germany",
       "latitude":"52.03528",
@@ -373,6 +426,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Gundremmingen Nuclear Power Plant",
+      "tag": 153,
       "capacity":"1972",
       "country":"Germany",
       "latitude":"48.51472",
@@ -380,6 +434,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Hamaoka Nuclear Power Plant",
+      "tag": 154,
       "capacity":"3473",
       "country":"Japan",
       "latitude":"34.62361",
@@ -387,6 +442,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Hartlepool nuclear power station",
+      "tag": 155,
       "capacity":"1190",
       "country":"United Kingdom",
       "latitude":"54.635",
@@ -394,6 +450,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Heysham nuclear power station",
+      "tag": 156,
       "capacity":"2400",
       "country":"United Kingdom",
       "latitude":"54.02889",
@@ -401,6 +458,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Higashid?ri Nuclear Power Plant",
+      "tag": 157,
       "capacity":"1067",
       "country":"Japan",
       "latitude":"41.18806",
@@ -408,6 +466,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Hope Creek Nuclear Generating Station",
+      "tag": 158,
       "capacity":"1191",
       "country":"United States",
       "latitude":"39.46778",
@@ -415,6 +474,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Ikata Nuclear Power Plant",
+      "tag": 159,
       "capacity":"1922",
       "country":"Japan",
       "latitude":"33.49083",
@@ -422,6 +482,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Indian Point Energy Center",
+      "tag": 160,
       "capacity":"2062",
       "country":"United States",
       "latitude":"41.26972",
@@ -429,6 +490,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Isar Nuclear Power Plant",
+      "tag": 161,
       "capacity":"1410",
       "country":"Germany",
       "latitude":"48.60556",
@@ -436,6 +498,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Joseph M. Farley Nuclear Generating Station",
+      "tag": 162,
       "capacity":"1711",
       "country":"United States",
       "latitude":"31.22306",
@@ -443,6 +506,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Kalinin Nuclear Power Plant",
+      "tag": 163,
       "capacity":"3800",
       "country":"Russia",
       "latitude":"57.90556",
@@ -450,6 +514,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Kashiwazaki-Kariwa Nuclear Power Plant",
+      "tag": 164,
       "capacity":"7965",
       "country":"Japan",
       "latitude":"37.42917",
@@ -457,6 +522,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Khmelnitskiy Nuclear Power Plant",
+      "tag": 165,
       "capacity":"1900",
       "country":"Ukraine",
       "latitude":"50.30139",
@@ -464,6 +530,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Koeberg Nuclear Power Station",
+      "tag": 166,
       "capacity":"1800",
       "country":"South Africa",
       "latitude":"-33.67639",
@@ -471,6 +538,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Kola Nuclear Power Plant",
+      "tag": 167,
       "capacity":"1644",
       "country":"Russia",
       "latitude":"67.4666667",
@@ -478,6 +546,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Kori Nuclear Power Plant",
+      "tag": 168,
       "capacity":"3227",
       "country":" South Korea",
       "latitude":"35.31694",
@@ -485,6 +554,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Kozloduy Nuclear Power Plant",
+      "tag": 169,
       "capacity":"1906",
       "country":"Bulgaria",
       "latitude":"43.74611",
@@ -492,6 +562,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Kuosheng Nuclear Power Plant",
+      "tag": 170,
       "capacity":"1933",
       "country":"Taiwan",
       "latitude":"25.20306",
@@ -499,6 +570,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Kursk Nuclear Power Plant",
+      "tag": 171,
       "capacity":"3700",
       "country":"Russia",
       "latitude":"51.675",
@@ -506,6 +578,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Laguna Verde Nuclear Power Station",
+      "tag": 172,
       "capacity":"1300",
       "country":"Mexico",
       "latitude":"19.72083",
@@ -513,6 +586,7 @@ exports.powerPlantsList =
    },
    {
       "name":"LaSalle County Nuclear Generating Station",
+      "tag": 173,
       "capacity":"2238",
       "country":"United States",
       "latitude":"41.24556",
@@ -520,6 +594,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Leibstadt Nuclear Power Plant",
+      "tag": 174,
       "capacity":"1190",
       "country":"Switzerland",
       "latitude":"47.60306",
@@ -527,6 +602,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Lemoniz Nuclear Power Plant",
+      "tag": 175,
       "capacity":"1800",
       "country":"Spain",
       "latitude":"43.4333333",
@@ -534,6 +610,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Leningrad Nuclear Power Plant",
+      "tag": 176,
       "capacity":"3700",
       "country":"Russia",
       "latitude":"59.84722",
@@ -541,6 +618,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Limerick Nuclear Power Plant",
+      "tag": 177,
       "capacity":"2264",
       "country":"United States",
       "latitude":"40.22667",
@@ -548,6 +626,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Ling Ao Nuclear Power Plant",
+      "tag": 178,
       "capacity":"3876",
       "country":"China",
       "latitude":"22.60472",
@@ -555,6 +634,7 @@ exports.powerPlantsList =
    },
    {
       "name":"McGuire Nuclear Station",
+      "tag": 179,
       "capacity":"2200",
       "country":"United States",
       "latitude":"35.4325",
@@ -562,6 +642,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Maanshan Nuclear Power Plant",
+      "tag": 180,
       "capacity":"1841",
       "country":"Taiwan",
       "latitude":"21.95806",
@@ -569,6 +650,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Mihama Nuclear Power Plant",
+      "tag": 181,
       "capacity":"1570",
       "country":"Japan",
       "latitude":"35.7025",
@@ -576,6 +658,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Millstone Nuclear Power Plant",
+      "tag": 182,
       "capacity":"2102",
       "country":"United States",
       "latitude":"41.31194",
@@ -583,6 +666,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Neckarwestheim Nuclear Power Plant",
+      "tag": 183,
       "capacity":"1310",
       "country":"Germany",
       "latitude":"49.04167",
@@ -590,6 +674,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Nine Mile Point Nuclear Generating Station",
+      "tag": 184,
       "capacity":"1764",
       "country":"United States",
       "latitude":"43.52083",
@@ -597,6 +682,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Nogent Nuclear Power Plant",
+      "tag": 185,
       "capacity":"2620",
       "country":"France",
       "latitude":"48.51528",
@@ -604,6 +690,7 @@ exports.powerPlantsList =
    },
    {
       "name":"North Anna Nuclear Generating Station",
+      "tag": 186,
       "capacity":"1875",
       "country":"United States",
       "latitude":"38.06056",
@@ -611,6 +698,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Novovoronezhskaya Nuclear Power Plant",
+      "tag": 187,
       "capacity":"1720",
       "country":"Russia",
       "latitude":"51.275",
@@ -618,6 +706,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Oconee Nuclear Generating Station",
+      "tag": 188,
       "capacity":"2538",
       "country":"United States",
       "latitude":"34.79389",
@@ -625,6 +714,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Oi Nuclear Power Plant",
+      "tag": 189,
       "capacity":"4494",
       "country":"Japan",
       "latitude":"35.54056",
@@ -632,6 +722,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Olkiluoto Nuclear Power Plant",
+      "tag": 190,
       "capacity":"1740",
       "country":"Finland",
       "latitude":"61.23694",
@@ -639,6 +730,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Onagawa Nuclear Power Plant",
+      "tag": 191,
       "capacity":"2089",
       "country":"Japan",
       "latitude":"38.40111",
@@ -646,6 +738,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Oskarshamn Nuclear Power Plant",
+      "tag": 192,
       "capacity":"2511",
       "country":"Sweden",
       "latitude":"57.41556",
@@ -653,6 +746,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Paks Nuclear Power Plant",
+      "tag": 193,
       "capacity":"1889",
       "country":"Hungary",
       "latitude":"46.5725",
@@ -660,6 +754,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Palo Verde Nuclear Generating Station",
+      "tag": 194,
       "capacity":"4214",
       "country":"United States",
       "latitude":"33.38917",
@@ -667,6 +762,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Paluel Nuclear Power Plant",
+      "tag": 195,
       "capacity":"5320",
       "country":"France",
       "latitude":"49.85806",
@@ -674,6 +770,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Penly Nuclear Power Plant",
+      "tag": 196,
       "capacity":"2660",
       "country":"France",
       "latitude":"49.97667",
@@ -681,6 +778,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Peach Bottom Nuclear Generating Station",
+      "tag": 197,
       "capacity":"2234",
       "country":"United States",
       "latitude":"39.75833",
@@ -688,6 +786,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Perry Nuclear Generating Station",
+      "tag": 198,
       "capacity":"1240",
       "country":"United States",
       "latitude":"41.80083",
@@ -695,6 +794,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Philippsburg Nuclear Power Plant",
+      "tag": 199,
       "capacity":"1402",
       "country":"Germany",
       "latitude":"49.2525",
@@ -702,6 +802,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Pickering Nuclear Generating Station",
+      "tag": 200,
       "capacity":"4124",
       "country":"Canada",
       "latitude":"43.81167",
@@ -709,6 +810,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Point Beach Nuclear Plant",
+      "tag": 201,
       "capacity":"1027",
       "country":"United States",
       "latitude":"44.28111",
@@ -716,6 +818,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Prairie Island Nuclear Power Plant",
+      "tag": 202,
       "capacity":"1114",
       "country":"United States",
       "latitude":"44.62167",
@@ -723,6 +826,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Qinshan Nuclear Power Plant",
+      "tag": 203,
       "capacity":"4038",
       "country":"China",
       "latitude":"30.43556",
@@ -730,6 +834,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Quad Cities Nuclear Generating Station",
+      "tag": 204,
       "capacity":"1774",
       "country":"United States",
       "latitude":"41.72639",
@@ -737,6 +842,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Rajasthan Atomic Power Station",
+      "tag": 205,
       "capacity":"1085",
       "country":"India",
       "latitude":"24.87222",
@@ -744,6 +850,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Ringhals Nuclear Power Plant",
+      "tag": 206,
       "capacity":"3649",
       "country":"Sweden",
       "latitude":"57.25972",
@@ -751,6 +858,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Rivne Nuclear Power Plant",
+      "tag": 207,
       "capacity":"2645",
       "country":"Ukraine",
       "latitude":"51.32778",
@@ -758,6 +866,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Rostov Nuclear Power Plant",
+      "tag": 208,
       "capacity":"1900",
       "country":"Russia",
       "latitude":"47.59944",
@@ -765,6 +874,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Rivne Nuclear Power Plant",
+      "tag": 209,
       "capacity":"2657",
       "country":"Ukraine",
       "latitude":"51.32778",
@@ -772,6 +882,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Saint-Alban Nuclear Power Plant",
+      "tag": 210,
       "capacity":"2670",
       "country":"France",
       "latitude":"45.40444",
@@ -779,6 +890,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Saint-Laurent Nuclear Power Plant",
+      "tag": 211,
       "capacity":"1830",
       "country":"France",
       "latitude":"47.72",
@@ -786,6 +898,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Saint Lucie Nuclear Power Station",
+      "tag": 212,
       "capacity":"1678",
       "country":"United States",
       "latitude":"27.34861",
@@ -793,6 +906,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Salem Nuclear Power Plant",
+      "tag": 213,
       "capacity":"2332",
       "country":"United States",
       "latitude":"39.46278",
@@ -800,6 +914,7 @@ exports.powerPlantsList =
    },
    {
       "name":"San Onofre Nuclear Generating Station",
+      "tag": 214,
       "capacity":"2150",
       "country":"United States",
       "latitude":"33.36889",
@@ -807,6 +922,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Seabrook Station Nuclear Power Plant",
+      "tag": 215,
       "capacity":"1247",
       "country":"United States",
       "latitude":"42.89889",
@@ -814,6 +930,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Sendai Nuclear Power Plant",
+      "tag": 216,
       "capacity":"1692",
       "country":"Japan",
       "latitude":"31.83361",
@@ -821,6 +938,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Sequoyah Nuclear Generating Station",
+      "tag": 217,
       "capacity":"2278",
       "country":"United States",
       "latitude":"35.22639",
@@ -828,6 +946,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Shika Nuclear Power Plant",
+      "tag": 218,
       "capacity":"1613",
       "country":"Japan",
       "latitude":"37.06111",
@@ -835,6 +954,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Shimane Nuclear Power Plant",
+      "tag": 219,
       "capacity":"1228",
       "country":"Japan",
       "latitude":"35.53833",
@@ -842,6 +962,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Shin Kori Nuclear Power Plant",
+      "tag": 220,
       "capacity":"1001",
       "country":" South Korea",
       "latitude":"35.32",
@@ -849,6 +970,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Sizewell-B Nuclear Power Station",
+      "tag": 221,
       "capacity":"1188",
       "country":"United Kingdom",
       "latitude":"52.21333",
@@ -856,6 +978,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Smolensk Nuclear Power Plant",
+      "tag": 222,
       "capacity":"2775",
       "country":"Russia",
       "latitude":"54.16917",
@@ -863,6 +986,7 @@ exports.powerPlantsList =
    },
    {
       "name":"South Texas Nuclear Generating Station",
+      "tag": 223,
       "capacity":"2560",
       "country":"United States",
       "latitude":"28.79556",
@@ -870,6 +994,7 @@ exports.powerPlantsList =
    },
    {
       "name":"South Ukraine Nuclear Power Plant",
+      "tag": 224,
       "capacity":"2850",
       "country":"Ukraine",
       "latitude":"47.8166667",
@@ -877,6 +1002,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Surry Nuclear Power Plant",
+      "tag": 225,
       "capacity":"1638",
       "country":"United States",
       "latitude":"37.16556",
@@ -884,6 +1010,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Susquehanna Steam Electric Station",
+      "tag": 226,
       "capacity":"2429",
       "country":"United States",
       "latitude":"41.08889",
@@ -891,6 +1018,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Takahama Nuclear Power Plant",
+      "tag": 227,
       "capacity":"3220",
       "country":"Japan",
       "latitude":"35.52222",
@@ -898,6 +1026,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Tarapur Atomic Power Station",
+      "tag": 228,
       "capacity":"1280",
       "country":"India",
       "latitude":"19.82778",
@@ -905,6 +1034,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Temelin Nuclear Power Station",
+      "tag": 229,
       "capacity":"1926",
       "country":"Czech Republic",
       "latitude":"49.18",
@@ -912,6 +1042,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Tianwan Nuclear Power Plant",
+      "tag": 230,
       "capacity":"1866",
       "country":"China",
       "latitude":"34.68694",
@@ -919,6 +1050,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Tihange Nuclear Power Station",
+      "tag": 231,
       "capacity":"3016",
       "country":"Belgium",
       "latitude":"50.53472",
@@ -926,6 +1058,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Tokai Nuclear Power Plant",
+      "tag": 232,
       "capacity":"1060",
       "country":"Japan",
       "latitude":"36.46639",
@@ -933,6 +1066,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Tomari Nuclear Power Plant",
+      "tag": 233,
       "capacity":"1966",
       "country":"Japan",
       "latitude":"43.03611",
@@ -940,6 +1074,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Torness Nuclear Power Station",
+      "tag": 234,
       "capacity":"1205",
       "country":"United Kingdom",
       "latitude":"55.96806",
@@ -947,6 +1082,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Tricastin Nuclear Power Center",
+      "tag": 235,
       "capacity":"3660",
       "country":"France",
       "latitude":"44.32972",
@@ -954,6 +1090,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Trillo Nuclear Power Plant",
+      "tag": 236,
       "capacity":"1003",
       "country":"Spain",
       "latitude":"40.70111",
@@ -961,6 +1098,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Tsuruga Nuclear Power Plant",
+      "tag": 237,
       "capacity":"1448",
       "country":"Japan",
       "latitude":"35.67278",
@@ -968,6 +1106,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Turkey Point Nuclear Generating Station",
+      "tag": 238,
       "capacity":"1386",
       "country":"United States",
       "latitude":"25.43417",
@@ -975,6 +1114,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Ulchin Nuclear Power Plant",
+      "tag": 239,
       "capacity":"5873",
       "country":"South Korea",
       "latitude":"37.09278",
@@ -982,6 +1122,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Yeonggwang Nuclear Power Station",
+      "tag": 240,
       "capacity":"5875",
       "country":"South Korea",
       "latitude":"35.415",
@@ -989,6 +1130,7 @@ exports.powerPlantsList =
    },
    {
       "name":"VandellÚs Nuclear Power Station",
+      "tag": 241,
       "capacity":"1045",
       "country":"Spain",
       "latitude":"40.95139",
@@ -996,6 +1138,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Vogtle Electric Generating Plant",
+      "tag": 242,
       "capacity":"2302",
       "country":"United States",
       "latitude":"33.14306",
@@ -1003,6 +1146,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Waterford Nuclear Generating Station",
+      "tag": 243,
       "capacity":"1168",
       "country":"United States",
       "latitude":"29.995",
@@ -1010,6 +1154,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Watts Bar Nuclear Generating Station",
+      "tag": 244,
       "capacity":"1123",
       "country":"United States",
       "latitude":"29.995",
@@ -1017,6 +1162,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Wolf Creek Generating Station",
+      "tag": 245,
       "capacity":"1160",
       "country":"United States",
       "latitude":"38.23889",
@@ -1024,6 +1170,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Wolseong Nuclear Power Plant",
+      "tag": 246,
       "capacity":"2722",
       "country":"South Korea",
       "latitude":"35.71111",
@@ -1031,6 +1178,7 @@ exports.powerPlantsList =
    },
    {
       "name":"Zaporizhzhia Nuclear Power Plant",
+      "tag": 247,
       "capacity":"5700",
       "country":"Ukraine",
       "latitude":"47.51222",

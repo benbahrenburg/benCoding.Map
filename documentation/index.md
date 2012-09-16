@@ -55,6 +55,7 @@ This method adds a Polygon to the MapView.
 
 Parameters:
 * title : String - Title of the Polygon, also used when removing the polygon.
+* tag : Integer - Identifier that can be used when removing the Polygon 
 * alpha : Float  - The alpha value for the Polygon.
 * lineWidth : Float - The width of the Polygon outline.
 * strokeColor : Color - The color of the Polygon stroke.
@@ -68,6 +69,7 @@ Parameters:
 var map = require('bencoding.map');
 //Below is a polygon for the state of Colorado
 var myPolygon = {title:'Colorado',
+                tag: 42,
                 color:'#880000',
                 alpha:0.5,
                 lineWidth:1.2,
@@ -105,15 +107,26 @@ This method removes a specific Polygon using the Polygon's title property.
 
 Parameters:
 * title : String - The title of the Polygon you would like to remove
-
+* tag : Integer - Identifier that can be used when removing the Polygon 
 <b>Sample</b>
 
+<b>Sampe removing polygon using title property</b>
 <pre><code>
 //Add the core module into your project
 var map = require('bencoding.map');
 //Below is a polygon for the state of Colorado
 var myPolygon = {title:'Colorado'};
 //Remove the Colorado polgyon from the MapView
+map.removePolygon(myPolygon);
+</code></pre>
+
+<b>Sampe removing polygon using tag property</b>
+<pre><code>
+//Add the core module into your project
+var map = require('bencoding.map');
+//Below is a polygon for the state of Colorado
+var myPolygon = {tag:42};
+//Remove the Colorado polgyon from the MapView using tag of 42
 map.removePolygon(myPolygon);
 </code></pre>
 
@@ -137,7 +150,7 @@ map.removeAllPolygons();
 
 When working with country borders and other complex boundaries it is useful to use multipart Polygons.
 
-To create multipart Polygons simply create each Polygon with the same name. This allows you to remove them by referencing the same Polygon title.
+To create multipart Polygons simply create each Polygon with the same name. This allows you to remove them by referencing the same Polygon title or tag.
 
 The United Kingdom sample provided in the example folder demonstrates how to create Polygons in this way.
 
@@ -149,6 +162,7 @@ This method adds a Circle to the MapView.
 
 Parameters:
 * title : String - Title of the Circle, also used when removing the Circle.
+* tag : Integer - Identifier that can be used when removing the Circle 
 * alpha : Float  - The alpha value for the Circle.
 * lineWidth : Float - The width of the Circle outline.
 * strokeColor : Color - The color of the Circle stroke.
@@ -164,6 +178,7 @@ Parameters:
 var map = require('bencoding.map');
 //Create a circle 100 meters around Time Square 
 var myCircle = {title:'Time Square',
+                tag: 42,
                 color:'#880000',
                 alpha:0.5,
                 lineWidth:1.2,
@@ -182,9 +197,10 @@ This method removes a specific Circle using the Circle's title property.
 
 Parameters:
 * title : String - The title of the Circle you would like to remove
-
+* tag : Integer - Identifier that can be used when removing the Circle 
 <b>Sample</b>
 
+<b>Sampe removing circles using title property</b>
 <pre><code>
 //Add the core module into your project
 var map = require('bencoding.map');
@@ -195,6 +211,16 @@ var myCirlce = {title:'Time Square'};
 map.removeCircle(myCirlce);
 </code></pre>
 
+<b>Sampe removing circles using tag property</b>
+<pre><code>
+//Add the core module into your project
+var map = require('bencoding.map');
+//Create an object with the same tag as our Time Square Circle
+var myCirlce = {tag:42};
+//Remove the pass the above object with our tag property into the remove method
+//This will remove all circles with the tag provided
+map.removeCircle(myCirlce);
+</code></pre>
 <h3>removeAllCircles</h3>
 
 This method removes all Circles added to the MapView.  Please note this will only remove Circles, other overlays or annotations must be handled separately. 
@@ -261,6 +287,7 @@ The addKML method is only available to add KML file objects after the mapView ha
 
 Parameters:
 * path : String -
+* tag : Integer - An identifier used to associate all overlays and annotation to the KML job.
 * flyTo : Boolean - Will set your zoom to show all of your points added (false by default)  
 * overlayInfo : Dictionary containgin the below properties
 -- title : String - Title of the Circle, also used when removing the Circle.
@@ -270,7 +297,6 @@ Parameters:
 -- color : Color - The FillColor of the Circle.
 -- useRandomColor : Boolean - Greater a random color, this overrides color if provided (False by default)
 * annotationInfo : Dictionary containgin the below properties
--- tagId : Integer - An identifier used to associate an annotation to the KML job.
 -- pincolor : Number - Pin color. Specify one of: Titanium.Map.ANNOTATION_GREEN, Titanium.Map.ANNOTATION_PURPLE or Titanium.Map.ANNOTATION_RED.
 
 <pre><code>
@@ -279,9 +305,10 @@ var map = require('bencoding.map');
 map.addKML({
     path:'MID_SIZED_SAMPLE.kml', //Path to your KML file
     flyTo:false, //Will set your zoom to show all of your points added (false by default)        
+    tag:41, //Integer value used as the tag for all overlays and annotations.
     //Contains all of the details used to process overlays from your KML file
     overlayInfo:{
-        title:'my kml batch key', //This identifies all of the overlay elements in your kml file. This is also used for delete or query operations.
+        title:'my kml batch key', //This identifies all of the overlay elements in your kml file. Can be used during delete
         alpha:0.5, //Alpha value of your overlays
         lineWidth:1.2, //Line Width of your overlays
         strokeColor:'#000', //Stroke Color of your overlays
@@ -290,7 +317,6 @@ map.addKML({
     },
     //Contains all of the details used to process annotations from your KML file
     annotationInfo:{
-        tagId:41, //Integer value used as the tag for all annotations. If you want use remove you need to set this to a known value. By default it is 1
         pincolor:Ti.Map.ANNOTATION_GREEN //(Optional) pincolor for your annotations             
     }     
 }); 
@@ -317,25 +343,18 @@ map.addEventListener('kmlCompleted',onComplete);
 
 <h3>removeKML</h3>
 
-The removeKML method provides an easy helper function to remove all of the polygons and annotations added using the addKML function. The delete uses the title parameter to remove any circles or polygons and the tagId value to remove any annotations.
+The removeKML method provides an easy helper function to remove all of the polygons and annotations added using the addKML function. The delete uses the tag parameter to remove any circles, polygons and the annotations.
 
-For best results you will need to provide the same title and tagId used during the creation process.  In the ablve addKML example we used a title of 'my kml batch key' and a tagId of 41.  To remove these objects, we call the removeKML method and provide those values, as shown below.
+For best results you will need to provide the same tag used during the creation process.  In the ablve addKML example we used a title of 'my kml batch key' and a tag of 41.  To remove these objects, we call the removeKML method and provide that value, as shown below.
 
 Parameters:
-* overlayInfo : Dictionary containgin the below properties
--- title : String - Title of the Circle, also used when removing the Circle.
-* annotationInfo : Dictionary containgin the below properties
--- tagId : Integer - An identifier used to associate an annotation to the KML job. 
+* tagId : Integer - An identifier used to find overlays and annotation associated to the KML job. 
 
 <pre><code>
 //Add the core module into your project
 var map = require('bencoding.map');
 map.removeKML({
-    overlayInfo:{
-        title:'my kml batch key'
-   },
-   annotationInfo:{
-    tagId:41 //Integer value used as the tag for all annotations. If you want use remove you need to set this to a known value. By default it is 1
+    tag:41 //Integer value used as the tag for all overlays and annotations you created
    }
 }); 
 </code></pre>

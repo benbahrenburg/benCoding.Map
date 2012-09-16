@@ -69,6 +69,7 @@ bAddPlants.addEventListener('click',function() {
 			latitude:meta.powerPlantsList[iLoop].latitude,
 			longitude:meta.powerPlantsList[iLoop].longitude,
 			title:meta.powerPlantsList[iLoop].name,
+			tag:meta.powerPlantsList[iLoop].tag,
 			radius:80000,
 			color:'yellow'
 		});		
@@ -77,6 +78,7 @@ bAddPlants.addEventListener('click',function() {
 			latitude:meta.powerPlantsList[iLoop].latitude,
 			longitude:meta.powerPlantsList[iLoop].longitude,
 			title:meta.powerPlantsList[iLoop].name,
+			tag:meta.powerPlantsList[iLoop].tag,
 			radius:16000,
 			color:'red'
 		});
@@ -86,6 +88,7 @@ bAddPlants.addEventListener('click',function() {
 			latitude:meta.powerPlantsList[iLoop].latitude,
 			longitude:meta.powerPlantsList[iLoop].longitude,
 			title:meta.powerPlantsList[iLoop].name,
+			tag:meta.powerPlantsList[iLoop].tag,
 			subtitle:meta.powerPlantsList[iLoop].country + '\nCapacity:' + meta.powerPlantsList[iLoop].capacity + ' MW',
 			pincolor:Ti.Map.ANNOTATION_PURPLE,
 			animate:true
@@ -101,7 +104,7 @@ bRemoveUSPlants.addEventListener('click',function() {
 		if(meta.powerPlantsList[iLoop].country=="United States"){
 			Ti.API.info("Removing plant " + meta.powerPlantsList[iLoop].name);
 			//Remove all circles related to this title
-			mapView.removeCircle({title:meta.powerPlantsList[iLoop].name});
+			mapView.removeCircle({tag:meta.powerPlantsList[iLoop].tag});
 			//Remove our annotation that is associated with this entry
 			mapView.removeAnnotation(meta.powerPlantsList[iLoop].name);
 		}

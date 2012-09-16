@@ -61,6 +61,7 @@ bAddKML.addEventListener('click',function() {
 	
 	mapView.addKML({
 		path:"MID_SIZED_SAMPLE.kml", //Path to our kml file
+		tag : 55, //Integer value used as the tag for all polygons and annotations. If you want use remove you need to set this to a known value.
         flyTo:false, //Will set your zoom to show all of your points added (false by default)        
   		//Contains all of the details used to process overlays from your KML file
   		overlayInfo:{
@@ -73,7 +74,6 @@ bAddKML.addEventListener('click',function() {
   		},
   		//Contains all of the details used to process annotations from your KML file
   		annotationInfo:{
-	        tagId:41, //Integer value used as the tag for all annotations. If you want use remove you need to set this to a known value. By default it is 1
 	        pincolor:Ti.Map.ANNOTATION_GREEN //(Optional) pincolor for your annotations  			
   		}     
 	});	
@@ -81,16 +81,9 @@ bAddKML.addEventListener('click',function() {
 });
 
 bRemoveKML.addEventListener('click',function() {
-	//This is alittle tricky.  We use the title element to remove specific polygons and circles.
-	//The tagId is used to remove annotations.  You will need to set both when you call the addKML method
-	//If you want to later use removeKML
-	mapView.removeKML({
-		overlayInfo:{
-        	title:'my kml batch key'
-       },
-       annotationInfo:{
-        tagId:41 //Integer value used as the tag for all annotations. If you want use remove you need to set this to a known value. By default it is 1
-       }
+	//The tag is used to remove polygons, circles, and annotations.  You will need to set both when you call 
+	//the addKML method if you want to later use removeKML
+	mapView.removeKML({tag:55}
 	});		
 });
 

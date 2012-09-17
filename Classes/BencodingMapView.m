@@ -1186,9 +1186,9 @@ int const kTagIdValue = -111111;
 	ENSURE_UI_THREAD(addImageOverlay,args);
     
     BOOL hasCoordBox = (([args valueForKey:@"coordBox"]!=nil) ? YES : NO);
-    BOOL hasSizedBox = (([args valueForKey:@"sizedBox"]!=nil) ? YES : NO);;
+    BOOL hasSizedBox = (([args valueForKey:@"sizedBox"]!=nil) ? YES : NO);
     
-    if((hasCoordBox=NO) && (hasSizedBox=NO))
+    if((hasCoordBox==NO) && (hasSizedBox==NO))
     {
         NSLog(@"not values provided for coordBox or center. One of these properties need to be set to continue");
         return;

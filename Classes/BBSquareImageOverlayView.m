@@ -12,7 +12,7 @@
 
 - (void)drawMapRect:(MKMapRect)mapRect zoomScale:(MKZoomScale)zoomScale inContext:(CGContextRef)ctx
 {
-    
+    //NSLog(@"Showing %@", ImagePath);
     UIImage *image          = [[UIImage imageWithContentsOfFile:ImagePath] retain];
     CGImageRef imageReference = image.CGImage;
     

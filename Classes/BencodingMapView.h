@@ -63,6 +63,9 @@
 -(void)removeAllPolygons:(id)arg;
 -(void)removePolygon:(id)args;
 -(void)addPolygon:(id)args;
+-(void)addImageOverlay:(id)args;
+-(void)removeImageOverlay:(id)args;
+-(void)removeAllImageOverlays:(id)arg;
 
 -(void)addAnnotation:(id)args;
 -(void)addAnnotations:(id)args;

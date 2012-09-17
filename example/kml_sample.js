@@ -83,8 +83,7 @@ bAddKML.addEventListener('click',function() {
 bRemoveKML.addEventListener('click',function() {
 	//The tag is used to remove polygons, circles, and annotations.  You will need to set both when you call 
 	//the addKML method if you want to later use removeKML
-	mapView.removeKML({tag:55}
-	});		
+	mapView.removeKML({tag:55});		
 });
 
 bMore.addEventListener('click',function() {

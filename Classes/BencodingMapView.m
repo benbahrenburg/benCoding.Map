@@ -1,6 +1,6 @@
 /**
  This file has been forked and modified from the Titanium project to add Polygon support
- */ 
+ */
 
 /**
  * Appcelerator Titanium Mobile
@@ -42,7 +42,7 @@ int const kTagIdValue = -111111;
         CFRelease(mapName2Line);
         mapName2Line = nil;
     }
-
+    
     if(tapInterceptor!=nil)
     {
         RELEASE_TO_NIL(tapInterceptor);
@@ -90,10 +90,10 @@ int const kTagIdValue = -111111;
         
         //Add in User Tracking
         respondsToMKUserTrackingMode = [MKMapView instancesRespondToSelector:@selector(setUserTrackingMode:)];
-    
+        
         if (respondsToMKUserTrackingMode)
         {
-             map.userTrackingMode = MKUserTrackingModeNone;
+            map.userTrackingMode = MKUserTrackingModeNone;
         }
     }
     return map;
@@ -380,12 +380,12 @@ int const kTagIdValue = -111111;
 			region.center = user.location.coordinate;
 			[self render];
 		}
-		else 
+		else
 		{
 			// if we unset but we're not allowed to get the users location, what to do?
 		}
 	}
-	else 
+	else
 	{
 		region = [self regionFromDict:value];
 		[self render];
@@ -465,7 +465,7 @@ int const kTagIdValue = -111111;
     TiColor* color = [TiUtils colorValue:@"color" properties:args];
     float width = [TiUtils floatValue:@"width" properties:args def:2];
     
-    // construct the MKPolyline 
+    // construct the MKPolyline
     MKMapPoint* pointArray = malloc(sizeof(CLLocationCoordinate2D) * [points count]);
     for (int i = 0; i < [points count]; ++i) {
         NSDictionary* entry = [points objectAtIndex:i];
@@ -473,7 +473,7 @@ int const kTagIdValue = -111111;
         CLLocationDegrees lon = [TiUtils doubleValue:[entry objectForKey:@"longitude"]];
         CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(lat, lon);
         MKMapPoint pt = MKMapPointForCoordinate(coord);
-        pointArray[i] = pt;             
+        pointArray[i] = pt;
     }
     MKPolyline* routeLine = [[MKPolyline polylineWithPoints:pointArray count:[points count]] autorelease];
     free(pointArray);
@@ -510,9 +510,9 @@ int const kTagIdValue = -111111;
 #pragma mark Delegates
 
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
-{	
+{
     return [self prepareOverlayForPresentation:overlay];
-
+    
 }
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
 {
@@ -551,7 +551,7 @@ int const kTagIdValue = -111111;
     ignoreClicks = YES;
     NSArray* currentSelectedAnnotations = [[mapView selectedAnnotations] retain];
     for (id annotation in currentSelectedAnnotations) {
-        //Only Annotations that are hidden at this point should be 
+        //Only Annotations that are hidden at this point should be
         //made visible here.
         if ([mapView viewForAnnotation:annotation].hidden) {
             [mapView deselectAnnotation:annotation animated:NO];
@@ -602,7 +602,7 @@ int const kTagIdValue = -111111;
 	[self firePinChangeDragState:annotationView newState:newState fromOldState:oldState];
 }
 
-- (void)firePinChangeDragState:(MKAnnotationView *) pinview newState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState 
+- (void)firePinChangeDragState:(MKAnnotationView *) pinview newState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState
 {
 	TiMapAnnotationProxy *viewProxy = [self proxyForAnnotation:pinview];
     
@@ -768,8 +768,8 @@ int const kTagIdValue = -111111;
 		{
 			return;
 		}
-        /*Image Annotation don't have any animation of its own. 
-         *So in this case we do a custom animation, to place the 
+        /*Image Annotation don't have any animation of its own.
+         *So in this case we do a custom animation, to place the
          *image annotation on top of the mapview.*/
         if([thisView isKindOfClass:[TiMapImageAnnotationView class]])
         {
@@ -778,9 +778,9 @@ int const kTagIdValue = -111111;
             {
                 CGRect viewFrame = thisView.frame;
                 thisView.frame = CGRectMake(viewFrame.origin.x, viewFrame.origin.y - self.frame.size.height, viewFrame.size.width, viewFrame.size.height);
-                [UIView animateWithDuration:0.4 
-                                      delay:0.0 
-                                    options:UIViewAnimationCurveEaseOut 
+                [UIView animateWithDuration:0.4
+                                      delay:0.0
+                                    options:UIViewAnimationCurveEaseOut
                                  animations:^{thisView.frame = viewFrame;}
                                  completion:nil];
             }
@@ -886,10 +886,10 @@ int const kTagIdValue = -111111;
 //
 //      You need to alter the below deligates
 //          - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
-//      
+//
 //      You need to alter the below Methods
 //          Add the following lines to the dealloc method
-//          
+//
 //          if(polygonOverlays!=nil)
 //          {
 //              RELEASE_TO_NIL(polygonOverlays);
@@ -897,7 +897,7 @@ int const kTagIdValue = -111111;
 //          if(circleOverlays!=nil)
 //          {
 //              RELEASE_TO_NIL(circleOverlays);
-//          } 
+//          }
 //
 //
 //      Don't forget to copy from here to the end, this should be the easy part
@@ -907,11 +907,11 @@ int const kTagIdValue = -111111;
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 //http://compileyouidontevenknowyou.blogspot.com/2010/06/random-colors-in-objective-c.html
-- (UIColor *) randomColor 
+- (UIColor *) randomColor
 {
     CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
     CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
-    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  
+    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;
     return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
 }
 
@@ -921,10 +921,10 @@ int const kTagIdValue = -111111;
 //    tapInterceptor.touchesBeganCallback = ^(NSSet * touches, UIEvent * event) {
 //        UITouch *touch = [touches anyObject];
 //        CGPoint point = [touch locationInView:self.map];
-//        
+//
 //        CLLocationCoordinate2D coord = [self.map convertPoint:point toCoordinateFromView:self.map];
 //        MKMapPoint mapPoint = MKMapPointForCoordinate(coord);
-//        for (id overlay in self.map.overlays) 
+//        for (id overlay in self.map.overlays)
 //        {
 //            if ([overlay isKindOfClass:[MKPolygon class]])
 //            {
@@ -934,38 +934,38 @@ int const kTagIdValue = -111111;
 //                {
 //                    MKPolygonView *polyView = (MKPolygonView*) view;
 //                    CGPoint polygonViewPoint = [polyView pointForMapPoint:mapPoint];
-//                    BOOL mapCoordinateIsInPolygon = CGPathContainsPoint(polyView.path, NULL, polygonViewPoint, NO);   
+//                    BOOL mapCoordinateIsInPolygon = CGPathContainsPoint(polyView.path, NULL, polygonViewPoint, NO);
 //                    if (mapCoordinateIsInPolygon) {
 //                        if (([self.proxy _hasListeners:@"polygonClick"]) && (poly.title!=nil))
 //                        {
 //                            NSDictionary * event = [NSDictionary dictionaryWithObjectsAndKeys:
 //                                                    @"polygon",@"clicksource",
-//                                                    poly.title,@"title", nil];                                     
+//                                                    poly.title,@"title", nil];
 //                            [self.proxy fireEvent:@"polygonClick" withObject:event];
-//                            
+//
 //                        }
 //                        break;
 //                    }
 //                }
 //            }
 //        }
-//        
+//
 //    };
-//    [self.map addGestureRecognizer:tapInterceptor]; 
+//    [self.map addGestureRecognizer:tapInterceptor];
 //    polygonClickListenerAdded=YES;
 //}
 //
 //-(void)setPolygonTouchTracking_:(id)value
 //{
 //    BOOL touchCommand = [TiUtils boolValue:value];
-//    
+//
 //    if((polygonClickListenerAdded==NO)&&(touchCommand))
 //    {
 //        [self addPolygonTouch];
 //    }
 //    if((polygonClickListenerAdded)&&(touchCommand==NO))
 //    {
-//       [self.map removeGestureRecognizer:tapInterceptor]; 
+//       [self.map removeGestureRecognizer:tapInterceptor];
 //        polygonClickListenerAdded=NO;
 //    }
 //}
@@ -973,6 +973,7 @@ int const kTagIdValue = -111111;
 - (MKOverlayView *)prepareOverlayForPresentation:(id <MKOverlay>)overlay
 {
     @try {
+        //NSLog(@"overlay type %@",NSStringFromClass ([overlay class]));
         if ([overlay isKindOfClass:[MKPolygon class]])
         {
             MKPolygonView *polygonView = [[[MKPolygonView alloc] initWithPolygon:overlay] autorelease];
@@ -1025,6 +1026,7 @@ int const kTagIdValue = -111111;
         else if ([overlay isKindOfClass:[BBSquareImageOverlay class]])
         {
             BBSquareImageOverlay *mapOverlay = (BBSquareImageOverlay *)overlay;
+            
             BBSquareImageOverlayView *mapOverlayView =
             [[[BBSquareImageOverlayView alloc] initWithOverlay:mapOverlay] autorelease];
             
@@ -1036,14 +1038,13 @@ int const kTagIdValue = -111111;
             {
                 if(mapOverlay.color==nil)
                 {
-                    mapOverlayView.backgroundColor = [UIColor greenColor];
+                    mapOverlayView.backgroundColor = [UIColor yellowColor];
                 }
                 else
                 {
                     mapOverlayView.backgroundColor=mapOverlay.color;
                 }
             }
-
             mapOverlayView.alpha=[mapOverlay.alpha floatValue];
             return mapOverlayView;
         }
@@ -1105,9 +1106,9 @@ int const kTagIdValue = -111111;
         [self ImageOverlayQueryToRemoveByTag:tagId];
     }
 }
--(void)removeImageOverlays:(id)arg
+-(void)removeAllImageOverlays:(id)arg
 {
-	ENSURE_UI_THREAD(removeImageOverlays,arg);
+	ENSURE_UI_THREAD(removeAllImageOverlays,arg);
     
     //Remove overlay from map
     for (id <MKOverlay> overlay in [self map].overlays) {
@@ -1120,53 +1121,62 @@ int const kTagIdValue = -111111;
     
 }
 
--(BBSquareImageOverlay*) BuildImageOverlayFromCoordinates:(NSDictionary*)args
-{
-    if([args objectForKey:@"coordBox"]!=[NSNull null])
+-(BBSquareImageOverlay*) BuildImageOverlayFromCoordinates:(NSDictionary*)args withHasCoordBox:(BOOL)hasCoordBox withHasSizedBox:(BOOL)hasSizedBox
+{    
+    @try
     {
-        //Convert the points into something useful
-        NSDictionary *boxInfo = [args objectForKey:@"coordBox"];
-        NSDictionary *coords = [boxInfo objectForKey:@"coords"];
-        NSDictionary *upperRight = [coords objectForKey:@"upperRight"];
-        NSDictionary *bottomLeft = [coords objectForKey:@"bottomLeft"];
+
+//        NSLog(@"hasCoordBox %@",(hasCoordBox ? @"YES" : @"NO"));
+//        NSLog(@"hasSizedBox %@",(hasSizedBox ? @"YES" : @"NO"));
         
-        CLLocationCoordinate2D  upperRightCoords = CLLocationCoordinate2DMake(
-                                                                              [TiUtils floatValue:@"latitude" properties:upperRight def:0.0],
-                                                                              [TiUtils floatValue:@"longitude" properties:upperRight def:0.0]
-                                                                              );
-        CLLocationCoordinate2D  bottomLeftCoords = CLLocationCoordinate2DMake(
-                                                                              [TiUtils floatValue:@"latitude" properties:bottomLeft def:0.0],
-                                                                              [TiUtils floatValue:@"longitude" properties:bottomLeft def:0.0]
-                                                                              );
-        BBSquareImageOverlay* imgOverlay =[[[BBSquareImageOverlay alloc] initWithCoordinates:upperRightCoords
-                                                                    withLowerLeftCoordinate:bottomLeftCoords] autorelease];
-        return imgOverlay;
+        if(hasCoordBox==YES)
+        {
+            //Convert the points into something useful
+            NSDictionary *boxInfo = [args objectForKey:@"coordBox"];
+            NSDictionary *coords = [boxInfo objectForKey:@"coords"];
+            NSDictionary *upperRight = [coords objectForKey:@"upperRight"];
+            NSDictionary *bottomLeft = [coords objectForKey:@"bottomLeft"];
+            
+            CLLocationCoordinate2D  upperRightCoords = CLLocationCoordinate2DMake(
+                                                                                  [TiUtils floatValue:@"latitude" properties:upperRight def:0.0],
+                                                                                  [TiUtils floatValue:@"longitude" properties:upperRight def:0.0]
+                                                                                  );
+            CLLocationCoordinate2D  bottomLeftCoords = CLLocationCoordinate2DMake(
+                                                                                  [TiUtils floatValue:@"latitude" properties:bottomLeft def:0.0],
+                                                                                  [TiUtils floatValue:@"longitude" properties:bottomLeft def:0.0]
+                                                                                  );
+            BBSquareImageOverlay* imgOverlay =[[[BBSquareImageOverlay alloc] initWithCoordinates:upperRightCoords
+                                                                         withLowerLeftCoordinate:bottomLeftCoords] autorelease];
+            return imgOverlay;
+        }
+        
+        if(hasSizedBox==YES)
+        {
+            //Convert the points into something useful
+            NSDictionary *sizedBox = [args objectForKey:@"sizedBox"];
+            NSDictionary *coords = [sizedBox objectForKey:@"coords"];
+            NSDictionary *upperRight = [coords objectForKey:@"upperRight"];
+
+            //Create the number of points provided
+            CLLocationCoordinate2D  upperRightCoords = CLLocationCoordinate2DMake(
+                                                                                  [TiUtils floatValue:@"latitude" properties:upperRight def:0.0],
+                                                                                  [TiUtils floatValue:@"longitude" properties:upperRight def:0.0]
+                                                                                  );
+
+            float cellSizeLatitude = [TiUtils floatValue:@"cellSizeLat" properties:sizedBox def:0.001];
+            float cellSizeLongitude = [TiUtils floatValue:@"cellSizeLng" properties:sizedBox def:0.001];
+
+            CLLocationCoordinate2D bottomLeft = CLLocationCoordinate2DMake((upperRightCoords.latitude - cellSizeLatitude),
+                                                                           (upperRightCoords.longitude - cellSizeLongitude));
+            
+            BBSquareImageOverlay* imgOverlay =[[[BBSquareImageOverlay alloc] initWithCoordinates:upperRightCoords
+                                                                         withLowerLeftCoordinate:bottomLeft] autorelease];
+            return imgOverlay;
+        }
     }
-    
-    if([args objectForKey:@"sizedBox"]!=[NSNull null])
-    {
-        //Convert the points into something useful
-        NSDictionary *sizedBox = [args objectForKey:@"sizedBox"];
-        NSDictionary *coords = [sizedBox objectForKey:@"coords"];
-        NSDictionary *upperRight = [coords objectForKey:@"upperRight"];
-        
-        //Create the number of points provided
-        CLLocationCoordinate2D  upperRightCoords = CLLocationCoordinate2DMake(
-                                                                              [TiUtils floatValue:@"latitude" properties:upperRight def:0.0],
-                                                                              [TiUtils floatValue:@"longitude" properties:upperRight def:0.0]
-                                                                              );
-        
-        
-        float cellSizeLatitude = [TiUtils floatValue:@"cellSizeLat" properties:sizedBox def:0.001];
-        float cellSizeLongitude = [TiUtils floatValue:@"cellSizeLng" properties:sizedBox def:0.001];
-        
-        CLLocationCoordinate2D bottomLeftCoords = CLLocationCoordinate2DMake((upperRightCoords.latitude - cellSizeLatitude),
-                                                                             (upperRightCoords.longitude - cellSizeLongitude));
-        
-        
-        BBSquareImageOverlay* imgOverlay =[[[BBSquareImageOverlay alloc] initWithCoordinates:upperRightCoords
-                                                                    withLowerLeftCoordinate:bottomLeftCoords] autorelease];
-        return imgOverlay;
+    @catch (id theException) {
+        NSLog(@"BuildImageOverlayFromCoordinates %@", theException);
+        return nil;
     }
 }
 
@@ -1175,31 +1185,36 @@ int const kTagIdValue = -111111;
 	ENSURE_TYPE(args,NSDictionary);
 	ENSURE_UI_THREAD(addImageOverlay,args);
     
-    id boxValues = [args objectForKey:@"coordBox"];
-    id centerValues = [args objectForKey:@"center"];
-    NSString *imgPath = [TiUtils stringValue:@"image" properties:args];
+    BOOL hasCoordBox = (([args valueForKey:@"coordBox"]!=nil) ? YES : NO);
+    BOOL hasSizedBox = (([args valueForKey:@"sizedBox"]!=nil) ? YES : NO);;
+    
+    if((hasCoordBox=NO) && (hasSizedBox=NO))
+    {
+        NSLog(@"not values provided for coordBox or center. One of these properties need to be set to continue");
+        return;
+    }
 
+    //Build Overlay
+    BBSquareImageOverlay* imgOverlay = [self BuildImageOverlayFromCoordinates:args withHasCoordBox:hasCoordBox withHasSizedBox:hasSizedBox];
+    
+    NSString *imgPath = [TiUtils stringValue:@"image" properties:args];
+    
     if(imgPath==nil)
     {
         NSLog(@"No image provided unable to continue adding overlay");
         return;
     }
-     
+
+    //Get the alpha, if not provided default to 0.9
+    float alpha = [TiUtils floatValue:@"alpha" properties:args def:0.9];
+    imgOverlay.alpha=[NSNumber numberWithFloat:alpha];
+    
     NSURL* filePath = [TiUtils toURL:imgPath proxy:self.proxy];
     NSString* pathToAdd = [filePath path];
-    NSLog(@"adding path %@", pathToAdd);
-    
-    if((boxValues==nil)&&(centerValues==nil))
-    {
-        NSLog(@"not values provided for coordBox or center. One of these properties need to be set to continue");
-        return;
-    }
-    
-    //Build Overlay
-    BBSquareImageOverlay* imgOverlay = [self BuildImageOverlayFromCoordinates:args];
-    
+    //NSLog(@"adding path %@", pathToAdd);
+
     //Add image path
-    imgOverlay.imagePath=imgPath;
+    imgOverlay.imagePath=pathToAdd;
     
     //Get the title for the overlay
     NSString *overlayTitle = [TiUtils stringValue:@"title" properties:args];
@@ -1210,6 +1225,7 @@ int const kTagIdValue = -111111;
     imgOverlay.tag=tagId;
     
     [[self map] addOverlay:imgOverlay];
+
 }
 
 -(void)removeAllCircles:(id)arg
@@ -1228,18 +1244,18 @@ int const kTagIdValue = -111111;
 }
 -(void) cirleQueryToRemoveByTitle:(NSString*)filter
 {
-     ENSURE_UI_THREAD(cirleQueryToRemoveByTitle,filter);
+    ENSURE_UI_THREAD(cirleQueryToRemoveByTitle,filter);
     //Remove overlay from map
-    for (id <MKOverlay> overlay in [self map].overlays) {        
+    for (id <MKOverlay> overlay in [self map].overlays) {
         //We only care about polgyons
         if ([overlay isKindOfClass:[MKCircle class]])
         {
             //We match on title, not the best, but the easiest approach
             if ([overlay.title isEqualToString: filter])
             {
-                [[self map] removeOverlay:overlay];              
+                [[self map] removeOverlay:overlay];
             }
-        }        
+        }
     }
 }
 -(void) cirleQueryToRemoveByTag:(int)filter
@@ -1292,11 +1308,11 @@ int const kTagIdValue = -111111;
     //Get the radius for the circle in meters, if not provided default to 100 meters
     float circleRadius = [TiUtils floatValue:@"radius" properties:args def:100];
     
-    //Create our circle 
+    //Create our circle
     MKCircle* circleToAdd = [MKCircle circleWithCenterCoordinate:coords radius:circleRadius];
     circleToAdd.title = circleTitle;
     // Check if we're using a random color (false by default)
-    BOOL useRandomColor =[TiUtils boolValue:@"useRandomColor" properties:args def:NO];    
+    BOOL useRandomColor =[TiUtils boolValue:@"useRandomColor" properties:args def:NO];
     UIColor * circleColor = [[TiUtils colorValue:@"color" properties:args] _color];
     if ((circleColor == nil)||(useRandomColor))
     {
@@ -1328,29 +1344,29 @@ int const kTagIdValue = -111111;
 
 -(void)removeAllPolygons:(id)arg
 {
-	ENSURE_UI_THREAD(removeAllPolygons,arg);    
+	ENSURE_UI_THREAD(removeAllPolygons,arg);
     
     //Remove overlay from map
-    for (id <MKOverlay> overlay in [self map].overlays) {        
+    for (id <MKOverlay> overlay in [self map].overlays) {
         //We only care about polgyons
         if ([overlay isKindOfClass:[MKPolygon class]])
         {
             [[self map] removeOverlay:overlay];
-        }        
+        }
     }
 }
 -(void) clear:(id)unused
 {
     ENSURE_UI_THREAD(clear,unused);
-
+    
     //Remove all overlays
-    for (id <MKOverlay> overlay in [self map].overlays) {        
-        [[self map] removeOverlay:overlay];  
-    } 
+    for (id <MKOverlay> overlay in [self map].overlays) {
+        [[self map] removeOverlay:overlay];
+    }
     
     //Remove all annotations
     [self removeAllAnnotations:unused];
-  
+    
 }
 -(void) polygonQueryToRemoveByTitle:(NSString*)filter
 {
@@ -1358,16 +1374,16 @@ int const kTagIdValue = -111111;
     //NSLog(@"polygonQueryToRemove Filter: %@", filter);
     
     //Remove overlay from map
-    for (id <MKOverlay> overlay in [self map].overlays) {        
+    for (id <MKOverlay> overlay in [self map].overlays) {
         //We only care about polgyons
         if ([overlay isKindOfClass:[MKPolygon class]])
         {
             //We match on title, not the best, but the easiest approach
             if ([overlay.title isEqualToString: filter])
             {
-                [[self map] removeOverlay:overlay];              
+                [[self map] removeOverlay:overlay];
             }
-        }        
+        }
     }
 }
 -(void) polygonQueryToRemoveByTag:(int)filter
@@ -1417,7 +1433,7 @@ int const kTagIdValue = -111111;
         return;
     }
     //Convert the points into something useful
-    NSArray *inputPoints = [NSArray arrayWithArray:pointsValue];    
+    NSArray *inputPoints = [NSArray arrayWithArray:pointsValue];
     //Get our counter
     NSUInteger pointsCount = [inputPoints count];
     
@@ -1433,18 +1449,18 @@ int const kTagIdValue = -111111;
     CLLocationCoordinate2D  points[pointsCount];
     
     //loop through and add coordinates
-    for (int iLoop = 0; iLoop < pointsCount; iLoop++) {                
+    for (int iLoop = 0; iLoop < pointsCount; iLoop++) {
         points[iLoop] = CLLocationCoordinate2DMake(
-                                                   [TiUtils floatValue:@"latitude" properties:[inputPoints objectAtIndex:iLoop] def:0], 
+                                                   [TiUtils floatValue:@"latitude" properties:[inputPoints objectAtIndex:iLoop] def:0],
                                                    [TiUtils floatValue:@"longitude" properties:[inputPoints objectAtIndex:iLoop] def:0]);
-    }    
-    //Create our polgyon 
+    }
+    //Create our polgyon
     MKPolygon* polygonToAdd = [MKPolygon polygonWithCoordinates:points count:pointsCount];
     polygonToAdd.title = polyTitle;
-
+    
     
     // Check if we're using a random color (false by default)
-    BOOL useRandomColor =[TiUtils boolValue:@"useRandomColor" properties:args def:NO];    
+    BOOL useRandomColor =[TiUtils boolValue:@"useRandomColor" properties:args def:NO];
     UIColor * polyColor = [[TiUtils colorValue:@"color" properties:args] _color];
     if ((polyColor == nil)||(useRandomColor))
     {
@@ -1508,19 +1524,19 @@ int const kTagIdValue = -111111;
 {
 	ENSURE_TYPE(args,NSDictionary);
 	ENSURE_UI_THREAD(removeKML,args);
-
+    
     if([args objectForKey:@"tag"]==[NSNull null])
     {
         NSLog(@"tag is required to remove KML upload");
     }
     
     int tagId =[TiUtils intValue:@"tag" properties:args def:-222222];
-
+    
     //Remove all polygons
     [self polygonQueryToRemoveByTag:tagId];
     //Remove all circles
     [self cirleQueryToRemoveByTag:tagId];
-
+    
     //Loop through and remove any annotations we can find with a matching tagId
     NSMutableArray *annotations = [NSMutableArray arrayWithArray:self.map.annotations];
     [annotations removeObject:self.map.userLocation];
@@ -1538,7 +1554,7 @@ int const kTagIdValue = -111111;
 {
 	ENSURE_TYPE(args,NSDictionary);
 	ENSURE_UI_THREAD(addKML,args);
-
+    
     //File path
     NSString* providedPath =[TiUtils stringValue:@"path" properties:args];
     //Determine if we should use FlyTo
@@ -1552,7 +1568,7 @@ int const kTagIdValue = -111111;
     //Obtain the annotation proerty node
 	NSDictionary * annotationInfo = [args objectForKey:@"annotationInfo"];
 	ENSURE_CLASS_OR_NIL(annotationInfo,dictClass);
-     
+    
     //Figure out our file path
     NSURL* filePath = [TiUtils toURL:providedPath proxy:self.proxy];
     
@@ -1564,11 +1580,11 @@ int const kTagIdValue = -111111;
     
     //Parse the KML
     [kmlParser parseKML];
-
+    
     // Walk the list of overlays and annotations and create a MKMapRect that
     // bounds all of them and store it into flyTo.
     MKMapRect flyTo = MKMapRectNull;
- 
+    
     //Get tagId for overlay
     int tagId = [TiUtils intValue:@"tag" properties:args def:kTagIdValue];
     
@@ -1576,14 +1592,14 @@ int const kTagIdValue = -111111;
     if(overlayInfo!=nil)
     {
         //Get the title for the polygon
-         NSString *overlayTitle = [TiUtils stringValue:@"title" properties:overlayInfo];        
+        NSString *overlayTitle = [TiUtils stringValue:@"title" properties:overlayInfo];
         
         //Overlay color
         UIColor *overlayColor = [[TiUtils colorValue:@"color" properties:overlayInfo] _color];
         if (overlayColor == nil)
         {
             overlayColor=[self randomColor];
-        }    
+        }
         
         //Get the alpha, if not provided default to 0.9
         float alpha = [TiUtils floatValue:@"alpha" properties:overlayInfo def:0.9];
@@ -1591,10 +1607,10 @@ int const kTagIdValue = -111111;
         float lineWidth = [TiUtils floatValue:@"lineWidth" properties:overlayInfo def:1.0];
         
         //Get the optional strokeColor
-        UIColor *strokeColor = [[TiUtils colorValue:@"strokeColor" properties:overlayInfo] _color];        
+        UIColor *strokeColor = [[TiUtils colorValue:@"strokeColor" properties:overlayInfo] _color];
         
         // Check if we're using a random color (false by default)
-        BOOL useRandomColor =[TiUtils boolValue:@"useRandomColor" properties:overlayInfo def:NO]; 
+        BOOL useRandomColor =[TiUtils boolValue:@"useRandomColor" properties:overlayInfo def:NO];
         
         NSArray *kmlOverlays = [kmlParser overlays];
         
@@ -1606,7 +1622,7 @@ int const kTagIdValue = -111111;
                     flyTo = [overlay boundingMapRect];
                 } else {
                     flyTo = MKMapRectUnion(flyTo, [overlay boundingMapRect]);
-                }                        
+                }
             }
             
             if ([overlay isKindOfClass:[MKPolygon class]])
@@ -1656,9 +1672,9 @@ int const kTagIdValue = -111111;
     
     //Check if we should include annotations
     if(annotationInfo!=nil)
-    {        
+    {
         //Find pin color for our annotations
-        int pincolor = [TiUtils intValue:@"pincolor" properties:annotationInfo def:MKPinAnnotationColorRed]; 
+        int pincolor = [TiUtils intValue:@"pincolor" properties:annotationInfo def:MKPinAnnotationColorRed];
         
         NSArray *annotations = [kmlParser points];
         //NSLog(@"annotations count %i",[annotations count]);
@@ -1676,7 +1692,7 @@ int const kTagIdValue = -111111;
             }
             
             NSMutableDictionary *details = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                            [NSNumber numberWithDouble:annotation.coordinate.latitude],@"latitude",	
+                                            [NSNumber numberWithDouble:annotation.coordinate.latitude],@"latitude",
                                             [NSNumber numberWithDouble:annotation.coordinate.longitude],@"longitude",
                                             [NSNumber numberWithInt:tagId],@"tag",
                                             [NSNumber numberWithInt:pincolor],@"pincolor",
@@ -1689,18 +1705,18 @@ int const kTagIdValue = -111111;
             if([annotation subtitle]!=nil)
             {
                 [details setObject:[annotation subtitle] forKey:@"subtitle"];
-            }        
-          
+            }
+            
             [self addAnnotation:details];
-        }        
+        }
     }
-
+    
     if(enableFlyTo)
     {
         // Position the map so that all overlays and annotations are visible on screen.
-        map.visibleMapRect = flyTo;        
+        map.visibleMapRect = flyTo;
     }
-
+    
     //Fire event to tell everyone we're finished
 	if ([self.proxy _hasListeners:@"kmlCompleted"])
 	{
@@ -1712,16 +1728,16 @@ int const kTagIdValue = -111111;
 -(void)ZoomOutFull:(id)unused
 {
     @try {
-        MKMapRect fullRect = MKMapRectMake(map.bounds.origin.x, map.bounds.origin.y, 
-                                            map.bounds.size.width, map.bounds.size.height);
-        map.visibleMapRect = fullRect; 
+        MKMapRect fullRect = MKMapRectMake(map.bounds.origin.x, map.bounds.origin.y,
+                                           map.bounds.size.width, map.bounds.size.height);
+        map.visibleMapRect = fullRect;
         region = MKCoordinateRegionForMapRect(MKMapRectWorld);
         [map setRegion:region animated:animate];
     }
     @catch (id theException) {
 		NSLog(@"ZoomToWorld %@", theException);
         
-	}     
+	}
 }
 
 -(void)ZoomToFit:(id)unused
@@ -1729,10 +1745,10 @@ int const kTagIdValue = -111111;
     ENSURE_UI_THREAD(ZoomToFit,unused);
     if([map.annotations count] == 0)
         return;
-
-    MKMapRect fullRect = MKMapRectMake(map.bounds.origin.x, map.bounds.origin.y, 
+    
+    MKMapRect fullRect = MKMapRectMake(map.bounds.origin.x, map.bounds.origin.y,
                                        map.bounds.size.width, map.bounds.size.height);
-    map.visibleMapRect = fullRect; 
+    map.visibleMapRect = fullRect;
     
     CLLocationCoordinate2D topLeftCoord;
     topLeftCoord.latitude = -90;
@@ -1741,7 +1757,7 @@ int const kTagIdValue = -111111;
     CLLocationCoordinate2D bottomRightCoord;
     bottomRightCoord.latitude = 90;
     bottomRightCoord.longitude = -180;
-
+    
     for (id <MKOverlay> overlay in [self map].overlays) {
         topLeftCoord.longitude = fmin(topLeftCoord.longitude, overlay.coordinate.longitude);
         topLeftCoord.latitude = fmax(topLeftCoord.latitude, overlay.coordinate.latitude);

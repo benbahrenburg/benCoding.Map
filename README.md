@@ -65,8 +65,6 @@ Parameters:
 <b>Sample</b>
 
 <pre><code>
-//Add the core module into your project
-var map = require('bencoding.map');
 //Below is a polygon for the state of Colorado
 var myPolygon = {title:'Colorado',
                 tag: 42,
@@ -98,7 +96,7 @@ var myPolygon = {title:'Colorado',
                 ]
             };
 //Add Colorado polgyon to MapView
-map.addPolygon(myPolygon);
+mapView.addPolygon(myPolygon);
 </code></pre>
 
 <h3>removePolygon</h3>
@@ -112,22 +110,18 @@ Parameters:
 
 <b>Sampe removing polygon using title property</b>
 <pre><code>
-//Add the core module into your project
-var map = require('bencoding.map');
 //Below is a polygon for the state of Colorado
 var myPolygon = {title:'Colorado'};
 //Remove the Colorado polgyon from the MapView
-map.removePolygon(myPolygon);
+mapView.removePolygon(myPolygon);
 </code></pre>
 
 <b>Sampe removing polygon using tag property</b>
 <pre><code>
-//Add the core module into your project
-var map = require('bencoding.map');
 //Below is a polygon for the state of Colorado
 var myPolygon = {tag:42};
 //Remove the Colorado polgyon from the MapView using tag of 42
-map.removePolygon(myPolygon);
+mapView.removePolygon(myPolygon);
 </code></pre>
 
 <h3>removeAllPolygons</h3>
@@ -140,10 +134,8 @@ Parameters:
 <b>Sample</b>
 
 <pre><code>
-//Add the core module into your project
-var map = require('bencoding.map');
 //Remove all polygons added to the MapView
-map.removeAllPolygons();
+mapView.removeAllPolygons();
 </code></pre>
 
 <h3>Handling Multipart Polygons</h3>
@@ -174,8 +166,6 @@ Parameters:
 <b>Sample</b>
 
 <pre><code>
-//Add the core module into your project
-var map = require('bencoding.map');
 //Create a circle 100 meters around Time Square 
 var myCircle = {title:'Time Square',
                 tag: 42,
@@ -188,7 +178,7 @@ var myCircle = {title:'Time Square',
                 radius:100
             };
 //Add the circle around Time Square to the MapView
-map.addCircle(myCircle);
+mapView.addCircle(myCircle);
 </code></pre>
 
 <h3>removeCircle</h3>
@@ -202,13 +192,11 @@ Parameters:
 
 <b>Sampe removing circles using title property</b>
 <pre><code>
-//Add the core module into your project
-var map = require('bencoding.map');
 //Create an object with the same title as our Time Square Circle
 var myCirlce = {title:'Time Square'};
 //Remove the pass the above object with our title property into the remove method
 //This will remove all circles with the title provided
-map.removeCircle(myCirlce);
+mapView.removeCircle(myCirlce);
 </code></pre>
 
 <b>Sampe removing circles using tag property</b>
@@ -231,10 +219,8 @@ Parameters:
 <b>Sample</b>
 
 <pre><code>
-//Add the core module into your project
-var map = require('bencoding.map');
 //Remove all circles added to the MapView
-map.removeAllCircles();
+mapView.removeAllCircles();
 </code></pre>
 
 
@@ -243,20 +229,21 @@ The User Tracking is the native MKUserTrackingMode implementation made available
 
 <b>Sample</b>
 <pre><code>
-
-var map = Ti.UI.Map.createView({
+//Add the core module into your project
+var map = require('bencoding.map');
+//Create your mapview
+var mapView = Ti.UI.Map.createView({
    //whatever extra options
    userTrackingMode:{
     mode: 2, //you can use 0, 1 or 2
     animated: true, //or false
     } 
 });
-
 //or
-map.setUserTrackingMode({
+mapView.setUserTrackingMode({
     mode: 2,
     animated: true
-})    
+});
 </code></pre>
 
 userTrackingMode options: 
@@ -268,7 +255,7 @@ I recommend to keep track of the UserTrackingMode since it can change suddenly (
 You can keep track with this eventListener:
 
 <pre><code>
-map.addEventListener("userTrackingMode",function(e){
+mapView.addEventListener("userTrackingMode",function(e){
     var trackingMode = e.mode;
     //whatever you want to do with the tracking mode
 }
@@ -300,9 +287,7 @@ Parameters:
 -- pincolor : Number - Pin color. Specify one of: Titanium.Map.ANNOTATION_GREEN, Titanium.Map.ANNOTATION_PURPLE or Titanium.Map.ANNOTATION_RED.
 
 <pre><code>
-//Add the core module into your project
-var map = require('bencoding.map');
-map.addKML({
+mapView.addKML({
     path:'MID_SIZED_SAMPLE.kml', //Path to your KML file
     flyTo:false, //Will set your zoom to show all of your points added (false by default)        
     tag:41, //Integer value used as the tag for all overlays and annotations.
@@ -351,9 +336,7 @@ Parameters:
 * tagId : Integer - An identifier used to find overlays and annotation associated to the KML job. 
 
 <pre><code>
-//Add the core module into your project
-var map = require('bencoding.map');
-map.removeKML({
+mapView.removeKML({
     tag:41 //Integer value used as the tag for all overlays and annotations you created
    }
 }); 
@@ -373,10 +356,8 @@ Parameters:
 <b>Sample</b>
 
 <pre><code>
-//Add the core module into your project
-var map = require('bencoding.map');
 //Remove all objects added to the map
-map.clear();
+mapView.clear();
 </code></pre>
 
 <h3>ZoomOutFull</h3>
@@ -389,10 +370,8 @@ Parameters:
 <b>Sample</b>
 
 <pre><code>
-//Add the core module into your project
-var map = require('bencoding.map');
 //Zoom all of the way out to show full world
-map.ZoomOutFull();
+mapView.ZoomOutFull();
 </code></pre>
 
 <h3>ZoomToFit</h3>
@@ -408,10 +387,8 @@ Parameters:
 <b>Sample</b>
 
 <pre><code>
-//Add the core module into your project
-var map = require('bencoding.map');
 //Zoom to focus on objects added to your mapview
-map.ZoomToFit();
+mapView.ZoomToFit();
 </code></pre>
 
 <h2>Using the example</h2>

@@ -21,7 +21,9 @@
     NSMutableArray* polygonsToAdd;
     NSMutableArray* polygonsToRemove;
     NSMutableArray* circlesToAdd;
-    NSMutableArray* circlesToRemove;    
+    NSMutableArray* circlesToRemove;
+    NSMutableArray* imageOverlaysToAdd;
+    NSMutableArray* imageOverlaysToRemove;
 }
 
 @property (nonatomic, readonly) NSNumber* longitudeDelta;

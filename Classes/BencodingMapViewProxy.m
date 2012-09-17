@@ -37,6 +37,9 @@
     RELEASE_TO_NIL(polygonsToRemove);
     RELEASE_TO_NIL(circlesToAdd);
     RELEASE_TO_NIL(circlesToRemove);
+
+    RELEASE_TO_NIL(imageOverlaysToRemove);
+    RELEASE_TO_NIL(imageOverlaysToAdd);
     
 	[super _destroy];
 }
@@ -110,6 +113,16 @@
     {
         [ourView removeCircle:arg];
     }
+
+    for (id arg in imageOverlaysToRemove)
+    {
+        [ourView removeImageOverlay:arg];
+    }
+    
+    for (id arg in imageOverlaysToAdd)
+    {
+        [ourView addImageOverlay:arg];
+    }
     
 	[ourView selectAnnotation:selectedAnnotation];
 	if (zoomCount > 0) {
@@ -132,7 +145,10 @@
 	RELEASE_TO_NIL(polygonsToRemove);
     RELEASE_TO_NIL(circlesToAdd);
     RELEASE_TO_NIL(circlesToRemove);
-	
+
+    RELEASE_TO_NIL(imageOverlaysToRemove);
+    RELEASE_TO_NIL(imageOverlaysToAdd);
+    
 	[super viewDidAttach];
 }
 
@@ -561,6 +577,67 @@
     
 }
 
+-(void)removeAllImageOverlays:(id)arg
+{
+	if ([self viewAttached]) {
+        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] removeAllImageOverlays:arg];}, NO);
+	}
+	else
+	{
+        RELEASE_TO_NIL(imageOverlaysToRemove);
+        RELEASE_TO_NIL(imageOverlaysToAdd);
+	}
+}
+
+-(void)removeImageOverlay:(id)args
+{
+	ENSURE_SINGLE_ARG(args,NSDictionary);
+    
+	if ([self viewAttached])
+	{
+        TiThreadPerformOnMainThread(^{
+            [(BencodingMapView*)[self view] removeImageOverlay:args];
+        }, NO);
+	}
+	else
+	{
+		if (imageOverlaysToRemove==nil)
+		{
+			imageOverlaysToRemove = [[NSMutableArray alloc] init];
+		}
+		if (imageOverlaysToAdd!=nil && [imageOverlaysToAdd containsObject:args])
+		{
+			[imageOverlaysToAdd removeObject:args];
+		}
+		else
+		{
+			[imageOverlaysToRemove addObject:args];
+		}
+	}
+}
+-(void)addImageOverlay:(id)args
+{
+	ENSURE_SINGLE_ARG(args,NSDictionary);
+    
+    if ([self viewAttached]) {
+        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] addImageOverlay:args];}, NO);
+	}
+	else
+	{
+		if (imageOverlaysToAdd==nil)
+		{
+			imageOverlaysToAdd = [[NSMutableArray alloc] init];
+		}
+		if (imageOverlaysToRemove!=nil && [imageOverlaysToRemove containsObject:args])
+		{
+			[imageOverlaysToRemove removeObject:args];
+		}
+		else
+		{
+			[imageOverlaysToAdd addObject:args];
+		}
+	}
+}
 -(void)addKML:(id)args
 {
 	ENSURE_SINGLE_ARG(args,NSDictionary)

@@ -151,7 +151,7 @@
     
 	[super viewDidAttach];
 }
-
+/*
 -(TiMapAnnotationProxy*)annotationFromArg:(id)arg
 {
 	if ([arg isKindOfClass:[TiMapAnnotationProxy class]])
@@ -166,7 +166,7 @@
 	[proxy setDelegate:((TiMapView*)self)];
 	return proxy;
 }
-
+*/
 #pragma mark Public API
 
 -(void)zoom:(id)arg

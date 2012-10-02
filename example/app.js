@@ -5,7 +5,7 @@ var tab1 = Titanium.UI.createTab({ window:win });
 
 var introLabel = Ti.UI.createLabel({
 	text:'Welcome to the benCoding.Map module. The below demonstrate on how to use Polygons, Circles, ImageOverlays, and KML Files in your MapView projects.',
-	top:20,height:100,left:10,right:10
+	top:20,height:120,left:10,right:10
 });
 win.add(introLabel);
 
@@ -15,7 +15,8 @@ var data =[
 	{title:'Circle Samples',itemId:1},
 	{title:'KML File Sample',itemId:2},
 	{title:'Image Overlay Sample 1',itemId:3},
-	{title:'Image Overlay Sample 2',itemId:4}			
+	{title:'Image Overlay Sample 2',itemId:4},
+	{title:'Tile Overlay Sample',itemId:5}				
 ];
 
 
@@ -67,13 +68,23 @@ function loadSample(itemId){
 					backButtonTitle:'Menu', 
 					tabBarHidden:true
 			});		
+	}
+	
+	if(itemId===5){
+		win = Ti.UI.createWindow({
+					url:'tile_overlay_sample.js',
+					backgroundColor:'#fff',
+					title:'Tile Overlay Sample',
+					backButtonTitle:'Menu', 
+					tabBarHidden:true
+			});		
 	}	
 				
 	tab1.open(win);
 };
 
 var tableView = Ti.UI.createTableView({
-	top:120,bottom:0, width:Ti.UI.FILL, data:data
+	top:130,bottom:0, width:Ti.UI.FILL, data:data
 });
 win.add(tableView);
 

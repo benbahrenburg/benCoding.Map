@@ -67,6 +67,9 @@
 -(void)removeImageOverlay:(id)args;
 -(void)removeAllImageOverlays:(id)arg;
 
+-(void)setTileOverlay:(id)arg;
+-(void)removeTileOverlay:(id)arg;
+
 -(void)addAnnotation:(id)args;
 -(void)addAnnotations:(id)args;
 -(void)setAnnotations_:(id)value;

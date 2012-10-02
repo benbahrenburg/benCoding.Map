@@ -19,6 +19,8 @@
 #import <KMLParser.h>
 #import "MKPolygon+ViewOptions.h"
 #import "MKCircle+ViewOptions.h"
+#import "TileOverlay.h"
+#import "TileOverlayView.h"
 @implementation BencodingMapView
 
 #pragma mark Internal
@@ -973,7 +975,7 @@ int const kTagIdValue = -111111;
 - (MKOverlayView *)prepareOverlayForPresentation:(id <MKOverlay>)overlay
 {
     @try {
-        //NSLog(@"overlay type %@",NSStringFromClass ([overlay class]));
+        NSLog(@"overlay type %@",NSStringFromClass ([overlay class]));
         if ([overlay isKindOfClass:[MKPolygon class]])
         {
             MKPolygonView *polygonView = [[[MKPolygonView alloc] initWithPolygon:overlay] autorelease];
@@ -1047,6 +1049,13 @@ int const kTagIdValue = -111111;
             }
             mapOverlayView.alpha=[mapOverlay.alpha floatValue];
             return mapOverlayView;
+        }
+        else if ([overlay isKindOfClass:[TileOverlay class]])
+        {
+            TileOverlay *tileOverlay = (TileOverlay *)overlay;
+            TileOverlayView *tileOverlayView = [[[TileOverlayView alloc] initWithOverlay:overlay] autorelease];
+            tileOverlayView.tileAlpha = 1.0;
+            return tileOverlayView;
         }
         else
         {
@@ -1211,7 +1220,7 @@ int const kTagIdValue = -111111;
     
     NSURL* filePath = [TiUtils toURL:imgPath proxy:self.proxy];
     NSString* pathToAdd = [filePath path];
-    //NSLog(@"adding path %@", pathToAdd);
+    NSLog(@"adding path %@", pathToAdd);
 
     //Add image path
     imgOverlay.imagePath=pathToAdd;
@@ -1226,6 +1235,36 @@ int const kTagIdValue = -111111;
     
     [[self map] addOverlay:imgOverlay];
 
+}
+
+-(void)setTileOverlay:(id)arg{
+    
+    ENSURE_TYPE(arg,NSString);
+	ENSURE_UI_THREAD(setTileOverlay,arg);
+    
+    NSLog(@"Made it to MapOverlay");
+    [self removeTileOverlay:nil];
+
+    
+    NSURL* filePath = [TiUtils toURL:arg proxy:self.proxy];
+    NSString* tileDirectory = [filePath path];
+    
+    NSLog(@"tile directory= %@", tileDirectory);
+    TileOverlay *tileOverlay = [[[TileOverlay alloc] initWithTileDirectory:tileDirectory] autorelease];
+    [[self map] addOverlay:tileOverlay];
+    
+}
+
+-(void)removeTileOverlay:(id)arg
+{
+    //Remove any other tile overlays from map
+    for (id <MKOverlay> overlay in [self map].overlays) {
+        //We only care about TileOverlays
+        if ([overlay isKindOfClass:[TileOverlay class]])
+        {
+            [[self map] removeOverlay:overlay];
+        }
+    }
 }
 
 -(void)removeAllCircles:(id)arg

@@ -638,6 +638,24 @@
 		}
 	}
 }
+-(void)setTileDirectory:(id)arg
+{
+    ENSURE_SINGLE_ARG(arg,NSString);
+    
+    if ([self viewAttached]) {
+        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] setTileOverlay:arg];}, NO);
+	} else {
+        NSLog(@"Not sure what to do here...")        
+    }
+}
+-(void)removeTileOverlay:(id)arg
+{
+    
+    if ([self viewAttached]) {
+        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] removeTileOverlay:arg];}, NO);
+	}
+}
+
 -(void)addKML:(id)args
 {
 	ENSURE_SINGLE_ARG(args,NSDictionary)

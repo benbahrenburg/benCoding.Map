@@ -11,6 +11,7 @@
 
 #import "BencodingMapViewProxy.h"
 #import "BencodingMapView.h"
+#import "TiMapView.h"
 
 @implementation BencodingMapViewProxy
 
@@ -638,6 +639,26 @@
 		}
 	}
 }
+-(void)setTileDirectory:(id)arg
+{
+    ENSURE_SINGLE_ARG(arg,NSString);
+    
+    if ([self viewAttached]) {
+        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] setTileOverlay:arg];}, NO);
+	} else {
+        // TODO - need to track this to get added
+        // For now, just call setTileDirectory on the 'open' even of the window
+        // and it will work
+    }
+}
+-(void)removeTileOverlay:(id)arg
+{
+    
+    if ([self viewAttached]) {
+        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] removeTileOverlay:arg];}, NO);
+	}
+}
+
 -(void)addKML:(id)args
 {
 	ENSURE_SINGLE_ARG(args,NSDictionary)

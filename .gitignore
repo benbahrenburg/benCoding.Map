@@ -18,3 +18,4 @@ project.xcworkspace
 *.DS_Store
 *.swp
 *.out
+/bencoding.map-iphone-0.5.6.zip

@@ -677,6 +677,15 @@
 	}
 }
 
+-(void) addImageOverlayFile:(id)args
+{
+	ENSURE_SINGLE_ARG(args,NSString)
+	if ([self viewAttached])
+	{
+		TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] addImageOverlayFile:args];}, NO);
+	}
+}
+
 -(void)clear:(id)unused
 {
 	if ([self viewAttached]) 

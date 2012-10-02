@@ -1,0 +1,37 @@
+[
+ {
+ "tag":21,
+ "title":"foo2",
+ "image":"ben2.png",
+ "sizedBox":
+ {
+ "cellSizeLat":0.00300, 
+ "cellSizeLng":0.00400, 
+ "coords":
+ {
+ "upperRight":{
+ "latitude":51.500611,
+ "longitude":-0.124611
+ }
+ }
+ }
+ },
+ {
+ "tag":42,
+ "title":"foo",
+ "image":"eiffel_tower2.png",
+ "coordBox":{
+ "coords":
+ {
+ "upperRight":{
+ "latitude":48.85995,
+ "longitude":2.2957
+ },
+ "bottomLeft":{
+ "latitude":48.85758,
+ "longitude":2.2933
+ }
+ }
+ }
+ }
+]

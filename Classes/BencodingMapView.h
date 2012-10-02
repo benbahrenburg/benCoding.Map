@@ -16,7 +16,7 @@
 #import "WildcardGestureRecognizer.h"
 #import "BBSquareImageOverlayView.h"
 #import "BBSquareImageOverlay.h"
-
+#import "JSONKit.h"
 
 @interface BencodingMapView : TiUIView<MKMapViewDelegate> {
 @private
@@ -69,6 +69,7 @@
 
 -(void)setTileOverlay:(id)arg;
 -(void)removeTileOverlay:(id)arg;
+-(void) addImageOverlayFile:(id)args;
 
 -(void)addAnnotation:(id)args;
 -(void)addAnnotations:(id)args;

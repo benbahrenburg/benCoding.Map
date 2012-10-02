@@ -1189,6 +1189,34 @@ int const kTagIdValue = -111111;
     }
 }
 
+-(void) addImageOverlayFile:(id)args
+{
+    enum Args {
+		kArgFileName = 0,
+		kArgCount
+	};
+    ENSURE_ARG_COUNT(args, kArgCount);
+	ENSURE_UI_THREAD(addImageOverlayFile,args);
+    
+    NSString *fileName = [TiUtils stringValue:[args objectAtIndex:kArgFileName]];
+    NSURL* filePath = [TiUtils toURL:fileName proxy:self.proxy];
+    NSData* jsonData = [NSData dataWithContentsOfURL: filePath];
+    JSONDecoder* decoder = [[JSONDecoder alloc]
+                            initWithParseOptions:JKParseOptionLooseUnicode];
+    NSArray* json = [decoder objectWithData:jsonData];
+    
+    if(json==nil){
+        NSLog(@"Invalid JSON file format");
+        return;
+    }
+    
+    NSUInteger nodeCount = [json count];
+    
+    for (int iLoop = 0; iLoop < nodeCount; iLoop++) {
+        [self addImageOverlay:[json objectAtIndex:iLoop]];
+    }
+
+}
 -(void)addImageOverlay:(id)args
 {
 	ENSURE_TYPE(args,NSDictionary);
@@ -1220,7 +1248,7 @@ int const kTagIdValue = -111111;
     
     NSURL* filePath = [TiUtils toURL:imgPath proxy:self.proxy];
     NSString* pathToAdd = [filePath path];
-    NSLog(@"adding path %@", pathToAdd);
+    //NSLog(@"adding path %@", pathToAdd);
 
     //Add image path
     imgOverlay.imagePath=pathToAdd;
@@ -1237,7 +1265,8 @@ int const kTagIdValue = -111111;
 
 }
 
--(void)setTileOverlay:(id)arg{
+-(void)setTileOverlay:(id)arg
+{
     
     ENSURE_TYPE(arg,NSString);
 	ENSURE_UI_THREAD(setTileOverlay,arg);

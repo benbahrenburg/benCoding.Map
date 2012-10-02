@@ -87,6 +87,7 @@ static NSInteger zoomScaleToZoomLevel(MKZoomScale scale) {
 
 - (id)initWithTileDirectory:(NSString *)tileDirectory
 {
+    
     if (self = [super init]) {
         tileBase = [tileDirectory retain];
         // scan tilePath to determine what files are available

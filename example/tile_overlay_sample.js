@@ -45,7 +45,6 @@ win.add(zoomControl);
 
 var levels = ["1", "2" , "3" , "4"];
 var currentLevel = 0;
-mapView.setTileDirectory('/tiles/Level' + levels[currentLevel]);
 
 var bShowTile = Ti.UI.createButton({
 	title:'Level+', style:Ti.UI.iPhone.SystemButtonStyle.BORDERED
@@ -67,8 +66,36 @@ bHideTile.addEventListener('click',function() {
     mapView.removeTileOverlay();
 });
 
+var bShowAnnotations = Ti.UI.createButton({
+	title:'Show Pins', style:Ti.UI.iPhone.SystemButtonStyle.BORDERED
+});
+
+bShowAnnotations.addEventListener('click',function() {
+   var points = [
+     { latitude : -37.818891,
+       longitude :	144.983343 },
+     { latitude : -37.818717,
+       longitude :	144.983515 },
+     { latitude : -37.818925,
+       longitude :	144.983665 }];
+   var annotations = [];
+   for( var i = 0; i < points.length; i++ ){
+     annotations.push( Ti.Map.createAnnotation(points[i]));	
+   }
+   mapView.setAnnotations( annotations );
+});
+
+var bHideAnnotations = Ti.UI.createButton({
+	title:'Hide Pins', style:Ti.UI.iPhone.SystemButtonStyle.BORDERED
+});
+
+bHideAnnotations.addEventListener('click',function() {
+   mapView.removeAllAnnotations( );
+});
+
+
 win.addEventListener('open', function(){
     mapView.setTileDirectory('/tiles/Level' + levels[currentLevel]);
 });
 
-win.setToolbar([bShowTile, bHideTile, flexSpace]);
+win.setToolbar([bShowTile, bHideTile, bShowAnnotations, bHideAnnotations, flexSpace]);

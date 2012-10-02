@@ -975,7 +975,7 @@ int const kTagIdValue = -111111;
 - (MKOverlayView *)prepareOverlayForPresentation:(id <MKOverlay>)overlay
 {
     @try {
-        NSLog(@"overlay type %@",NSStringFromClass ([overlay class]));
+        //NSLog(@"overlay type %@",NSStringFromClass ([overlay class]));
         if ([overlay isKindOfClass:[MKPolygon class]])
         {
             MKPolygonView *polygonView = [[[MKPolygonView alloc] initWithPolygon:overlay] autorelease];
@@ -1242,14 +1242,11 @@ int const kTagIdValue = -111111;
     ENSURE_TYPE(arg,NSString);
 	ENSURE_UI_THREAD(setTileOverlay,arg);
     
-    NSLog(@"Made it to MapOverlay");
     [self removeTileOverlay:nil];
 
     
     NSURL* filePath = [TiUtils toURL:arg proxy:self.proxy];
     NSString* tileDirectory = [filePath path];
-    
-    NSLog(@"tile directory= %@", tileDirectory);
     TileOverlay *tileOverlay = [[[TileOverlay alloc] initWithTileDirectory:tileDirectory] autorelease];
     [[self map] addOverlay:tileOverlay];
     

@@ -29,7 +29,7 @@
 @property (nonatomic, readonly) NSNumber* longitudeDelta;
 @property (nonatomic, readonly) NSNumber* latitudeDelta;
 
-// -(TiMapAnnotationProxy*)annotationFromArg:(id)arg;
+-(TiMapAnnotationProxy*)annotationFromArg:(id)arg;
 
 -(void)removeAllCircles:(id)arg;
 -(void)removeCircle:(id)args;

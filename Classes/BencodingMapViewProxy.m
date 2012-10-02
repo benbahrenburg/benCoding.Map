@@ -11,6 +11,7 @@
 
 #import "BencodingMapViewProxy.h"
 #import "BencodingMapView.h"
+#import "TiMapView.h"
 
 @implementation BencodingMapViewProxy
 
@@ -151,7 +152,7 @@
     
 	[super viewDidAttach];
 }
-/*
+
 -(TiMapAnnotationProxy*)annotationFromArg:(id)arg
 {
 	if ([arg isKindOfClass:[TiMapAnnotationProxy class]])
@@ -166,7 +167,7 @@
 	[proxy setDelegate:((TiMapView*)self)];
 	return proxy;
 }
-*/
+
 #pragma mark Public API
 
 -(void)zoom:(id)arg
@@ -645,7 +646,9 @@
     if ([self viewAttached]) {
         TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] setTileOverlay:arg];}, NO);
 	} else {
-        NSLog(@"Not sure what to do here...")        
+        // TODO - need to track this to get added
+        // For now, just call setTileDirectory on the 'open' even of the window
+        // and it will work
     }
 }
 -(void)removeTileOverlay:(id)arg

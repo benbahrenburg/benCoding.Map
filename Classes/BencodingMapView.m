@@ -19,8 +19,8 @@
 #import <KMLParser.h>
 #import "MKPolygon+ViewOptions.h"
 #import "MKCircle+ViewOptions.h"
-#import "TileOverlay.h"
-#import "TileOverlayView.h"
+#import "BBTileOverlay.h"
+#import "BBTileOverlayView.h"
 @implementation BencodingMapView
 
 #pragma mark Internal
@@ -1050,10 +1050,10 @@ int const kTagIdValue = -111111;
             mapOverlayView.alpha=[mapOverlay.alpha floatValue];
             return mapOverlayView;
         }
-        else if ([overlay isKindOfClass:[TileOverlay class]])
+        else if ([overlay isKindOfClass:[BBTileOverlay class]])
         {
-            TileOverlay *tileOverlay = (TileOverlay *)overlay;
-            TileOverlayView *tileOverlayView = [[[TileOverlayView alloc] initWithOverlay:overlay] autorelease];
+            BBTileOverlay *tileOverlay = (BBTileOverlay *)overlay;
+            BBTileOverlayView *tileOverlayView = [[[BBTileOverlayView alloc] initWithOverlay:overlay] autorelease];
             tileOverlayView.tileAlpha = 1.0;
             return tileOverlayView;
         }
@@ -1265,28 +1265,50 @@ int const kTagIdValue = -111111;
 
 }
 
--(void)setTileOverlay:(id)arg
+-(void)addTileOverlayDirectory:(id)args
 {
     
-    ENSURE_TYPE(arg,NSString);
-	ENSURE_UI_THREAD(setTileOverlay,arg);
-    
-    [self removeTileOverlay:nil];
+    ENSURE_TYPE(args,NSDictionary);
+	ENSURE_UI_THREAD(addTileOverlayDirectory,args);
 
-    
-    NSURL* filePath = [TiUtils toURL:arg proxy:self.proxy];
-    NSString* tileDirectory = [filePath path];
-    TileOverlay *tileOverlay = [[[TileOverlay alloc] initWithTileDirectory:tileDirectory] autorelease];
+    NSString *dirParam = [TiUtils stringValue:@"directory" properties:args];
+    NSURL* dirPath = [TiUtils toURL:dirParam proxy:self.proxy];    
+    NSString* tileDirectory = [dirPath path];
+    //Get tagId for overlay
+    int tagId = [TiUtils intValue:@"tag" properties:args def:kTagIdValue];
+    BBTileOverlay *tileOverlay = [[[BBTileOverlay alloc] initWithTileDirectory:tileDirectory withTag:tagId] autorelease];
     [[self map] addOverlay:tileOverlay];
     
 }
 
--(void)removeTileOverlay:(id)arg
+-(void)removeTileOverlayDirectory:(id)args
 {
+    ENSURE_TYPE(args,NSDictionary);
+    ENSURE_UI_THREAD(removeTileOverlayDirectory,args);
+    
+   int tagId = [TiUtils intValue:@"tag" properties:args def:kTagIdValue];
+    
     //Remove any other tile overlays from map
     for (id <MKOverlay> overlay in [self map].overlays) {
         //We only care about TileOverlays
-        if ([overlay isKindOfClass:[TileOverlay class]])
+        if ([overlay isKindOfClass:[BBTileOverlay class]])
+        {
+            if (((BBTileOverlay*)overlay).tag == tagId)
+            {
+                [[self map] removeOverlay:overlay];
+            }            
+        }
+    }
+}
+
+-(void)removeAllTileOverlayDirectory:(id)unused
+{
+    ENSURE_UI_THREAD(removeAllTileOverlayDirectory,unused);
+    
+    //Remove any other tile overlays from map
+    for (id <MKOverlay> overlay in [self map].overlays) {
+        //We only care about TileOverlays
+        if ([overlay isKindOfClass:[BBTileOverlay class]])
         {
             [[self map] removeOverlay:overlay];
         }

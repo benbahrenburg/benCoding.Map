@@ -23,10 +23,10 @@
 		43493B3516055C260054729B /* MKCircle+ViewOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43493B3316055C260054729B /* MKCircle+ViewOptions.m */; };
 		4363253415E2F56C005D155A /* WildcardGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4363253215E2F56C005D155A /* WildcardGestureRecognizer.h */; };
 		4363253515E2F56C005D155A /* WildcardGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4363253315E2F56C005D155A /* WildcardGestureRecognizer.m */; };
-		4389E266161B59C3003B28DC /* TileOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 4389E262161B59C3003B28DC /* TileOverlay.h */; };
-		4389E267161B59C3003B28DC /* TileOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 4389E263161B59C3003B28DC /* TileOverlay.m */; };
-		4389E268161B59C3003B28DC /* TileOverlayView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4389E264161B59C3003B28DC /* TileOverlayView.h */; };
-		4389E269161B59C3003B28DC /* TileOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4389E265161B59C3003B28DC /* TileOverlayView.m */; };
+		4389E266161B59C3003B28DC /* BBTileOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 4389E262161B59C3003B28DC /* BBTileOverlay.h */; };
+		4389E267161B59C3003B28DC /* BBTileOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 4389E263161B59C3003B28DC /* BBTileOverlay.m */; };
+		4389E268161B59C3003B28DC /* BBTileOverlayView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4389E264161B59C3003B28DC /* BBTileOverlayView.h */; };
+		4389E269161B59C3003B28DC /* BBTileOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4389E265161B59C3003B28DC /* BBTileOverlayView.m */; };
 		438D5E7E15A7DDB200800468 /* BencodingMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 438D5E7C15A7DDB200800468 /* BencodingMapView.h */; };
 		438D5E7F15A7DDB200800468 /* BencodingMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 438D5E7D15A7DDB200800468 /* BencodingMapView.m */; };
 		438D5E8315A7DF3D00800468 /* BencodingMapViewProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 438D5E8115A7DF3D00800468 /* BencodingMapViewProxy.h */; };
@@ -59,10 +59,10 @@
 		43493B3316055C260054729B /* MKCircle+ViewOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MKCircle+ViewOptions.m"; path = "Classes/MKCircle+ViewOptions.m"; sourceTree = "<group>"; };
 		4363253215E2F56C005D155A /* WildcardGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WildcardGestureRecognizer.h; path = Classes/WildcardGestureRecognizer.h; sourceTree = "<group>"; };
 		4363253315E2F56C005D155A /* WildcardGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WildcardGestureRecognizer.m; path = Classes/WildcardGestureRecognizer.m; sourceTree = "<group>"; };
-		4389E262161B59C3003B28DC /* TileOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TileOverlay.h; path = Classes/TileOverlay.h; sourceTree = "<group>"; };
-		4389E263161B59C3003B28DC /* TileOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TileOverlay.m; path = Classes/TileOverlay.m; sourceTree = "<group>"; };
-		4389E264161B59C3003B28DC /* TileOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TileOverlayView.h; path = Classes/TileOverlayView.h; sourceTree = "<group>"; };
-		4389E265161B59C3003B28DC /* TileOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TileOverlayView.m; path = Classes/TileOverlayView.m; sourceTree = "<group>"; };
+		4389E262161B59C3003B28DC /* BBTileOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBTileOverlay.h; path = Classes/BBTileOverlay.h; sourceTree = "<group>"; };
+		4389E263161B59C3003B28DC /* BBTileOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBTileOverlay.m; path = Classes/BBTileOverlay.m; sourceTree = "<group>"; };
+		4389E264161B59C3003B28DC /* BBTileOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBTileOverlayView.h; path = Classes/BBTileOverlayView.h; sourceTree = "<group>"; };
+		4389E265161B59C3003B28DC /* BBTileOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBTileOverlayView.m; path = Classes/BBTileOverlayView.m; sourceTree = "<group>"; };
 		438D5E7C15A7DDB200800468 /* BencodingMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BencodingMapView.h; path = Classes/BencodingMapView.h; sourceTree = "<group>"; };
 		438D5E7D15A7DDB200800468 /* BencodingMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BencodingMapView.m; path = Classes/BencodingMapView.m; sourceTree = "<group>"; };
 		438D5E8115A7DF3D00800468 /* BencodingMapViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BencodingMapViewProxy.h; path = Classes/BencodingMapViewProxy.h; sourceTree = "<group>"; };
@@ -130,10 +130,10 @@
 				24DD6CF81134B3F500162E58 /* BencodingMapModule.m */,
 				438D5E7C15A7DDB200800468 /* BencodingMapView.h */,
 				438D5E7D15A7DDB200800468 /* BencodingMapView.m */,
-				4389E262161B59C3003B28DC /* TileOverlay.h */,
-				4389E263161B59C3003B28DC /* TileOverlay.m */,
-				4389E264161B59C3003B28DC /* TileOverlayView.h */,
-				4389E265161B59C3003B28DC /* TileOverlayView.m */,
+				4389E262161B59C3003B28DC /* BBTileOverlay.h */,
+				4389E263161B59C3003B28DC /* BBTileOverlay.m */,
+				4389E264161B59C3003B28DC /* BBTileOverlayView.h */,
+				4389E265161B59C3003B28DC /* BBTileOverlayView.m */,
 				438D5E8115A7DF3D00800468 /* BencodingMapViewProxy.h */,
 				438D5E8215A7DF3D00800468 /* BencodingMapViewProxy.m */,
 				4363253215E2F56C005D155A /* WildcardGestureRecognizer.h */,
@@ -183,8 +183,8 @@
 				43493B3016054B3A0054729B /* MKPolygon+ViewOptions.h in Headers */,
 				43493B3416055C260054729B /* MKCircle+ViewOptions.h in Headers */,
 				43FF8B10160695E50066CBCB /* JSONKit.h in Headers */,
-				4389E266161B59C3003B28DC /* TileOverlay.h in Headers */,
-				4389E268161B59C3003B28DC /* TileOverlayView.h in Headers */,
+				4389E266161B59C3003B28DC /* BBTileOverlay.h in Headers */,
+				4389E268161B59C3003B28DC /* BBTileOverlayView.h in Headers */,
 				432AAB69161B8D14005462CE /* BBGeoJSONParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,8 +254,8 @@
 				43493B3116054B3A0054729B /* MKPolygon+ViewOptions.m in Sources */,
 				43493B3516055C260054729B /* MKCircle+ViewOptions.m in Sources */,
 				43FF8B11160695E50066CBCB /* JSONKit.m in Sources */,
-				4389E267161B59C3003B28DC /* TileOverlay.m in Sources */,
-				4389E269161B59C3003B28DC /* TileOverlayView.m in Sources */,
+				4389E267161B59C3003B28DC /* BBTileOverlay.m in Sources */,
+				4389E269161B59C3003B28DC /* BBTileOverlayView.m in Sources */,
 				432AAB6A161B8D14005462CE /* BBGeoJSONParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -37,8 +37,16 @@ bZoomOut.addEventListener('click',function() {
 	mapView.zoom(-1);
 });
 
+var bRemoveAll = Ti.UI.createButton({
+	title:'Remove All', style:Ti.UI.iPhone.SystemButtonStyle.BORDERED
+});
+bRemoveAll.addEventListener('click',function() {
+	mapView.removeAllAnnotations( );
+    mapView.removeAllTileOverlayDirectory();
+});
+
 var zoomControl = Ti.UI.iOS.createToolbar({
-	items:[bZoomIn,bZoomOut],
+	items:[bZoomIn,bZoomOut,bRemoveAll],
 	top:0,width:Ti.UI.FILL
 });	
 win.add(zoomControl);
@@ -55,7 +63,10 @@ bShowTile.addEventListener('click',function() {
 	if( currentLevel == levels.length){
 		currentLevel = 0;
 	}
-    mapView.setTileDirectory('/tiles/Level' + levels[currentLevel]);
+    mapView.addTileOverlayDirectory({
+    	tag:2,	
+    	directory:'/tiles/Level' + levels[currentLevel]
+    });
 });
 
 var bHideTile = Ti.UI.createButton({
@@ -63,8 +74,9 @@ var bHideTile = Ti.UI.createButton({
 });
 
 bHideTile.addEventListener('click',function() {
-    mapView.removeTileOverlay();
+    mapView.removeTileOverlayDirectory({tag:2});
 });
+
 
 var bShowAnnotations = Ti.UI.createButton({
 	title:'Show Pins', style:Ti.UI.iPhone.SystemButtonStyle.BORDERED
@@ -98,4 +110,4 @@ win.addEventListener('open', function(){
     mapView.setTileDirectory('/tiles/Level' + levels[currentLevel]);
 });
 
-win.setToolbar([bShowTile, bHideTile, bShowAnnotations, bHideAnnotations, flexSpace]);
+win.setToolbar([bShowTile, bHideTile, bShowAnnotations, bHideAnnotations]);

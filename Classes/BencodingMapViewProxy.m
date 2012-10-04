@@ -639,26 +639,31 @@
 		}
 	}
 }
--(void)setTileDirectory:(id)arg
+-(void)addTileOverlayDirectory:(id)args
 {
-    ENSURE_SINGLE_ARG(arg,NSString);
-    
+    ENSURE_SINGLE_ARG(args,NSDictionary)
     if ([self viewAttached]) {
-        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] setTileOverlay:arg];}, NO);
+        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] addTileOverlayDirectory:args];}, NO);
 	} else {
         // TODO - need to track this to get added
         // For now, just call setTileDirectory on the 'open' even of the window
         // and it will work
     }
 }
--(void)removeTileOverlay:(id)arg
+-(void)removeTileOverlayDirectory:(id)args
+{
+    ENSURE_SINGLE_ARG(args,NSDictionary)
+    if ([self viewAttached]) {
+        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] removeTileOverlayDirectory:args];}, NO);
+	}
+}
+-(void)removeAllTileOverlayDirectory:(id)unused
 {
     
     if ([self viewAttached]) {
-        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] removeTileOverlay:arg];}, NO);
+        TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] removeAllTileOverlayDirectory:unused];}, NO);
 	}
 }
-
 -(void)addKML:(id)args
 {
 	ENSURE_SINGLE_ARG(args,NSDictionary)

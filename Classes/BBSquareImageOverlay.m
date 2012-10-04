@@ -13,7 +13,6 @@
 
 - (id) initWithCoordinates:(CLLocationCoordinate2D)upperRightCoordinate withLowerLeftCoordinate:(CLLocationCoordinate2D)lowerLeftCoordinate
 {
-    // self.radarData = imageData;
     
     MKMapPoint lowerLeft = MKMapPointForCoordinate(lowerLeftCoordinate);
     MKMapPoint upperRight = MKMapPointForCoordinate(upperRightCoordinate);

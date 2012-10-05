@@ -65,9 +65,9 @@
 -(void)addPolygon:(id)args;
 -(void)addImageOverlay:(id)args;
 -(void)removeImageOverlay:(id)args;
--(void)removeAllImageOverlays:(id)arg;
+-(void)removeAllImageOverlays:(id)unused;
 
--(void)addTileOverlayDirectory:(id)args;
+-(void)addTileOverlayDirectory:(id)arg;
 -(void)removeTileOverlayDirectory:(id)args;
 -(void)removeAllTileOverlayDirectory:(id) unused;
 

@@ -49,7 +49,7 @@
                                                        [[points objectAtIndex:iLoop] coordinate].longitude);
     }
     
-    MKPolygon* polygonToAdd = [[MKPolygon polygonWithCoordinates:pointsToAdd count:pointsCount] autorelease];
+    MKPolygon* polygonToAdd = [MKPolygon polygonWithCoordinates:pointsToAdd count:pointsCount];
     NSLog(@"Adding polygon with points %u",[points count]);
     [Polygons addObject:polygonToAdd];
 }

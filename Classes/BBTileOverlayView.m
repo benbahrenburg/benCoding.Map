@@ -93,7 +93,7 @@
     for (BBImageTile *tile in tilesInRect) {
         // For each image tile, draw it in its corresponding MKMapRect frame
         CGRect rect = [self rectForMapRect:tile.frame];
-        UIImage *image = [[UIImage alloc] initWithContentsOfFile:tile.imagePath];
+        UIImage *image = [[[UIImage alloc] initWithContentsOfFile:tile.imagePath] autorelease];
         CGContextSaveGState(context);
         CGContextTranslateCTM(context, CGRectGetMinX(rect), CGRectGetMinY(rect));
         CGContextScaleCTM(context, 1/zoomScale, 1/zoomScale);

@@ -1115,9 +1115,9 @@ int const kTagIdValue = -111111;
         [self ImageOverlayQueryToRemoveByTag:tagId];
     }
 }
--(void)removeAllImageOverlays:(id)arg
+-(void)removeAllImageOverlays:(id)unused
 {
-	ENSURE_UI_THREAD(removeAllImageOverlays,arg);
+	ENSURE_UI_THREAD(removeAllImageOverlays,unused);
     
     //Remove overlay from map
     for (id <MKOverlay> overlay in [self map].overlays) {
@@ -1189,21 +1189,17 @@ int const kTagIdValue = -111111;
     }
 }
 
--(void) addImageOverlayFile:(id)args
+-(void) addImageOverlayFile:(id)arg
 {
-    enum Args {
-		kArgFileName = 0,
-		kArgCount
-	};
-    ENSURE_ARG_COUNT(args, kArgCount);
-	ENSURE_UI_THREAD(addImageOverlayFile,args);
+    ENSURE_TYPE(arg,NSString);
+	ENSURE_UI_THREAD(addImageOverlayFile,arg);
     
-    NSString *fileName = [TiUtils stringValue:[args objectAtIndex:kArgFileName]];
-    NSURL* filePath = [TiUtils toURL:fileName proxy:self.proxy];
+    NSURL* filePath = [TiUtils toURL:arg proxy:self.proxy];
     NSData* jsonData = [NSData dataWithContentsOfURL: filePath];
-    JSONDecoder* decoder = [[JSONDecoder alloc]
-                            initWithParseOptions:JKParseOptionLooseUnicode];
+    JSONDecoder* decoder = [[[JSONDecoder alloc]
+                            initWithParseOptions:JKParseOptionLooseUnicode] autorelease];
     NSArray* json = [decoder objectWithData:jsonData];
+    //NSLog(@"json %@", json);
     
     if(json==nil){
         NSLog(@"Invalid JSON file format");

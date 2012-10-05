@@ -35,8 +35,6 @@ var bRemoveAll = Ti.UI.createButton({
 	title:'Remove All', style:Ti.UI.iPhone.SystemButtonStyle.BORDERED
 });
 
-var flexSpace = Ti.UI.createButton({ systemButton:Ti.UI.iPhone.SystemButton.FLEXIBLE_SPACE });
-
 var zoomControl = Ti.UI.iOS.createToolbar({
 	items:[bZoomIn,bZoomOut,flexSpace,bRemoveAll],
 	top:0,width:Ti.UI.FILL

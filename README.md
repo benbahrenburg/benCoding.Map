@@ -342,6 +342,106 @@ mapView.removeKML({
 }); 
 </code></pre>
 
+<h2>Using ImageOverlays</h2>
+
+<h3>addImageOverlay</h3>
+
+This method adds an ImageOverlay to the MapView. Please note you can use to ways of adding these type of Overlays.
+
+First, you an use the coordBox property. This allows you to the upperRight and bottomLeft coordinates as shown in the exampel below.
+
+Parameters:
+* title : String - Title of the Overlays.
+* tag : Integer - Identifier that can be used when removing the Overlays 
+* image : String  - The path to the image to be displayed.
+* coordBox : Dictionary - The coordinates to be used when displaying the Overlay.
+
+<b>coordBox Sample</b>
+
+<pre><code>
+ mapView.addImageOverlay({
+		tag:42,
+		title:'foo',
+		image:'eiffel_tower2.png', //Image path
+		coordBox:{
+			coords:
+			{
+				upperRight:{
+					latitude:48.85995,
+					longitude:2.2957
+				},
+				bottomLeft:{
+					latitude:48.85758,
+					longitude:2.2933
+				}			
+			}
+		}
+	});	
+</code></pre>
+
+You can see this example in full in the eiffel_tower_sample.js sample provided in the module's Example folder.  
+
+The second way to add an ImageOverlay is to provide the starting coordinate and the image size. To do this we use the sizedBox property as soon below.
+
+Parameters:
+* title : String - Title of the Overlays.
+* tag : Integer - Identifier that can be used when removing the Overlays 
+* image : String  - The path to the image to be displayed.
+* sizedBox : Dictionary - The starting coordinates and size to be used when displaying the Overlay.
+
+<b>sizedBox Sample</b>
+
+<pre><code>
+ mapView.addImageOverlay({
+		tag:21,
+		title:'foo2',
+		image:'ben2.png', //Image path
+		sizedBox:{
+			cellSizeLat:0.00300, //Size of image as it relates to latitude ( this is the size for 240 pixels width) 
+			cellSizeLng:0.00400, //Size of image as it relates to longitude ( this is the size for 225 pixels high) 
+			coords:
+			{
+				upperRight:{
+					latitude:51.500611,
+					longitude:-0.124611
+				}
+			}
+		}
+	});	
+});
+</code></pre>
+
+You can see this example in full in the big_ben_overlay_sample.js sample provided in the module's Example folder.
+
+<h3>addImageOverlayFile</h3>
+Need to create a large amount of ImageOverlays?  You can create a JSON file with all of your coordBox and/or sizedBox ImageOverlay definitions and provide your definition file to this method.
+
+You can see this example in full in the image_overlay_file.js sample provided in the module's Example folder.  
+
+<b>Sample</b>
+
+<pre><code>
+mapView.addImageOverlayFile('./image_overlay_file_sample.json');
+</code></pre>
+
+<h3>removeImageOverlay</h3>
+Using this method you can remove all ImageOverlay created using the addImageOverlay or addImageOverlayFile.  Simply provide the tag used when creating the ImageOverlay. The below example will remove all ImageOverlays with the tag of 42.
+
+<b>Sample</b>
+
+<pre><code>
+mapView.removeImageOverlay({tag:42});
+</code></pre>
+
+<h3>removeAllImageOverlays</h3>
+Using this method you can remove all ImageOverlays created using the addImageOverlay or addImageOverlayFile.
+
+<b>Sample</b>
+
+<pre><code>
+mapView.removeAllImageOverlays();
+</code></pre>
+
 <h2>Helper Methods</h2>
 
 The below outlines a list of helper functions designed to make life easier when using the mapView.

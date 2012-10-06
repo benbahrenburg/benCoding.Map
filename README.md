@@ -520,6 +520,7 @@ The benCoding.Map is a open source project.  Please help us by contributing to d
 <h2>Other Contributors</h2>
 
 User Tracking was added by Jose Carlos Andreu [@Joscandreu](https://twitter.com/Joscandreu)
+The Image Tile functionality was provided by Jeff Bonnes [@jeffbonnes](https://twitter.com/jeffbonnes)
 
 <h2>Learn More</h2>
 

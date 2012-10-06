@@ -1,52 +1,5 @@
 <h1>benCoding.Map</h1>
- 
-Welcome to the benCoding.Map Titanium project.
-
-This project is a fork of the iOS Titanium Native Map module.  The goal of this project is to add Polgyon overlay support.
-
-<h2>Features</h2>
-
-This module provides Polgyon overlay support in addition to all of the same features contained within the native Titanium Map module and also UserTracking functionality.
-
-For a list of all the features supported by the Titanium Map module, please reference the documentation [here](http://docs.appcelerator.com/titanium/2.1/index.html#!/api/Titanium.Map.View).
-
-<h2>See it in action</h2>
-
-<h4>Polygon Example</h4>
-Video of the module running a Polygon example [http://www.youtube.com/watch?v=1rudu6S9-rc](http://www.youtube.com/watch?v=1rudu6S9-rc).
-
-![Screenshot](http://farm8.staticflickr.com/7268/7528456398_7395bb0906_o.png)
-
-<h4>Circle Example</h4>
-
-Video of the module running a Circle example [http://www.youtube.com/watch?v=jwnByWz1eJo](http://www.youtube.com/watch?v=jwnByWz1eJo).
-
-![Screenshot](http://farm8.staticflickr.com/7113/7558754232_7091e30030_o.png)
-
-<h4>KML File Example</h4>
-
-Video of the module running a KML example [http://www.youtube.com/watch?v=vjD8UkCGVHk](http://www.youtube.com/watch?v=vjD8UkCGVHk).
-
-![Screenshot](http://farm8.staticflickr.com/7259/7824132160_24a9f9975c.jpg)
-
-<h2>Before you start</h2>
-* You need Titanium 1.8.2 or greater.
-* This module will only work with iOS 5 or great.  
-
-<h2>Setup</h2>
-
-* Download the latest release from the [dist folder](https://github.com/benbahrenburg/benCoding.Map/tree/master/dist) or you can build it yourself 
-* Install the bencoding.map module. If you need help here is a "How To" [guide](https://wiki.appcelerator.org/display/guides/Configuring+Apps+to+Use+Modules). 
-* You can now use the module via the commonJS require method, example shown below.
-
-<pre><code>
-//Add the core module into your project
-var map = require('bencoding.map');
-
-</code></pre>
-
-Now we have the module installed and avoid in our project we can start to use the components, see below for details.
-
+<hr>
 <h2>Using Polygon Overlays</h2>
 
 <h3>addPolygon</h3>
@@ -342,6 +295,106 @@ mapView.removeKML({
 }); 
 </code></pre>
 
+<h2>Using ImageOverlays</h2>
+
+<h3>addImageOverlay</h3>
+
+This method adds an ImageOverlay to the MapView. Please note you can use to ways of adding these type of Overlays.
+
+First, you an use the coordBox property. This allows you to the upperRight and bottomLeft coordinates as shown in the exampel below.
+
+Parameters:
+* title : String - Title of the Overlays.
+* tag : Integer - Identifier that can be used when removing the Overlays 
+* image : String  - The path to the image to be displayed.
+* coordBox : Dictionary - The coordinates to be used when displaying the Overlay.
+
+<b>coordBox Sample</b>
+
+<pre><code>
+ mapView.addImageOverlay({
+ 	tag:42,
+		title:'foo',
+		image:'eiffel_tower2.png', //Image path
+		coordBox:{
+			coords:
+			{
+				upperRight:{
+					latitude:48.85995,
+					longitude:2.2957
+				},
+				bottomLeft:{
+					latitude:48.85758,
+					longitude:2.2933
+				}			
+			}
+		}
+	});	
+</code></pre>
+
+You can see this example in full in the eiffel_tower_sample.js sample provided in the module's Example folder.  
+
+The second way to add an ImageOverlay is to provide the starting coordinate and the image size. To do this we use the sizedBox property as soon below.
+
+Parameters:
+* title : String - Title of the Overlays.
+* tag : Integer - Identifier that can be used when removing the Overlays 
+* image : String  - The path to the image to be displayed.
+* sizedBox : Dictionary - The starting coordinates and size to be used when displaying the Overlay.
+
+<b>sizedBox Sample</b>
+
+<pre><code>
+ mapView.addImageOverlay({
+		tag:21,
+		title:'foo2',
+		image:'ben2.png', //Image path
+		sizedBox:{
+			cellSizeLat:0.00300, //Size of image as it relates to latitude ( this is the size for 240 pixels width) 
+			cellSizeLng:0.00400, //Size of image as it relates to longitude ( this is the size for 225 pixels high) 
+			coords:
+			{
+				upperRight:{
+					latitude:51.500611,
+					longitude:-0.124611
+				}
+			}
+		}
+	});	
+});
+</code></pre>
+
+You can see this example in full in the big_ben_overlay_sample.js sample provided in the module's Example folder.
+
+<h3>addImageOverlayFile</h3>
+Need to create a large amount of ImageOverlays?  You can create a JSON file with all of your coordBox and/or sizedBox ImageOverlay definitions and provide your definition file to this method.
+
+You can see this example in full in the image_overlay_file.js sample provided in the module's Example folder.  
+
+<b>Sample</b>
+
+<pre><code>
+mapView.addImageOverlayFile('./image_overlay_file_sample.json');
+</code></pre>
+
+<h3>removeImageOverlay</h3>
+Using this method you can remove all ImageOverlay created using the addImageOverlay or addImageOverlayFile.  Simply provide the tag used when creating the ImageOverlay. The below example will remove all ImageOverlays with the tag of 42.
+
+<b>Sample</b>
+
+<pre><code>
+mapView.removeImageOverlay({tag:42});
+</code></pre>
+
+<h3>removeAllImageOverlays</h3>
+Using this method you can remove all ImageOverlays created using the addImageOverlay or addImageOverlayFile.
+
+<b>Sample</b>
+
+<pre><code>
+mapView.removeAllImageOverlays();
+</code></pre>
+
 <h2>Helper Methods</h2>
 
 The below outlines a list of helper functions designed to make life easier when using the mapView.
@@ -390,43 +443,3 @@ Parameters:
 //Zoom to focus on objects added to your mapview
 mapView.ZoomToFit();
 </code></pre>
-
-<h2>Using the example</h2>
-
-The examples shown in the demonstration videos are included in the module's example folder or downloadable [here](https://github.com/benbahrenburg/benCoding.Map/tree/master/example).
-
-<h2>FAQ</h2>
-
-* Is there an Android version?  - Sorry this is an iOS only module. Check the Appcelerator Marketplace for other options.
-
-* Can I add a click event to the overlay? - Sorry, this is not supported at this time.
-
-<h2>Legal Stuff</h2>
-
-Appcelerator is a registered trademark of Appcelerator, Inc. Appcelerator Titanium is a trademark of Appcelerator, Inc.
-
-<h2>Licensing</h2>
-
-Please see the Titanium licensing located [here](https://github.com/appcelerator/titanium_mobile).
-
-Any module specific modifications not covered by the Titanium license are available under the OSI approved Apache Public License (version 2).
-
-The KML functions contains modified code provided by Apple in their KML Viewer sample project. For questions please read their license [here](http://developer.apple.com/library/ios/#samplecode/KMLViewer/Listings/ReadMe_txt.html)
-
-<h2>Contributing</h2>
-
-The benCoding.Map is a open source project.  Please help us by contributing to documentation, reporting bugs, forking the code to add features or make bug fixes or promoting on twitter, etc.
-
-<h2>Other Contributors</h2>
-
-User Tracking was added by Jose Carlos Andreu [@Joscandreu](https://twitter.com/Joscandreu)
-
-<h2>Learn More</h2>
-
-<h3>Twitter</h3>
-
-Please consider following the [@benCoding Twitter](http://www.twitter.com/benCoding) for updates and more about Titanium.
-
-<h3>Blog</h3>
-
-For module updates, Titanium tutorials and more please check out my blog at [benCoding.Com](http://benCoding.com). 

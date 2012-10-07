@@ -17,6 +17,7 @@
 #import "BBSquareImageOverlayView.h"
 #import "BBSquareImageOverlay.h"
 #import "JSONKit.h"
+#import "BBGeoJSONParser.h"
 
 @interface BencodingMapView : TiUIView<MKMapViewDelegate> {
 @private

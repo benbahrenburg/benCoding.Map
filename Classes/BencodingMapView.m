@@ -1808,6 +1808,77 @@ int const kTagIdValue = -111111;
     
 }
 
+-(void)addGeoJSON:(id)args
+{
+	ENSURE_TYPE(args,NSDictionary);
+	ENSURE_UI_THREAD(addGeoJSON,args);
+    
+    //Get tagId for overlay
+    int tagId = [TiUtils intValue:@"tag" properties:args def:kTagIdValue];
+    //File path
+    NSString* providedPath =[TiUtils stringValue:@"path" properties:args];
+    
+    //Overlay color
+    UIColor *overlayColor = [[TiUtils colorValue:@"color" properties:args] _color];
+    
+    //Get the alpha, if not provided default to 0.9
+    float alpha = [TiUtils floatValue:@"alpha" properties:args def:0.9];
+    //Get our lineWidth, if not provoded default to 1.0
+    float lineWidth = [TiUtils floatValue:@"lineWidth" properties:args def:1.0];
+    
+    //Get the optional strokeColor
+    UIColor *strokeColor = [[TiUtils colorValue:@"strokeColor" properties:args] _color];
+    
+    // Check if we're using a random color (false by default)
+    BOOL useRandomColor =[TiUtils boolValue:@"useRandomColor" properties:args def:NO];
+    if ((overlayColor == nil)||(useRandomColor))
+    {
+        overlayColor=[self randomColor];
+    }
+    
+    //Figure out our file path
+    NSURL* filePath = [TiUtils toURL:providedPath proxy:self.proxy];
+    
+    //Format our path so we can send it to the parser
+    NSString* jsonPath = [filePath absoluteString];
+    
+    //Tell the parser where the file is we want actioned
+    BBGeoJSONParser *geoJSONParser = [[[BBGeoJSONParser alloc] initWithFilePath:jsonPath] autorelease];
+    
+    //Parse the KML
+    [geoJSONParser Parse];
+    
+    NSArray *jsonOverlays = [geoJSONParser Polygons];
+    NSString *overlayTitle = [geoJSONParser Name];
+    
+    for (id <MKOverlay> overlay in jsonOverlays)
+    {
+        if ([overlay isKindOfClass:[MKPolygon class]])
+        {
+            MKPolygon* temp =(MKPolygon*)overlay;
+            temp.title = overlayTitle; //Set the title
+            temp.color = overlayColor; //Assign Color
+            temp.alpha = [NSNumber numberWithFloat:alpha];
+            temp.lineWidth = [NSNumber numberWithFloat:lineWidth];
+            temp.tag = tagId;
+            
+            //We only add the strokeColor if it is provided
+            if (strokeColor != nil)
+            {
+                temp.strokeColor=strokeColor;
+            }
+            
+            //Add the polgyon to the map
+            [[self map] addOverlay:temp];
+        }
+    }
+    
+    //Fire event to tell everyone we're finished
+	if ([self.proxy _hasListeners:@"geoJSONCompleted"])
+	{
+		[self.proxy fireEvent:@"geoJSONCompleted" withObject:nil];
+	}
+}
 -(void)ZoomOutFull:(id)unused
 {
     @try {

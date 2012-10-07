@@ -61,7 +61,7 @@ bAddGeoJSON.addEventListener('click',function() {
 	
 	mapView.addGeoJSON({
 		path:"geo.json", //Path to our geo json file
-		tag : 55, //Integer value used as the tag for all polygons and annotations. If you want use remove you need to set this to a known value.
+		tag : 55, //Integer value used as the tag for all polygons. If you want use remove you need to set this to a known value.
        	alpha:0.5, //Alpha value of your overlays
 	    lineWidth:1.2, //Line Width of your overlays
 	    strokeColor:'#000', //Stroke Color of your overlays

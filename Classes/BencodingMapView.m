@@ -1835,21 +1835,18 @@ int const kTagIdValue = -111111;
     {
         overlayColor=[self randomColor];
     }
-    
+        
     //Figure out our file path
     NSURL* filePath = [TiUtils toURL:providedPath proxy:self.proxy];
-    
-    //Format our path so we can send it to the parser
-    NSString* jsonPath = [filePath absoluteString];
-    
+    //NSLog(@"Our file path %@", [filePath path]);
     //Tell the parser where the file is we want actioned
-    BBGeoJSONParser *geoJSONParser = [[[BBGeoJSONParser alloc] initWithFilePath:jsonPath] autorelease];
-    
-    //Parse the KML
+    BBGeoJSONParser *geoJSONParser = [[[BBGeoJSONParser alloc] initWithFilePath:[filePath path]] autorelease];
+    //Parse the GeoJSON
     [geoJSONParser Parse];
     
     NSArray *jsonOverlays = [geoJSONParser Polygons];
     NSString *overlayTitle = [geoJSONParser Name];
+    //NSLog(@"Overlays %u",[jsonOverlays count]);
     
     for (id <MKOverlay> overlay in jsonOverlays)
     {
@@ -1867,7 +1864,6 @@ int const kTagIdValue = -111111;
             {
                 temp.strokeColor=strokeColor;
             }
-            
             //Add the polgyon to the map
             [[self map] addOverlay:temp];
         }
@@ -1889,8 +1885,7 @@ int const kTagIdValue = -111111;
         [map setRegion:region animated:animate];
     }
     @catch (id theException) {
-		NSLog(@"ZoomToWorld %@", theException);
-        
+		NSLog(@"ZoomToWorld %@", theException);        
 	}
 }
 

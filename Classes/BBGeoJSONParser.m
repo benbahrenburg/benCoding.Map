@@ -12,7 +12,11 @@
 
 - (id) initWithFilePath:(NSString*)filePath
 {
-    jsonFilePath=filePath;
+    if (self = [super init])
+    {
+        jsonFilePath=filePath;
+    }
+    return self;
 }
 
 -(void)dealloc
@@ -50,8 +54,12 @@
     }
     
     MKPolygon* polygonToAdd = [MKPolygon polygonWithCoordinates:pointsToAdd count:pointsCount];
-    NSLog(@"Adding polygon with points %u",[points count]);
-    [Polygons addObject:polygonToAdd];
+   // NSLog(@"Adding polygon with points %u",[points count]);
+    if(jsonPolygons==nil)
+    {
+       jsonPolygons = [[NSMutableArray alloc] init];
+    }
+    [jsonPolygons addObject:polygonToAdd];
 }
 
 -(BOOL)hasNoChild:(NSArray*)coord
@@ -86,8 +94,8 @@
     {
         if([self hasNoChild:[coordinates objectAtIndex:iLoop]]==YES)
         {
-            CLLocation *point = [[[CLLocation alloc] initWithLatitude:[[[coordinates objectAtIndex:iLoop] objectAtIndex:0] doubleValue]
-                                                            longitude:[[[coordinates objectAtIndex:iLoop] objectAtIndex:1]doubleValue]] autorelease];
+            CLLocation *point = [[[CLLocation alloc] initWithLatitude:[[[coordinates objectAtIndex:iLoop] objectAtIndex:1] doubleValue]
+                                                            longitude:[[[coordinates objectAtIndex:iLoop] objectAtIndex:0]doubleValue]] autorelease];
             [points addObject:point];
             
         }
@@ -129,46 +137,76 @@
         return YES;
     }
 }
+- (NSString *)Name
+{
+    return jsonName;
+}
+- (NSString *)Code
+{
+    return jsonCode;
+}
+- (NSArray *)Polygons
+{
+    return jsonPolygons;
+}
 -(void) Parse
 {
-    if(Polygons!=nil)
-    {
-        RELEASE_TO_NIL(Polygons);
+    @try {
+        if(jsonPolygons!=nil)
+        {
+            RELEASE_TO_NIL(jsonPolygons);
+        }
+        
+        if(jsonName!=nil)
+        {
+            RELEASE_TO_NIL(jsonName);
+        }
+        if(jsonCode!=nil)
+        {
+            RELEASE_TO_NIL(jsonCode);
+        }
+        if(Polygons!=nil)
+        {
+            RELEASE_TO_NIL(Polygons);
+        }
+        
+        if(Name!=nil)
+        {
+            RELEASE_TO_NIL(Name);
+        }
+        if(Code!=nil)
+        {
+            RELEASE_TO_NIL(Code);
+        }
+        
+        NSData* jsonData = [NSData dataWithContentsOfFile: jsonFilePath];
+        JSONDecoder* decoder = [[[JSONDecoder alloc]
+                                 initWithParseOptions:JKParseOptionLooseUnicode] autorelease];
+        NSDictionary* json = [decoder objectWithData:jsonData];
+        
+        if(json==nil)
+        {
+            NSLog(@"Invalid JSON format, unable to continue");
+            return;
+        }
+        NSArray * root = [json objectForKey:@"features"];
+        if([self validRoot:root]==NO)
+        {
+            NSLog(@"Invalid Geo JSON provided, unable to continue");
+            return;
+        }
+        //Parse the Name and Code Properties
+        jsonName = [self findName:[root objectAtIndex:0]];
+        jsonCode = [self findCode:[root objectAtIndex:0]];
+        //Find the Coordinates Node
+        NSArray * coordinates = [[[root objectAtIndex:0] objectForKey:@"geometry"] objectForKey:@"coordinates"];
+        //Parse the coordinates into polygons
+        [self parseCoords:coordinates];
     }
-
-    if(Name!=nil)
-    {
-        RELEASE_TO_NIL(Name);
-    }
-    if(Code!=nil)
-    {
-        RELEASE_TO_NIL(Code);
-    }
-    
-    NSData* jsonData = [NSData dataWithContentsOfFile: jsonFilePath];
-    JSONDecoder* decoder = [[[JSONDecoder alloc]
-                             initWithParseOptions:JKParseOptionLooseUnicode] autorelease];
-    NSDictionary* json = [decoder objectWithData:jsonData];
-    
-    if(json==nil)
-    {
-        NSLog(@"Invalid JSON format, unable to continue");
-        return;
-    }
-    NSArray * root = [json objectForKey:@"features"];
-    if([self validRoot:root]==NO)
-    {
-        NSLog(@"Invalid Geo JSON provided, unable to continue");
-        return;
-    }
-    
-    //Parse the Name and Code Properties
-    Code = [self findName:[root objectAtIndex:0]];
-    Name = [self findCode:[root objectAtIndex:0]];
-    //Find the Coordinates Node
-    NSArray * coordinates = [[[root objectAtIndex:0] objectForKey:@"geometry"] objectForKey:@"coordinates"];
-    //Parse the coordinates into polygons
-    [self parseCoords:coordinates];
+    @catch (id theException) {
+		NSLog(@"Parser Error %@", theException);
+	}
+   
 }
 
 

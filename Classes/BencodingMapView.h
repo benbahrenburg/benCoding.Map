@@ -73,6 +73,7 @@
 -(void)removeAllTileOverlayDirectory:(id) unused;
 
 -(void)addImageOverlayFile:(id)args;
+-(void)addGeoJSON:(id)args;
 
 -(void)addAnnotation:(id)args;
 -(void)addAnnotations:(id)args;

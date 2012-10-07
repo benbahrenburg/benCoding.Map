@@ -684,10 +684,19 @@
 
 -(void) addImageOverlayFile:(id)args
 {
-	ENSURE_SINGLE_ARG(args,NSString)
+	ENSURE_SINGLE_ARG(args,NSDictionary)
 	if ([self viewAttached])
 	{
 		TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] addImageOverlayFile:args];}, NO);
+	}
+}
+
+-(void) addGeoJSON:(id)args
+{
+	ENSURE_SINGLE_ARG(args,NSDictionary)
+	if ([self viewAttached])
+	{
+		TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] addGeoJSON:args];}, NO);
 	}
 }
 

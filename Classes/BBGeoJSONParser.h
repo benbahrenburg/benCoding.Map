@@ -12,6 +12,9 @@
 
 @interface BBGeoJSONParser : NSObject{
     NSString *jsonFilePath;
+    NSMutableArray* jsonPolygons;
+    NSString* jsonCode;
+    NSString* jsonName;
 }
 @property (nonatomic, readonly) NSString* Code;
 @property (nonatomic, readonly) NSString* Name;

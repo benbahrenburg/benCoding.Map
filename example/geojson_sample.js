@@ -38,11 +38,11 @@ var zoomControl = Titanium.UI.iOS.createToolbar({
 });	
 win.add(zoomControl);
 
-var bAddKML = Ti.UI.createButton({
+var bAddGeoJSON = Ti.UI.createButton({
 	title:'Load GeoJSON', style:Ti.UI.iPhone.SystemButtonStyle.BORDERED
 });
 
-var bRemoveKML = Ti.UI.createButton({
+var bRemoveGeoJSON = Ti.UI.createButton({
 	title:'Remove GeoJSON', style:Ti.UI.iPhone.SystemButtonStyle.BORDERED
 });
 
@@ -66,7 +66,7 @@ bAddGeoJSON.addEventListener('click',function() {
 	    lineWidth:1.2, //Line Width of your overlays
 	    strokeColor:'#000', //Stroke Color of your overlays
 	    color:'yellow', //Sets the color of all your overlays ( if left off, a random color will be selected)
-	    useRandomColor:true //If true, a random color will be selected, this overrides the color provided if true     
+	    useRandomColor:false //If true, a random color will be selected, this overrides the color provided if true     
 	});	
 		   	
 });

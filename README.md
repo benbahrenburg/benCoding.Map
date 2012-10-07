@@ -30,6 +30,7 @@ Video of the module running a KML example [http://www.youtube.com/watch?v=vjD8Uk
 ![Screenshot](http://farm8.staticflickr.com/7259/7824132160_24a9f9975c.jpg)
 
 <h4>ImageOverlay Example</h4>
+
 Video of the module running several ImageOverlay examples [http://www.youtube.com/watch?v=gCE1Dlyjwwc](http://www.youtube.com/watch?v=gCE1Dlyjwwc).
 ![Screenshot](http://farm9.staticflickr.com/8035/8061088086_302bc14a35.jpg)
 

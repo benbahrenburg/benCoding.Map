@@ -11,28 +11,7 @@ This module provides Polgyon overlay support in addition to all of the same feat
 For a list of all the features supported by the Titanium Map module, please reference the documentation [here](http://docs.appcelerator.com/titanium/2.1/index.html#!/api/Titanium.Map.View).
 
 <h2>See it in action</h2>
-
-<h4>Polygon Example</h4>
-Video of the module running a Polygon example [http://www.youtube.com/watch?v=1rudu6S9-rc](http://www.youtube.com/watch?v=1rudu6S9-rc).
-
-![Screenshot](http://farm8.staticflickr.com/7268/7528456398_7395bb0906_o.png)
-
-<h4>Circle Example</h4>
-
-Video of the module running a Circle example [http://www.youtube.com/watch?v=jwnByWz1eJo](http://www.youtube.com/watch?v=jwnByWz1eJo).
-
-![Screenshot](http://farm8.staticflickr.com/7113/7558754232_7091e30030_o.png)
-
-<h4>KML File Example</h4>
-
-Video of the module running a KML example [http://www.youtube.com/watch?v=vjD8UkCGVHk](http://www.youtube.com/watch?v=vjD8UkCGVHk).
-
-![Screenshot](http://farm8.staticflickr.com/7259/7824132160_24a9f9975c.jpg)
-
-<h4>ImageOverlay Example</h4>
-
-Video of the module running several ImageOverlay examples [http://www.youtube.com/watch?v=gCE1Dlyjwwc](http://www.youtube.com/watch?v=gCE1Dlyjwwc).
-![Screenshot](http://farm9.staticflickr.com/8035/8061088086_302bc14a35.jpg)
+<b>[View our gallery]</b>(https://github.com/benbahrenburg/benCoding.Map/blob/master/samples.md) to see many of our features in action.
 
 <h2>Before you start</h2>
 * You need Titanium 1.8.2 or greater.
@@ -53,7 +32,7 @@ var map = require('bencoding.map');
 Now we have the module installed and available in our project we can start to use the components, see the documentation link to learn more.
 
 <h2>Documentation</h2>
-To learn more about the enhanced MapView component please <b>[view our doumentation.](https://github.com/benbahrenburg/benCoding.Map/blob/master/documentation/index.md)<b>
+To learn more about the enhanced MapView component please <b>[view our doumentation.](https://github.com/benbahrenburg/benCoding.Map/blob/master/documentation/index.md)</b>
 
 <h2>Contributing</h2>
 

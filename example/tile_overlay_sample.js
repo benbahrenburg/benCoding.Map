@@ -37,16 +37,8 @@ bZoomOut.addEventListener('click',function() {
 	mapView.zoom(-1);
 });
 
-var bRemoveAll = Ti.UI.createButton({
-	title:'Remove All', style:Ti.UI.iPhone.SystemButtonStyle.BORDERED
-});
-bRemoveAll.addEventListener('click',function() {
-	mapView.removeAllAnnotations( );
-    mapView.removeAllTileOverlayDirectory();
-});
-
 var zoomControl = Ti.UI.iOS.createToolbar({
-	items:[bZoomIn,bZoomOut,bRemoveAll],
+	items:[bZoomIn,bZoomOut],
 	top:0,width:Ti.UI.FILL
 });	
 win.add(zoomControl);
@@ -77,7 +69,8 @@ var bHideTile = Ti.UI.createButton({
 });
 
 bHideTile.addEventListener('click',function() {
-    mapView.removeTileOverlayDirectory({tag:2});
+	mapView.removeAllAnnotations();
+    mapView.removeAllTileOverlayDirectory();
 });
 
 
@@ -105,7 +98,7 @@ var bHideAnnotations = Ti.UI.createButton({
 });
 
 bHideAnnotations.addEventListener('click',function() {
-   mapView.removeAllAnnotations( );
+   mapView.removeAllAnnotations();
 });
 
 

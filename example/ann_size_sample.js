@@ -42,8 +42,8 @@ bAddAnnotations.addEventListener('click',function(){
 	longitude:2.2957,
 	tag:1,
 	scaleTo:{
-		x:3,
-		y:3
+		sx:3,
+		sy:3
 	} 
   });
   mapView.addAnnotation(annOne);  
@@ -54,8 +54,8 @@ bAddAnnotations.addEventListener('click',function(){
 	tag:2,
     image: "city2.png",
 	scaleTo:{
-		x:1.5,
-		y:1.5
+		sx:1.5,
+		sy:1.5
 	} 
   });
   mapView.addAnnotation(annTwo);  	

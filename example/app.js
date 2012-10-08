@@ -19,7 +19,7 @@ var data =[
 	{title:'Image Overlay File',itemId:5,url:'image_overlay_file.js',winTitle:'Image Overlay File'},	
 	{title:'Tile Overlay Sample',itemId:6,url:'tile_overlay_sample.js',winTitle:'Tile Overlay Sample'},
 	{title:'GeoJSON Sample',itemId:7,url:'geojson_sample.js',winTitle:'GeoJSON Sample'},
-	{title:'Sizeable Pins',itemId:8,url:'ann_size_sample.js',winTitle:'Sizeable Annotations'}						
+	{title:'Sizable Pins',itemId:8,url:'ann_size_sample.js',winTitle:'Sizable Annotations'}						
 ];
 
 

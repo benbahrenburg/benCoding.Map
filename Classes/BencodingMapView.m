@@ -720,8 +720,8 @@ int const kTagIdValue = -111111;
             ENSURE_CLASS_OR_NIL(toSized,dicClass);
             if (toSized != nil)
             {
-                CGFloat sizeX = [TiUtils floatValue:[toSized objectForKey:@"x"]];
-                CGFloat sizeY = [TiUtils floatValue:[toSized objectForKey:@"y"]];
+                CGFloat sizeX = [TiUtils floatValue:[toSized objectForKey:@"sx"]];
+                CGFloat sizeY = [TiUtils floatValue:[toSized objectForKey:@"sy"]];
                 annView.transform = CGAffineTransformMakeScale(sizeX, sizeY);
             }
         }

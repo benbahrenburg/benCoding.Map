@@ -712,6 +712,17 @@ int const kTagIdValue = -111111;
         
 		annView = (MKAnnotationView*) [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
         
+        if(annView!=nil)
+        {
+            //Scale Annotation
+            id scale = [ann valueForUndefinedKey:@"scaleTo"];
+            if (scale != nil)
+            {                
+                CGFloat f = [TiUtils floatValue:scale];
+                annView.transform = CGAffineTransformMakeScale(f, f);
+            }
+        }
+
         if (annView==nil)
         {
             if ([identifier isEqualToString:@"timap-image"])
@@ -722,6 +733,7 @@ int const kTagIdValue = -111111;
             {
                 annView=[[[TiMapPinAnnotationView alloc] initWithAnnotation:ann reuseIdentifier:identifier map:((TiMapView*)self)] autorelease];
             }
+            
         }
         if ([identifier isEqualToString:@"timap-image"])
         {
@@ -753,6 +765,7 @@ int const kTagIdValue = -111111;
         
 		annView.userInteractionEnabled = YES;
 		annView.tag = [ann tag];
+
 		return annView;
 	}
 	return nil;

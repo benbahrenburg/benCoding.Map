@@ -66,7 +66,7 @@ bAddGeoJSON.addEventListener('click',function() {
 	    lineWidth:1.2, //Line Width of your overlays
 	    strokeColor:'#000', //Stroke Color of your overlays
 	    color:'yellow', //Sets the color of all your overlays ( if left off, a random color will be selected)
-	    useRandomColor:false //If true, a random color will be selected, this overrides the color provided if true     
+	    useRandomColor:true //If true, a random color will be selected, this overrides the color provided if true     
 	});	
 		   	
 });

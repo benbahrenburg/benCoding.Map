@@ -715,14 +715,17 @@ int const kTagIdValue = -111111;
         if(annView!=nil)
         {
             //Scale Annotation
-            id scale = [ann valueForUndefinedKey:@"scaleTo"];
-            if (scale != nil)
-            {                
-                CGFloat f = [TiUtils floatValue:scale];
-                annView.transform = CGAffineTransformMakeScale(f, f);
+            Class dicClass = [NSDictionary class];
+            NSDictionary * toSized = [ann valueForUndefinedKey:@"scaleTo"];
+            ENSURE_CLASS_OR_NIL(toSized,dicClass);
+            if (toSized != nil)
+            {
+                CGFloat sizeX = [TiUtils floatValue:[toSized objectForKey:@"x"]];
+                CGFloat sizeY = [TiUtils floatValue:[toSized objectForKey:@"y"]];
+                annView.transform = CGAffineTransformMakeScale(sizeX, sizeY);
             }
         }
-
+        
         if (annView==nil)
         {
             if ([identifier isEqualToString:@"timap-image"])
@@ -765,7 +768,7 @@ int const kTagIdValue = -111111;
         
 		annView.userInteractionEnabled = YES;
 		annView.tag = [ann tag];
-
+        
 		return annView;
 	}
 	return nil;

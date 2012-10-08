@@ -63,8 +63,11 @@ bShowTile.addEventListener('click',function() {
 	if( currentLevel == levels.length){
 		currentLevel = 0;
 	}
+	//Remove in case they already exist
+	mapView.removeTileOverlayDirectory({tag:currentLevel});
+
     mapView.addTileOverlayDirectory({
-    	tag:2,	
+    	tag:currentLevel,	
     	directory:'/tiles/Level' + levels[currentLevel]
     });
 });
@@ -107,7 +110,10 @@ bHideAnnotations.addEventListener('click',function() {
 
 
 win.addEventListener('open', function(){
-    mapView.setTileDirectory('/tiles/Level' + levels[currentLevel]);
+    mapView.addTileOverlayDirectory({
+    	tag:currentLevel,	
+    	directory:'/tiles/Level' + levels[currentLevel]
+    });
 });
 
 win.setToolbar([bShowTile, bHideTile, bShowAnnotations, bHideAnnotations]);

@@ -286,7 +286,7 @@ The removeKML method provides an easy helper function to remove all of the polyg
 For best results you will need to provide the same tag used during the creation process.  In the ablve addKML example we used a title of 'my kml batch key' and a tag of 41.  To remove these objects, we call the removeKML method and provide that value, as shown below.
 
 Parameters:
-* tagId : Integer - An identifier used to find overlays and annotation associated to the KML job. 
+* tagId : Integer - An identifier used to delete overlays and annotation associated with this tag. 
 
 <pre><code>
 mapView.removeKML({
@@ -380,6 +380,9 @@ mapView.addImageOverlayFile('./image_overlay_file_sample.json');
 <h3>removeImageOverlay</h3>
 Using this method you can remove all ImageOverlay created using the addImageOverlay or addImageOverlayFile.  Simply provide the tag used when creating the ImageOverlay. The below example will remove all ImageOverlays with the tag of 42.
 
+Parameters:
+* tag : Integer - An identifier used to delete all overlays associate with this tag.
+
 <b>Sample</b>
 
 <pre><code>
@@ -389,10 +392,68 @@ mapView.removeImageOverlay({tag:42});
 <h3>removeAllImageOverlays</h3>
 Using this method you can remove all ImageOverlays created using the addImageOverlay or addImageOverlayFile.
 
+Parameters:
+* None
+
 <b>Sample</b>
 
 <pre><code>
 mapView.removeAllImageOverlays();
+</code></pre>
+
+<h2>Tile Overlays</h2>
+
+The MapView control now supports adding Tile Overlays from via folder layout. The functionality behind this feature is inspired by the Tile Map App presented at WWDC in 2010. 
+
+You can read more about how to create the tiles [here](http://www.shawngrimes.me/2010/12/mapkit-overlays-session-1-overlay-map/).
+
+<h3>addTileOverlayDirectory</h3>
+
+The addTileOverlayDirectory method allows you to add custom image tiles to your Titanium map.  
+
+Once you've created your tiles you simply provide the method with a tag and the tile directory.
+
+You can see this example in full in the tile_overlay_sample.js sample provided in the module's Example folder. 
+
+Parameters:
+* tag : Integer - An identifier used to associate all overlays created.
+* directory : String - The directory containing the image tiles 
+
+<b>Sample</b>
+<pre><code>
+
+    mapView.addTileOverlayDirectory({
+    tag:2,	
+    directory:'/tiles/Level' + levels[currentLevel]
+    });
+ </code></pre>
+
+<h3>removeTileOverlayDirectory</h3>
+
+Using this method you can remove all TileOverlays created using the addTileOverlayDirectory method.  
+
+Simply provide the tag used when calling the addTileOverlayDirectory method. The below example will remove all TileOverlays with the tag of 2.
+
+Parameters:
+* tag : Integer - An identifier used to delete all overlays associate with this tag.
+
+<b>Sample</b>
+<pre><code>
+
+    mapView.removeTileOverlayDirectory({tag:2});
+
+ </code></pre>
+
+<h3>removeAllTileOverlayDirectory</h3>
+Using this method you can remove all TileOverlays created using the addTileOverlayDirectory method.
+
+Parameters:
+* None
+
+<b>Sample</b>
+
+<pre><code>
+mapView.removeAllTileOverlayDirectory();
 </code></pre>
 
 <h2>Helper Methods</h2>

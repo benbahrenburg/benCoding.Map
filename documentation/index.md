@@ -211,7 +211,7 @@ You can keep track with this eventListener:
 mapView.addEventListener("userTrackingMode",function(e){
     var trackingMode = e.mode;
     //whatever you want to do with the tracking mode
-}
+});
 </code></pre>
 
 <h2>How to work with KML</h2>
@@ -240,6 +240,7 @@ Parameters:
 -- pincolor : Number - Pin color. Specify one of: Titanium.Map.ANNOTATION_GREEN, Titanium.Map.ANNOTATION_PURPLE or Titanium.Map.ANNOTATION_RED.
 
 <pre><code>
+//Add KML File
 mapView.addKML({
     path:'MID_SIZED_SAMPLE.kml', //Path to your KML file
     flyTo:false, //Will set your zoom to show all of your points added (false by default)        
@@ -271,12 +272,14 @@ KML files can be large and take time to process.  The "kmlCompleted" event will 
 A common use of this function would be to display a "Waiting..." message when calling the addKML method, then removing the message on reciept of the "kmlCompleted" event.
 
 <pre><code>
+//Add Event to be called when the KML File has been loaded
 function onComplete(){
     alert("KML File Loaded");
 };
 
 //Add event handler to let us know when the KML file has been loaded
 map.addEventListener('kmlCompleted',onComplete);
+
 </code></pre>
 
 <h3>removeKML</h3>
@@ -289,6 +292,7 @@ Parameters:
 * tagId : Integer - An identifier used to delete overlays and annotation associated with this tag. 
 
 <pre><code>
+//Remove the overlays and annotations added from importing the KML file
 mapView.removeKML({
     tag:41 //Integer value used as the tag for all overlays and annotations you created
    }
@@ -312,6 +316,7 @@ Parameters:
 <b>coordBox Sample</b>
 
 <pre><code>
+//Add an ImageOverlay using the Upper Right and Bottom Left Coordinates
  mapView.addImageOverlay({
  	tag:42,
 		title:'foo',
@@ -329,7 +334,8 @@ Parameters:
 				}			
 			}
 		}
-	});	
+	});
+	
 </code></pre>
 
 You can see this example in full in the eiffel_tower_sample.js sample provided in the module's Example folder.  
@@ -345,6 +351,7 @@ Parameters:
 <b>sizedBox Sample</b>
 
 <pre><code>
+ //Add an ImageOverlay by using the Upper Right Coordinates and the cell size
  mapView.addImageOverlay({
 		tag:21,
 		title:'foo2',
@@ -374,6 +381,7 @@ You can see this example in full in the image_overlay_file.js sample provided in
 <b>Sample</b>
 
 <pre><code>
+//Add ImageOverlays by loading a definitation file
 mapView.addImageOverlayFile('./image_overlay_file_sample.json');
 </code></pre>
 
@@ -386,6 +394,7 @@ Parameters:
 <b>Sample</b>
 
 <pre><code>
+//Remove all ImageOverlays with a specific tag
 mapView.removeImageOverlay({tag:42});
 </code></pre>
 
@@ -398,6 +407,7 @@ Parameters:
 <b>Sample</b>
 
 <pre><code>
+//Remove all ImageOverlays
 mapView.removeAllImageOverlays();
 </code></pre>
 
@@ -421,12 +431,12 @@ Parameters:
 
 <b>Sample</b>
 <pre><code>
-
+    //Load all Tile Overlays in a provided folder
     mapView.addTileOverlayDirectory({
-    tag:2,	
-    directory:'/tiles/Level' + levels[currentLevel]
+    	tag:2,	
+    	directory:'/tiles/Level1'
     });
- </code></pre>
+</code></pre>
 
 <h3>removeTileOverlayDirectory</h3>
 
@@ -439,9 +449,8 @@ Parameters:
 
 <b>Sample</b>
 <pre><code>
-
+    //Remove all TileOverlays associated with a specific tag
     mapView.removeTileOverlayDirectory({tag:2});
-
  </code></pre>
 
 <h3>removeAllTileOverlayDirectory</h3>
@@ -453,6 +462,7 @@ Parameters:
 <b>Sample</b>
 
 <pre><code>
+//Remove all TileOverlays
 mapView.removeAllTileOverlayDirectory();
 </code></pre>
 
@@ -479,6 +489,7 @@ Parameters:
 * useRandomColor : Boolean - Greater a random color, this overrides color if provided (False by default)
 
 <pre><code>
+        //Load a GeoJSON file
 	mapView.addGeoJSON({
 		path:"geo.json", //Path to our geo json file
 		tag : 55, //Integer value used as the tag for all polygons. If you want use remove you need to set this to a known value.
@@ -487,6 +498,66 @@ Parameters:
 		strokeColor:'#000', //Stroke Color of your overlays
 		color:'yellow', //Sets the color of all your overlays ( if left off, a random color will be selected)
 		useRandomColor:true //If true, a random color will be selected, this overrides the color provided if true
+});	
+
+</code></pre>
+
+<h3>GeoJSON Loaded Listener</h3>
+
+GeoJSON files can be large and take time to process.  The "geoJSONCompleted" event will be fired on the mapView object after the file has been loaded and the objects atteched.
+
+A common use of this function would be to display a "Waiting..." message when calling the addGeoJSON method, then removing the message on reciept of the "geoJSONCompleted" event.
+
+<pre><code>
+//Add Event to be called when the KML File has been loaded
+function onComplete(){
+    alert("GeoJSON File Loaded");
+};
+
+//Add event handler to let us know when the GeoJSON file has been loaded
+mapView.addEventListener('geoJSONCompleted',onComplete);
+
+</code></pre>
+<h2>Sizable Annotation</h2>
+
+When creating a new annotation you can provide an optional paramter that allows you to size the annotation.
+
+You can see this example in full in the ann_size_sample.js sample provided in the module's Example folder.
+
+Optional Parameter:
+* scaleTo : Dictionary
+
+--  sx : Float - The factor by which to scale the x-axis of the coordinate system.
+
+--  sy : Float - The factor by which to scale the y-axis of the coordinate system.
+
+<b>Sample</b>
+<pre><code>
+        //Add an normal annotation and specify the scaleTo properties
+  	var annOne = Titanium.Map.createAnnotation({
+		    title: 'sample 1',
+			latitude:48.85995,
+			longitude:2.2957,
+			tag:1,
+			scaleTo:{
+				sx:3,
+				sy:3
+			}
+	});
+	mapView.addAnnotation(annOne);
+        //Add an annotation with an image and set the scaleTo properties
+	var annTwo = Titanium.Map.createAnnotation({
+		    title: 'sample 2',
+			latitude:40.75773,
+			longitude:-73.985708,
+			tag:2,
+			image: "city2.png",
+			scaleTo:{
+				sx:1.5,
+				sy:1.5
+			}
+	});
+	mapView.addAnnotation(annTwo); 
 });	
 
 </code></pre>

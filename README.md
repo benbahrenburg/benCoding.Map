@@ -11,7 +11,7 @@ This module provides Polgyon overlay support in addition to all of the same feat
 For a list of all the features supported by the Titanium Map module, please reference the documentation [here](http://docs.appcelerator.com/titanium/2.1/index.html#!/api/Titanium.Map.View).
 
 <h2>See it in action</h2>
-<b>[View our gallery]</b>(https://github.com/benbahrenburg/benCoding.Map/blob/master/samples.md) to see many of our features in action.
+<b>[View our gallery](https://github.com/benbahrenburg/benCoding.Map/blob/master/samples.md)</b> to see many of our features in action.
 
 <h2>Before you start</h2>
 * You need Titanium 1.8.2 or greater.

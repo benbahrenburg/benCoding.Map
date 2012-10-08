@@ -518,11 +518,11 @@ function onComplete(){
 mapView.addEventListener('geoJSONCompleted',onComplete);
 
 </code></pre>
-<h2>Sizable Annotation</h2>
+<h2>Scalable Annotation</h2>
 
-When creating a new annotation you can provide an optional paramter that allows you to size the annotation.
+When creating a new annotation you can provide an optional paramter that allows you to scale the annotation.
 
-You can see this example in full in the ann_size_sample.js sample provided in the module's Example folder.
+You can see this example in full in the ann_scale_sample.js sample provided in the module's Example folder.
 
 Optional Parameter:
 * scaleTo : Dictionary

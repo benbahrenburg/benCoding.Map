@@ -226,15 +226,15 @@ Usage Details:
 The addKML method is only available to add KML file objects after the mapView has been rendered to the window.
 
 Parameters:
-* path : String -
+* path : String - containing the path to your KML file
 * tag : Integer - An identifier used to associate all overlays and annotation to the KML job.
 * flyTo : Boolean - Will set your zoom to show all of your points added (false by default)  
 * overlayInfo : Dictionary containgin the below properties
 -- title : String - Title of the Circle, also used when removing the Circle.
--- alpha : Float  - The alpha value for the Circle.
--- lineWidth : Float - The width of the Circle outline.
--- strokeColor : Color - The color of the Circle stroke.
--- color : Color - The FillColor of the Circle.
+-- alpha : Float  - The alpha value for the overlay.
+-- lineWidth : Float - The width of the overlay outline.
+-- strokeColor : Color - The color of the overlay stroke.
+-- color : Color - The FillColor of the overlay.
 -- useRandomColor : Boolean - Greater a random color, this overrides color if provided (False by default)
 * annotationInfo : Dictionary containgin the below properties
 -- pincolor : Number - Pin color. Specify one of: Titanium.Map.ANNOTATION_GREEN, Titanium.Map.ANNOTATION_PURPLE or Titanium.Map.ANNOTATION_RED.
@@ -454,6 +454,41 @@ Parameters:
 
 <pre><code>
 mapView.removeAllTileOverlayDirectory();
+</code></pre>
+
+<h2>How to work with GeoJSON</h2>
+
+You can now use GeoJSON files to create your polygons. 
+
+<h3>addGeoJSON</h3>
+
+The addGeoJSON method allows you to provide a path to a GeoJSON file and a few options on how to handle the parsing.  The Map Module will then parse the GeoJSON file and createpolygons using the details provided.  Once created you can remove them using the same methods as outlined in the "Using Polygons" section above.
+
+Usage Details:
+The addGeoJSON method is only available to add GeoJSON file objects after the mapView has been rendered to the window.
+
+You can see this example in full in the geojson_sample.js sample provided in the module's Example folder. 
+
+Parameters:
+* path : String - containing the path to your GeoJSON file
+* tag : Integer - An identifier used to associate all overlays created by this job.
+* alpha : Float  - The alpha value for the Circle.
+* lineWidth : Float - The width of the Circle outline.
+* strokeColor : Color - The color of the Circle stroke.
+* color : Color - The FillColor of the Circle.
+* useRandomColor : Boolean - Greater a random color, this overrides color if provided (False by default)
+
+<pre><code>
+	mapView.addGeoJSON({
+		path:"geo.json", //Path to our geo json file
+		tag : 55, //Integer value used as the tag for all polygons. If you want use remove you need to set this to a known value.
+        	alpha:0.5, //Alpha value of your overlays
+		lineWidth:1.2, //Line Width of your overlays
+		strokeColor:'#000', //Stroke Color of your overlays
+		color:'yellow', //Sets the color of all your overlays ( if left off, a random color will be selected)
+		useRandomColor:true //If true, a random color will be selected, this overrides the color provided if true
+});	
+
 </code></pre>
 
 <h2>Helper Methods</h2>

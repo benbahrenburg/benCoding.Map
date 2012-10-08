@@ -24,19 +24,23 @@ Video of the module running a KML example [http://www.youtube.com/watch?v=vjD8Uk
 <h4>ImageOverlay Example</h4>
 
 Video of the module running several ImageOverlay examples [http://www.youtube.com/watch?v=gCE1Dlyjwwc](http://www.youtube.com/watch?v=gCE1Dlyjwwc).
+
 ![Screenshot](http://farm9.staticflickr.com/8035/8061088086_302bc14a35.jpg)
 
 <h4>TileOverlay Example</h4>
 
 Video of the module running loading TileOverlays for a stadium examples [http://www.youtube.com/watch?v=rG9U04B7wUE](http://www.youtube.com/watch?v=rG9U04B7wUE).
+
 ![Screenshot](http://farm9.staticflickr.com/8445/8068562540_07436b0424.jpg)
 
 <h4>GeoJSON Example</h4>
 
 Video of the module running loading GeoJSON for China examples [http://www.youtube.com/watch?v=uDFj_OSGF40](http://www.youtube.com/watch?v=uDFj_OSGF40).
+
 ![Screenshot](http://farm9.staticflickr.com/8033/8068554080_99e701b234.jpg)
 
 <h4>Scalable Annotations Example</h4>
 
 Video of the module using Scalable Annotations examples [http://www.youtube.com/watch?v=VLWS-QnZTnM](http://www.youtube.com/watch?v=VLWS-QnZTnM).
+
 ![Screenshot](http://farm9.staticflickr.com/8181/8068569956_05e6709096.jpg)

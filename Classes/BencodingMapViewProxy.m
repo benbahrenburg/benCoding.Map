@@ -684,7 +684,7 @@
 
 -(void) addImageOverlayFile:(id)args
 {
-	ENSURE_SINGLE_ARG(args,NSDictionary)
+	ENSURE_SINGLE_ARG(args,NSString)
 	if ([self viewAttached])
 	{
 		TiThreadPerformOnMainThread(^{[(BencodingMapView*)[self view] addImageOverlayFile:args];}, NO);

@@ -52,6 +52,23 @@ int const kTagIdValue = -111111;
 	[super dealloc];
 }
 
+-(id)accessibilityElement
+{
+    return [self map];
+}
+
+
+-(NSDictionary*)dictionaryFromRegion
+{
+    NSMutableDictionary* theDict = [NSMutableDictionary dictionary];
+    [theDict setObject:NUMFLOAT(region.center.latitude) forKey:@"latitude"];
+    [theDict setObject:NUMFLOAT(region.center.longitude) forKey:@"longitude"];
+    [theDict setObject:NUMFLOAT(region.span.latitudeDelta) forKey:@"latitudeDelta"];
+    [theDict setObject:NUMFLOAT(region.span.longitudeDelta) forKey:@"longitudeDelta"];
+    
+    return theDict;
+}
+
 -(void)render
 {
     if (![NSThread isMainThread]) {
@@ -522,9 +539,10 @@ int const kTagIdValue = -111111;
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
+    region = [mapView region];
+    [self.proxy replaceValue:[self dictionaryFromRegion] forKey:@"region" notification:NO];
 	if ([self.proxy _hasListeners:@"regionChanged"])
 	{	//TODO: Deprecate old event
-		region = [mapView region];
 		NSDictionary * props = [NSDictionary dictionaryWithObjectsAndKeys:
 								@"regionChanged",@"type",
 								[NSNumber numberWithDouble:region.center.latitude],@"latitude",
@@ -535,7 +553,6 @@ int const kTagIdValue = -111111;
 	}
 	if ([self.proxy _hasListeners:@"regionchanged"])
 	{
-		region = [mapView region];
 		NSDictionary * props = [NSDictionary dictionaryWithObjectsAndKeys:
 								@"regionchanged",@"type",
 								[NSNumber numberWithDouble:region.center.latitude],@"latitude",

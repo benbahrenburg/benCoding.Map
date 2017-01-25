@@ -1,3 +1,5 @@
+Polygon support is now implemented in [Ti.Map](http://docs.appcelerator.com/platform/latest/#!/api/Modules.Map). This module is no longer maintained and will not work with newer SDK's 
+
 <h1>benCoding.Map</h1>
  
 Welcome to the benCoding.Map Titanium project.
